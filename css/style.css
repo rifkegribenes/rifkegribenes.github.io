@@ -222,22 +222,22 @@ img {
   }
 }
 .card__image--tp {
-  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/1018136/TributePage.jpg);
+  background-image: url("../img/TributePage_550x311.jpg");
 }
 .card__image--jc {
-  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/1018136/JavascriptCalculator.png);
+  background-image: url("../img/JavascriptCalculator_550x311.png");
 }
 .card__image--rq {
-  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/1018136/RandomQuoteGenerator.jpg);
+  background-image: url("../img/RandomQuoteGenerator_550x311.jpg");
 }
 .card__image--wkv {
-  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/1018136/WikipediaViewer.jpg);
+  background-image: url("../img/WikipediaViewer_550x311.jpg");
 }
 .card__image--wv {
-  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/1018136/WeatherViewer.jpg);
+  background-image: url("../img/WeatherViewer_550x311.jpg");
 }
 .card__image--plp {
-  background-image: url(https://preview.c9users.io/rifkegribenes/freecodecamp/portfolio-page/img/ProductLandingPage.jpg);
+  background-image: url("../img/ProductLandingPage_550x311.jpg");
 }
 .card__title {
   color: #444444;
