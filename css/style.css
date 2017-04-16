@@ -259,36 +259,17 @@ img {
   flex-direction: row;
   padding-bottom: 40px;
 }
-.ccon p,
-#profile-link {
-  flex-basis: 50%;
+.ccon a, .ccon a:visited {
+  color: #999999;
+  font-size: 2em;
+    padding: 0 15px 0 0;
+}
+
+.ccon a:hover, .ccon a:focus {
+  color:  #6e1ce9;
 }
 .btnwrap {
   padding-left: 2em;
-}
-.btn-pfl,
-.btn-pfl:visited {
-  justify-content: flex-end;
-  background-color: white;
-  color: #444444;
-  font-weight: 400;
-  font-size: 1.2em;
-  white-space: nowrap;
-  letter-spacing: 1.3px;
-  padding: 16px 40px;
-  text-decoration: none;
-  text-transform: uppercase;
-}
-.btn-pfl:hover,
-.btn-pfl:visited:hover,
-.btn-pfl:focus,
-.btn-pfl:visited:focus {
-  text-decoration: none;
-  background-color: white;
-  color: #444444;
-  -webkit-box-shadow: 0px 0px 20px 0px rgba(68, 68, 68, 0.8);
-  -moz-box-shadow: 0px 0px 20px 0px rgba(68, 68, 68, 0.8);
-  box-shadow: 0px 0px 20px 0px rgba(68, 68, 68, 0.8);
 }
 section.anchor {
   display: block;
