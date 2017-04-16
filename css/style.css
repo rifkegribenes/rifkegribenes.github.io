@@ -126,6 +126,10 @@ h2 {
   color: white;
   text-decoration: none;
 }
+
+#projects {
+    max-width: 1700px;
+}
 #contact {
   padding: 0 2.5rem;
 }
@@ -223,6 +227,10 @@ img {
 }
 .card__image--tp {
   background-image: url("../img/TributePage_550x311.jpg");
+}
+
+.card__image--pt {
+  background-image: url("../img/PomodoroTimer_550x311.jpg");
 }
 .card__image--jc {
   background-image: url("../img/JavascriptCalculator_550x311.png");
