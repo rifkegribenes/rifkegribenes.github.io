@@ -1,0 +1,372 @@
+.outerwrap,
+#header {
+  background: #ececec;
+  color: #444444;
+  font-family: 'Titillium Web', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  letter-spacing: 0;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -moz-font-feature-settings: "liga" on;
+  padding: 0;
+}
+.target {
+  padding: 20px;
+  position: relative;
+  border-top: 57px solid transparent;
+  margin: -30px 0 0;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+
+#about.target {
+  border-top: 90px solid transparent;
+}
+
+.target:before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: 0;
+  right: 0;
+  border-top: 2px solid transparent;
+}
+#welcome-section {
+  padding: 0 0;
+  margin: 0 0;
+  position: static;
+  top: 0;
+  height: 100%;
+}
+.hero {
+  background: linear-gradient(rgba(255, 34, 0, 0.5), rgba(233, 28, 28, 0.5), rgba(232, 183, 29, 0.5), rgba(227, 232, 29, 0.5), rgba(29, 232, 64, 0.5), rgba(29, 221, 232, 0.5), rgba(43, 29, 232, 0.5), rgba(221, 0, 243, 0.5)), /* middle */ url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1018136/pixel-screen.png"), /* bottom */ url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1018136/whitelegos_1024.jpg") bottom center / cover no-repeat;
+  /* element dimensions */
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.hero h1 {
+  border: 1px solid white;
+  border-radius: 10px;
+  padding: 1rem;
+  font-size: 4em;
+  font-weight: 100;
+  color: #fff;
+  text-align: center;
+}
+.fat {
+  font-weight: 900;
+}
+.btn-primary,
+.btn-primary:visited {
+  margin-top: 4em;
+  background-color: white;
+  color: #6e1ce9;
+  font-weight: 400;
+  font-size: 1.2em;
+  letter-spacing: 1.3px;
+  padding: 16px 40px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.btn-primary:hover,
+.btn-primary:visited:hover,
+.btn-primary:focus,
+.btn-primary:visited:focus {
+  text-decoration: none;
+  background-color: white;
+  color: #6e1ce9;
+  -webkit-box-shadow: 0px 0px 20px 0px rgba(110, 28, 233, 0.8);
+  -moz-box-shadow: 0px 0px 20px 0px rgba(110, 28, 233, 0.8);
+  box-shadow: 0px 0px 20px 0px rgba(110, 28, 233, 0.8);
+}
+h2,
+.nav-link {
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: 1.5em;
+  letter-spacing: .05em;
+  color: #999999;
+}
+h2 {
+  color: #444444;
+}
+#navbar {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 1em;
+  background: white;
+  /* opacity: .85; */
+  width: 100%;
+}
+.nav-link {
+  padding: .4em;
+}
+.nav-link:visited {
+  text-decoration: none;
+  color: #999999;
+}
+.nav-link:hover,
+.nav-link:active,
+.nav-link:focus {
+  background: #999999;
+  color: white;
+  text-decoration: none;
+}
+#contact {
+  padding: 0 2.5rem;
+}
+.intro {
+  font-size: 1.5em;
+  font-weight: 100;
+  color: #444444;
+}
+.big {
+  font-weight: 700;
+  color: #7E2C21;
+}
+p.big {
+  text-transform: uppercase;
+}
+/* css for the cards grid was modified from this example by craig anthony: http://codepen.io/mcraiganthony/pen/NxGxqm */
+img {
+  height: auto;
+  max-width: 100%;
+  vertical-align: middle;
+}
+.btn {
+  background-color: white;
+  border: 1px solid #cccccc;
+  color: #696969;
+  padding: 0.5rem;
+  text-transform: lowercase;
+}
+.btn--block {
+  display: block;
+  width: 100%;
+}
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.cardinvis {
+  color: white;
+}
+.project-tile {
+  display: flex;
+  padding: 1rem;
+  width: 100%;
+}
+@media (min-width: 40rem) {
+  .project-tile {
+    width: 50%;
+  }
+}
+@media (min-width: 56rem) {
+  .project-tile {
+    width: 33.3333%;
+  }
+}
+.card {
+  background-color: white;
+  border-radius: 0.25rem;
+  box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.card:hover .card__image {
+  filter: contrast(100%);
+}
+.card__content {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  padding: 1rem;
+}
+.card__image {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  filter: contrast(70%);
+  overflow: hidden;
+  position: relative;
+  transition: filter 0.5s cubic-bezier(0.43, 0.41, 0.22, 0.91);
+}
+.card__image::before {
+  content: "";
+  display: block;
+  padding-top: 56.25%;
+}
+@media (min-width: 40rem) {
+  .card__image::before {
+    padding-top: 66.6%;
+  }
+}
+.card__image--tp {
+  background-image: url("../img/TributePage_550x311.jpg");
+}
+.card__image--jc {
+  background-image: url("../img/JavascriptCalculator_550x311.png");
+}
+.card__image--rq {
+  background-image: url("../img/RandomQuoteGenerator_550x311.jpg");
+}
+.card__image--wkv {
+  background-image: url("../img/WikipediaViewer_550x311.jpg");
+}
+.card__image--wv {
+  background-image: url("../img/WeatherViewer_550x311.jpg");
+}
+.card__image--plp {
+  background-image: url("../img/ProductLandingPage_550x311.jpg");
+}
+.card__title {
+  color: #444444;
+  font-size: 1.5rem;
+  line-height: 1.3rem;
+  padding-bottom: .7rem;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.card__text {
+  flex: 1 1 auto;
+  font-size: 1.2rem;
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+}
+.ccon {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 40px;
+}
+.ccon p,
+#profile-link {
+  flex-basis: 50%;
+}
+.btnwrap {
+  padding-left: 2em;
+}
+.btn-pfl,
+.btn-pfl:visited {
+  justify-content: flex-end;
+  background-color: white;
+  color: #444444;
+  font-weight: 400;
+  font-size: 1.2em;
+  white-space: nowrap;
+  letter-spacing: 1.3px;
+  padding: 16px 40px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.btn-pfl:hover,
+.btn-pfl:visited:hover,
+.btn-pfl:focus,
+.btn-pfl:visited:focus {
+  text-decoration: none;
+  background-color: white;
+  color: #444444;
+  -webkit-box-shadow: 0px 0px 20px 0px rgba(68, 68, 68, 0.8);
+  -moz-box-shadow: 0px 0px 20px 0px rgba(68, 68, 68, 0.8);
+  box-shadow: 0px 0px 20px 0px rgba(68, 68, 68, 0.8);
+}
+section.anchor {
+  display: block;
+  position: relative;
+  top: -120px;
+  visibility: hidden;
+}
+@media (max-width: 38rem) {
+  .nav-link {
+    letter-spacing: normal;
+  }
+  #navbar {
+    justify-content: space-around;
+  }
+  .ccon {
+    flex-wrap: wrap;
+  }
+  .ccon p,
+  #profile-link {
+    width: 100%;
+    flex-basis: 100%;
+  }
+  .btnwrap {
+    padding: 40px;
+    margin: auto;
+  }
+}
+@media only screen and (max-width: 320px) {
+  /* Small screen, non-retina */
+  .hero {
+    background: linear-gradient(rgba(255, 34, 0, 0.5), rgba(233, 28, 28, 0.5), rgba(232, 183, 29, 0.5), rgba(227, 232, 29, 0.5), rgba(29, 232, 64, 0.5), rgba(29, 221, 232, 0.5), rgba(43, 29, 232, 0.5), rgba(221, 0, 243, 0.5)), /* middle */ url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1018136/pixel-screen.png"), /* bottom */ url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1018136/whitelegos_290.jpg") bottom center / cover no-repeat;
+  }
+  .hero h1 {
+    font-size: 2em;
+    font-weight: 400;
+  }
+  .nav-link,
+  .intro {
+    font-size: 1em;
+  }
+  .nav-link {
+    font-weight: 400;
+    color: #444444;
+  }
+  .project-tile {
+    padding: 0;
+  }
+}
+@media only screen and (min-width: 321px) and (max-width: 538px) {
+  /* Medium screen, non-retina */
+  .hero {
+    background: linear-gradient(rgba(255, 34, 0, 0.5), rgba(233, 28, 28, 0.5), rgba(232, 183, 29, 0.5), rgba(227, 232, 29, 0.5), rgba(29, 232, 64, 0.5), rgba(29, 221, 232, 0.5), rgba(43, 29, 232, 0.5), rgba(221, 0, 243, 0.5)), /* middle */ url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1018136/pixel-screen.png"), /* bottom */ url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1018136/whitelegos_538.jpg") bottom center / cover no-repeat;
+  }
+  .hero h1 {
+    font-size: 3em;
+  }
+  .nav-link {
+    font-weight: 400;
+    color: #444444;
+  }
+  .project-tile {
+    padding: 0;
+  }
+}
+@media only screen and (min-width: 539px) {
+  /* Large screen */
+}
+
+
+@media(min-width:767px) {
+    .navbar {
+        padding: 20px 0;
+        -webkit-transition: background .5s ease-in-out,padding .5s ease-in-out;
+        -moz-transition: background .5s ease-in-out,padding .5s ease-in-out;
+        transition: background .5s ease-in-out,padding .5s ease-in-out;
+    }
+
+    .top-nav-collapse {
+        padding: 0;
+    }
+}
