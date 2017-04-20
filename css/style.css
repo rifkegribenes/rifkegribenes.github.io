@@ -16,7 +16,8 @@
   padding: 20px;
   position: relative;
   border-top: 57px solid transparent;
-  margin: -30px 0 0;
+  max-width: 1700px;
+  margin:  -30px auto 0 auto;
   -webkit-background-clip: padding-box;
   -moz-background-clip: padding;
   background-clip: padding-box;
@@ -127,9 +128,6 @@ h2 {
   text-decoration: none;
 }
 
-#projects {
-    max-width: 1700px;
-}
 #contact {
   padding: 0 2.5rem;
 }
@@ -227,6 +225,10 @@ img {
 }
 .card__image--tp {
   background-image: url("../img/TributePage_550x311.jpg");
+}
+
+.card__image--ttt {
+  background-image: url("../img/TicTacToe_550x311.png");
 }
 
 .card__image--pt {
