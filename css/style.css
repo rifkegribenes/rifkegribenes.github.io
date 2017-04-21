@@ -232,7 +232,8 @@ img {
 }
 
 .card__image--pt {
-  background-image: url("../img/PomodoroTimer_550x311.jpg");
+  background-image: url("../img/PomodoroTimer_550x311.png");
+
 }
 .card__image--jc {
   background-image: url("../img/JavascriptCalculator_550x311.png");
