@@ -4,7 +4,11 @@
   "description": "portfolio website with admin interface",
   "main": "server.js",
   "scripts": {
-    "test": "test"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack -d | node server.js",
+    "client": "cd client && yarn build && yarn start",
+    "server": "LOG_LEVEL=debug supervisor --inspect server.js",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
   },
   "repository": {
     "type": "git",
@@ -15,5 +19,17 @@
   "bugs": {
     "url": "https://github.com/rifkegribenes/rifkegribenes.github.io/issues"
   },
-  "homepage": "https://github.com/rifkegribenes/rifkegribenes.github.io#readme"
+  "homepage": "https://github.com/rifkegribenes/rifkegribenes.github.io#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "concurrently": "^4.0.1",
+    "cors": "^2.8.4",
+    "dotenv": "^6.1.0",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "morgan": "^1.9.1",
+    "passport": "^0.4.0",
+    "path": "^0.12.7",
+    "serve-favicon": "^2.5.0"
+  }
 }
