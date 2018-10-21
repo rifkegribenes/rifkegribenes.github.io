@@ -1,0 +1,19 @@
+{
+  "name": "rifkegribenes.io",
+  "version": "1.0.0",
+  "description": "portfolio website with admin interface",
+  "main": "server.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rifkegribenes/rifkegribenes.github.io.git"
+  },
+  "author": "Sarah Schneider",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rifkegribenes/rifkegribenes.github.io/issues"
+  },
+  "homepage": "https://github.com/rifkegribenes/rifkegribenes.github.io#readme"
+}
