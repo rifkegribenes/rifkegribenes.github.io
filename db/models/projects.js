@@ -71,6 +71,20 @@ const createProject = (title, body, screenshot_url, live_url, github_url) => {
         .returning('*');
 };
 
+/** Create a user
+ *  @param    {String}   username       New user username.
+ *  @param    {String}   email          New user email.
+ *  @param    {String}   github_id      New user github id.
+ *  @param    {String}   github_token   New user github token.
+ *  @returns  {Array}    Array of 1 newly-created User object.
+*/
+const createUser = (username, email, github_id, github_token) => {
+    return db
+        .insert({ username, email, github_id, github_token })
+        .into(TABLES.USERS)
+        .returning('*');
+};
+
 
 /** Attach a tag to a project - via join table
  *  @param    {Number}   project_id Project id for join table.
@@ -132,6 +146,7 @@ const getAllProjectsWithTags = () => {
 
 module.exports = {
     createProject,
+    createUser,
     attachProjectTag,
     getProjectByIdWithTags,
     getAllProjectsWithTags
