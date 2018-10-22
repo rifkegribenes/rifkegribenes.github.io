@@ -47,7 +47,7 @@ const createProjectWithTags = (projectTitle, projectBody, screenshotUrl, liveUrl
         .then(([newProject]) => {
             persistedProject = newProject;
             const pool = persistedTags.map((tag) => {
-                return posts.attachProjectTag(persistedProject.id, tag.id);
+                return projects.attachProjectTag(persistedProject.id, tag.id);
             });
             return Promise.all(pool);
         })

@@ -1,8 +1,9 @@
-exports.seed = function(knex) {
-    // Deletes ALL existing entries
-    return knex('projects').del()
-        .then(function() {
-            // Inserts seed entries
+
+exports.seed = function(knex, Promise) {
+  // Deletes ALL existing entries
+  return knex('projects').del()
+    .then(function () {
+      // Inserts seed entries
             return knex('projects').insert([
                 {
                     title: 'Pollbuilder',
@@ -26,5 +27,5 @@ exports.seed = function(knex) {
                     github_url: 'https://github.com/seiu503/oregon-cant-wait'
                 }
             ]);
-        });
+    });
 };

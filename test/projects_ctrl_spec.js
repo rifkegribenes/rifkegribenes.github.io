@@ -6,10 +6,10 @@
 process.env.NODE_ENV = 'testing';
 
 const { assert }     = require('chai');
-const { db, TABLES } = require('../db/knex');
+const { db, TABLES } = require('../app/config/knex');
 const projects          = require('../db/models/projects');
 const tags         = require('../db/models/tags');
-const controller     = require('../../controllers/project.ctrl');
+const controller     = require('../app/controllers/projects.ctrl');
 
 const tagName        = 'new tag';
 const projectTitle   = 'new project';

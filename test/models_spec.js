@@ -6,9 +6,10 @@
 process.env.NODE_ENV = 'testing';
 
 const { assert }     = require('chai');
-const { db, TABLES } = require('../db/knex');
+const { db, TABLES } = require('../app/config/knex');
 const projects       = require('../db/models/projects');
 const tags           = require('../db/models/tags');
+const users           = require('../db/models/users');
 
 const tagName        = 'new tag';
 const projectTitle   = 'new project';
@@ -16,6 +17,11 @@ const projectBody    = 'new project body text';
 const screenshotUrl  = 'http://example.com/screenshot.png';
 const liveUrl        = 'http://example.com';
 const githubUrl      = 'http://github.com/rifkegribenes';
+
+const username      = 'testUserName';
+const email         = 'test@email.com';
+const github_id     = '1234';
+const github_token  = '5678';
 
 
 /* ================================= TESTS ================================= */
@@ -25,7 +31,8 @@ describe('db models', () => {
     afterEach(() => {
         return db(TABLES.PROJECTS_TAGS).del()
             .then(() => db(TABLES.TAGS).del())
-            .then(() => db(TABLES.PROJECTS).del());
+            .then(() => db(TABLES.PROJECTS).del())
+            .then(() => db(TABLES.USERS).del())
     });
 
     it('creates a new project', () => {
@@ -48,7 +55,7 @@ describe('db models', () => {
     });
 
     it('creates a new tag', () => {
-        return topics.createTag(tagName)
+        return tags.createTag(tagName)
             .then((result) => {
                 assert.equal(result.tag, tagName);
                 return db.select('*').from(TABLES.TAGS);
@@ -58,11 +65,29 @@ describe('db models', () => {
             });
     });
 
-    describe('projects and tags', () => {
+    it('creates a new user', () => {
+        return users.createUser(username, email, github_id, github_token)
+            .then((result) => {
+                assert.deepEqual(result[0].username, username);
+                assert.deepEqual(result[0].email, email);
+                assert.deepEqual(result[0].github_id, github_id);
+                assert.deepEqual(result[0].github_token, github_token);
+                return db.select('*').from(TABLES.USERS);
+            })
+            .then(([result]) => {
+                assert.equal(result.username, username);
+                assert.equal(result.email, email);
+                assert.equal(result.github_id, github_id);
+                assert.equal(result.github_token, github_token);
+            });
+    });
+
+    describe('projects, tags, and users', () => {
         let projectId;
         let tagId;
+        let userId;
 
-        // seed with a tag and 2 projects before each test
+        // seed with a tag, 2 projects, and a user before each test
         beforeEach(() => {
             return tags.createTag(tagName)
                 .then((tag) => {
@@ -70,7 +95,11 @@ describe('db models', () => {
                     return projects.createProject(projectTitle, projectBody, screenshotUrl, liveUrl, githubUrl);
                 })
                 .then(() => projects.createProject(projectTitle, projectBody, screenshotUrl, liveUrl, githubUrl))
-                .then(([project]) => projectId = project.id);
+                .then(([project]) => projectId = project.id)
+                .then(() => users.createUser(username, email, github_id, github_token))
+                .then((user) => {
+                    userId = user[0].id;
+                });
         });
 
         it('attaches a project and a tag', () => {
@@ -108,6 +137,17 @@ describe('db models', () => {
                     assert.deepEqual(results[0].live_url, liveUrl);
                     assert.deepEqual(results[0].github_url, githubUrl);
                     assert.typeOf(results[0].tags, 'array');
+                });
+        });
+
+        it('finds a user by id', () => {
+            return users.getUserById(userId)
+                .then((result) => {
+                    assert.equal(result.username, username);
+                    assert.equal(result.email, email);
+                    assert.equal(result.github_id, github_id);
+                    assert.equal(result.github_token, github_token);
+                    return db.select('*').from(TABLES.USERS);
                 });
         });
     });

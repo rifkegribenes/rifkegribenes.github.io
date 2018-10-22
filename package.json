@@ -4,7 +4,7 @@
   "description": "portfolio website with admin interface",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "./node_modules/.bin/mocha --exit",
     "start": "webpack -d | node server.js",
     "client": "cd client && yarn build && yarn start",
     "server": "LOG_LEVEL=debug supervisor --inspect server.js",

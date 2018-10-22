@@ -13,7 +13,7 @@ const { db, TABLES } = require('../../app/config/knex');
  *  @returns  {Array}                 Array of tags associated with a project
 */
 function getProjectTags (allProjects, projectId) {
-    return allProjects.reduce((topics, project) => {
+    return allProjects.reduce((tags, project) => {
         if (project.id === projectId) {
             tags.push(project.tag_name);
         }
@@ -33,7 +33,7 @@ function reduceResults(results) {
     const uniqueProjectIds = {};
     const uniqueProjects   = [];
 
-    results.forEach(post => {
+    results.forEach(project => {
         if (!uniqueProjectIds[project.id]) {
             uniqueProjectIds[project.id] = true;
             uniqueProjects.push({
@@ -45,7 +45,7 @@ function reduceResults(results) {
                 github_url      : project.github_url,
                 created_at      : project.created_at,
                 updated_at      : project.updated_at,
-                tags            : getPostsTags(results, project.id)
+                tags            : getProjectTags(results, project.id)
             });
         }
     });
@@ -68,20 +68,6 @@ const createProject = (title, body, screenshot_url, live_url, github_url) => {
     return db
         .insert({ title, body, screenshot_url, live_url, github_url })
         .into(TABLES.PROJECTS)
-        .returning('*');
-};
-
-/** Create a user
- *  @param    {String}   username       New user username.
- *  @param    {String}   email          New user email.
- *  @param    {String}   github_id      New user github id.
- *  @param    {String}   github_token   New user github token.
- *  @returns  {Array}    Array of 1 newly-created User object.
-*/
-const createUser = (username, email, github_id, github_token) => {
-    return db
-        .insert({ username, email, github_id, github_token })
-        .into(TABLES.USERS)
         .returning('*');
 };
 
@@ -146,7 +132,6 @@ const getAllProjectsWithTags = () => {
 
 module.exports = {
     createProject,
-    createUser,
     attachProjectTag,
     getProjectByIdWithTags,
     getAllProjectsWithTags

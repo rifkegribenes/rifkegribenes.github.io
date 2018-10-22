@@ -3,10 +3,6 @@ const { db, TABLES } = require('./knex');
 
 const user = {
 	serialize: (user, done) => {
-		console.log('app/config/auth.js > 6');
-		console.log(user);
-		console.log('app/config/auth.js > 8');
-		console.log(done);
 		done(null, user.id);
 	},
 
