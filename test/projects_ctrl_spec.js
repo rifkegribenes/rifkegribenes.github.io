@@ -9,7 +9,7 @@ const { assert }     = require('chai');
 const { db, TABLES } = require('../db/knex');
 const projects          = require('../db/models/projects');
 const tags         = require('../db/models/tags');
-const controller     = require('../controllers/projects_ctrl');
+const controller     = require('../../controllers/project.ctrl');
 
 const tagName        = 'new tag';
 const projectTitle   = 'new project';

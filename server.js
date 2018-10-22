@@ -38,18 +38,27 @@ client.connect((err) => {
   });
 });
 
-// set static path => uncomment this after client added
+// routes ======================================================================
+// const router = require('./router');
+// router(app);
+
+// routes
+const apiRoutes    = require('./routes/apiRoutes');
+const staticRoutes = require('./routes/staticRoutes');
+
+// set static path
 app.use(express.static(path.join(__dirname, '/client/build/')));
 
-// routes ======================================================================
-const router = require('./router');
-router(app);
+/* ================================ ROUTES ================================= */
 
-app.get('/', (req, res) => {
-  console.log('root route, serving client');
-  res.status(200)
-    .sendFile(path.join(__dirname, '../client/build/index.html'));
-});
+app.use('/api', apiRoutes);
+app.use('/',    staticRoutes);
+
+// app.get('/', (req, res) => {
+//   console.log('root route, serving client');
+//   res.status(200)
+//     .sendFile(path.join(__dirname, '../client/build/index.html'));
+// });
 
 // launch ======================================================================
 var port = process.env.PORT || 3001;
