@@ -2,7 +2,7 @@
 
 /* ================================= SETUP ================================= */
 
-const { db, TABLES } = require('../knex');
+const { db, TABLES } = require('../../app/config/knex');
 
 
 /* ============================ PRIVATE METHODS ============================ */

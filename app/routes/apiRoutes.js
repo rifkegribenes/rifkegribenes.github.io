@@ -9,7 +9,7 @@ const router = require('express').Router();
 
 /* =========================== LOAD CONTROLLERS ============================ */
 
-const projectCtrl = require('../controllers/project.ctrl');
+const projectCtrl = require('../controllers/projects.ctrl');
 
 
 /* ================================ ROUTES ================================= */

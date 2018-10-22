@@ -16,8 +16,9 @@ require('./app/config/passport')(passport); // pass passport for configuration
 const user = require('./app/config/auth');
 app.use(passport.initialize());
 app.use(passport.session());
-passport.serializeUser(user.serialize);
-passport.deserializeUser(user.deserialize);
+// not working ('done is not a function')
+// passport.serializeUser(user.serialize);
+// passport.deserializeUser(user.deserialize);
 
 
 // connect to db
@@ -43,8 +44,8 @@ client.connect((err) => {
 // router(app);
 
 // routes
-const apiRoutes    = require('./routes/apiRoutes');
-const staticRoutes = require('./routes/staticRoutes');
+const apiRoutes    = require('./app/routes/apiRoutes');
+const staticRoutes = require('./app/routes/staticRoutes');
 
 // set static path
 app.use(express.static(path.join(__dirname, '/client/build/')));

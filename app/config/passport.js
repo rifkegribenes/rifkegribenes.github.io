@@ -103,7 +103,7 @@ module.exports = (passport) => {
 
   // Github login strategy
   passport.use('github', new GithubStrategy(githubOptions,
-    function(req, token, refreshToken, profile, done) {
+    (req, token, refreshToken, profile, done) => {
       console.log(`Github login by ${profile.username}, ID: ${profile.id}`);
       process.nextTick( () => {
         // console.log(req.user);
