@@ -13,17 +13,18 @@ const path = require('path');
 const session = require('express-session');
 const passport = require('passport');
 require('./app/config/passport')(passport); // pass passport for configuration
-const user = require('./app/config/auth');
+const auth = require('./app/config/auth'); // serialize / deserialize functions
+
 app.use(passport.initialize());
 app.use(passport.session());
-// not working ('done is not a function')
-// passport.serializeUser(user.serialize);
-// passport.deserializeUser(user.deserialize);
+
+passport.serializeUser(auth.user.serialize);
+passport.deserializeUser(auth.user.deserialize);
 
 
 // connect to db
 const pg = require('pg');
-const configDB = require('./app/config/db.js');
+const configDB = require('./app/config/db');
 const client = new pg.Client(configDB.url);
 client.connect((err) => {
   if (err) {
