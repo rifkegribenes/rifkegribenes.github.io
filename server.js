@@ -13,7 +13,7 @@ const path = require('path');
 const session = require('express-session');
 const passport = require('passport');
 require('./app/config/passport')(passport); // pass passport for configuration
-const user = require('./app/utils/passport-serialize');
+const user = require('./app/config/auth');
 app.use(passport.initialize());
 app.use(passport.session());
 passport.serializeUser(user.serialize);
