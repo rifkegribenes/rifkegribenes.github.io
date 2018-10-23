@@ -73,22 +73,21 @@ const createProjectWithTags = (
  *  Creates tags if they don't already exist.
  *  @param    {String}   id              Id of project to update.
  *  @param    {Object}   updates         Key/value pairs for fields to update.
- *  @param    {String}   projectTitle    Updated project title.
- *  @param    {String}   projectBody     Updated body text.
- *  @param    {String}   screenshotUrl   Updated screenshot URL.
- *  @param    {String}   liveUrl         Updated live URL.
- *  @param    {String}   githubUrl       Updated github URL.
+ ****  @param    {String}   projectTitle    Updated project title.
+ ****  @param    {String}   projectBody     Updated body text.
+ ****  @param    {String}   screenshotUrl   Updated screenshot URL.
+ ****  @param    {String}   liveUrl         Updated live URL.
+ ****  @param    {String}   githubUrl       Updated github URL.
  *  @param    {Array}    tagNames        Updated array of tags {String}
  *  @returns  {Object}                   Updated project object w/nested tags
  */
-const updateProjectWithTags = (id, updates) => {
+const updateProjectWithTags = (id, updates, tagNames) => {
   const {
     projectTitle,
     projectBody,
     screenshotUrl,
     liveUrl,
-    githubUrl,
-    tagNames
+    githubUrl
   } = updates;
   let persistedTags;
 
@@ -145,4 +144,9 @@ const getProjectById = projectId => {
 
 /* ================================ EXPORT ================================= */
 
-module.exports = { createProjectWithTags, getProjects, getProjectById };
+module.exports = {
+  createProjectWithTags,
+  updateProjectWithTags,
+  getProjects,
+  getProjectById
+};
