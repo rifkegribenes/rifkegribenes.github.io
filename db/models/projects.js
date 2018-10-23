@@ -102,8 +102,9 @@ const getProjectByIdWithTags = id => {
     .then(reduceResults);
 };
 
-/** Update a project; populate its associated tags
- *  @param    {Number}   id             Id of the project to update.
+/** Update a project
+ *  @param    {Number}   id         Id of the project to update.
+ *  @param    {Object}   updates    Key/value pairs of fields to update.
  *  @param    {String}   title          Updated project title.
  *  @param    {String}   body           Updated project body text.
  *  @param    {String}   screenshot_url Updated project screenshot_url.
@@ -111,11 +112,12 @@ const getProjectByIdWithTags = id => {
  *  @param    {String}   github_url     Updated project github_url.
  *  @returns  {Object}        Project plus nested array of tags.
  */
-// const updateProject = (id) => {
-//     return db('projects')
-//       .where({ id })
-//       .update({ email: 'hi@example.com' })
-//   }
+const updateProject = (id, updates) => {
+  return db("projects")
+    .where({ id })
+    .update(updates)
+    .returning("*");
+};
 
 /** Get all projects; populate their associated tags
  *  @returns   {Array}   Array of project objects, each w/array of its tags.
@@ -141,6 +143,7 @@ const getAllProjectsWithTags = () => {
 
 module.exports = {
   createProject,
+  updateProject,
   attachProjectTag,
   getProjectByIdWithTags,
   getAllProjectsWithTags

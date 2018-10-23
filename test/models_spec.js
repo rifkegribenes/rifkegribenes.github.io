@@ -18,6 +18,13 @@ const screenshotUrl = "http://example.com/screenshot.png";
 const liveUrl = "http://example.com";
 const githubUrl = "http://github.com/rifkegribenes";
 
+const updatedProjectTitle = "updated project";
+const updatedProjectBody = "updated project body text";
+const updatedScreenshotUrl = "http://example.com/updated-screenshot.png";
+const updatedLiveUrl = "http://example.com/updated";
+const updatedGithubUrl = "http://github.com/rifkegribenes/updated";
+// const updatedTag = "updated tag";
+
 const username = "testUserName";
 const email = "test@email.com";
 const github_id = "1234";
@@ -147,6 +154,27 @@ describe("db models", () => {
         .then(result => {
           assert.equal(result.title, projectTitle);
           assert.deepEqual(result.tags, [tagName]);
+        });
+    });
+
+    it("updates a project when all fields are updated", () => {
+      const updates = {
+        title: updatedProjectTitle,
+        body: updatedProjectBody,
+        screenshot_url: updatedScreenshotUrl,
+        live_url: updatedLiveUrl,
+        github_url: updatedGithubUrl
+      };
+      return projects
+        .updateProject(projectId, updates)
+        .then(() => projects.getProjectByIdWithTags(projectId))
+        .then(result => {
+          assert.equal(result.title, updatedProjectTitle);
+          assert.equal(result.body, updatedProjectBody);
+          assert.equal(result.screenshot_url, updatedScreenshotUrl);
+          assert.equal(result.live_url, updatedLiveUrl);
+          assert.equal(result.github_url, updatedGithubUrl);
+          assert.notEqual(result.updated_at, result.created_at);
         });
     });
 
