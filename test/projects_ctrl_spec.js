@@ -12,7 +12,9 @@ const tags = require("../db/models/tags");
 const controller = require("../app/controllers/projects.ctrl");
 
 const tagName = "new tag";
+const originalTags = [tagName];
 const projectTitle = "new project";
+const projectTitle2 = "new project2";
 const projectBody = "new project body text";
 const screenshotUrl = "http://example.com/screenshot.png";
 const liveUrl = "http://example.com";
@@ -54,7 +56,7 @@ describe("projects controller tests", () => {
         })
         .then(() => {
           return projects.createProject(
-            projectTitle,
+            projectTitle2,
             projectBody,
             screenshotUrl,
             liveUrl,
@@ -101,8 +103,6 @@ describe("projects controller tests", () => {
 
   it("GET gets one project by id", () => {
     return controller.getProjectById(projectId).then(result => {
-      console.log("projects_ctrl_spec.js > 98");
-      console.log(result);
       assert.equal(result.title, projectTitle);
       assert.equal(result.body, projectBody);
       assert.equal(result.screenshot_url, screenshotUrl);
@@ -125,12 +125,19 @@ describe("projects controller tests", () => {
     return controller
       .updateProjectWithTags(projectId, updates, updatedTags)
       .then(result => {
+        console.log("projects_ctrl_spec.js > 126");
+        console.log(result);
+        // the updated project should contain all tags included in the updates
+        //  plus any pre-existing tags
+        const concatenatedTags = [...originalTags, ...updatedTags];
+        console.log("concatenatedTags:");
+        console.log(concatenatedTags);
         assert.equal(result.title, updatedProjectTitle);
         assert.equal(result.body, updatedProjectBody);
         assert.equal(result.screenshot_url, updatedScreenshotUrl);
         assert.equal(result.live_url, updatedLiveUrl);
         assert.equal(result.github_url, updatedGithubUrl);
-        assert.deepEqual(result.tags, updatedTags);
+        assert.deepEqual(result.tags, concatenatedTags);
         return db
           .select("*")
           .from(TABLES.TAGS)

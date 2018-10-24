@@ -72,7 +72,8 @@ const createProject = (title, body, screenshot_url, live_url, github_url) => {
     .returning("*");
 };
 
-/** Attach a tag to a project - via join table
+/** Attach a tag to a project - via join table,
+ *  then update the project's updated_at
  *  @param    {Number}   project_id Project id for join table.
  *  @param    {Number}   tag_id     Tag id for join table.
  *  @returns  {Array}               Array of 1 newly-created row object.
@@ -81,10 +82,16 @@ const attachProjectTag = (projectId, tagId) => {
   return db
     .insert({ project_id: projectId, tag_id: tagId })
     .into(TABLES.PROJECTS_TAGS)
-    .returning(["id", "project_id", "tag_id"]);
+    .returning(["id", "project_id", "tag_id"])
+    .then(() => {
+      return db("projects")
+        .where({ id: projectId })
+        .update("updated_at", db.fn.now());
+    });
 };
 
-/** Remove a tag from a project - via join table
+/** Remove a tag from a project - via join table,
+ *  then update the project's updated_at
  *  @param    {Number}   project_id Project id for join table.
  *  @param    {Number}   tag_id     Tag id for join table.
  *  @returns  nothing returned.
@@ -92,7 +99,12 @@ const attachProjectTag = (projectId, tagId) => {
 const removeProjectTag = (projectId, tagId) => {
   return db("projects_tags")
     .where({ project_id: projectId, tag_id: tagId })
-    .del();
+    .del()
+    .then(() => {
+      return db("projects")
+        .where({ id: projectId })
+        .update("updated_at", db.fn.now());
+    });
 };
 
 /** Find a project by id; populate its associated tags
@@ -131,6 +143,7 @@ const updateProject = (id, updates) => {
   return db("projects")
     .where({ id })
     .update(updates)
+    .update("updated_at", db.fn.now())
     .returning("*");
 };
 

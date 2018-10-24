@@ -12,7 +12,8 @@ const tags = require("../db/models/tags");
 const users = require("../db/models/users");
 
 const tagName = "new tag";
-const projectTitle = "new project";
+const projectTitle1 = "new project";
+const projectTitle2 = "new project2";
 const projectBody = "new project body text";
 const screenshotUrl = "http://example.com/screenshot.png";
 const liveUrl = "http://example.com";
@@ -44,14 +45,14 @@ describe("models tests", () => {
   it("POST creates a new project", () => {
     return projects
       .createProject(
-        projectTitle,
+        projectTitle1,
         projectBody,
         screenshotUrl,
         liveUrl,
         githubUrl
       )
       .then(([result]) => {
-        assert.equal(result.title, projectTitle);
+        assert.equal(result.title, projectTitle1);
         assert.equal(result.body, projectBody);
         assert.equal(result.screenshot_url, screenshotUrl);
         assert.equal(result.live_url, liveUrl);
@@ -59,7 +60,7 @@ describe("models tests", () => {
         return db.select("*").from(TABLES.PROJECTS);
       })
       .then(([result]) => {
-        assert.equal(result.title, projectTitle);
+        assert.equal(result.title, projectTitle1);
         assert.equal(result.body, projectBody);
         assert.equal(result.screenshot_url, screenshotUrl);
         assert.equal(result.live_url, liveUrl);
@@ -109,7 +110,7 @@ describe("models tests", () => {
         .then(tag => {
           tagId = tag.id;
           return projects.createProject(
-            projectTitle,
+            projectTitle2,
             projectBody,
             screenshotUrl,
             liveUrl,
@@ -118,7 +119,7 @@ describe("models tests", () => {
         })
         .then(() =>
           projects.createProject(
-            projectTitle,
+            projectTitle1,
             projectBody,
             screenshotUrl,
             liveUrl,
@@ -179,7 +180,7 @@ describe("models tests", () => {
           assert.equal(result.screenshot_url, updatedScreenshotUrl);
           assert.equal(result.live_url, updatedLiveUrl);
           assert.equal(result.github_url, updatedGithubUrl);
-          assert.notEqual(result.updated_at, result.created_at);
+          assert.isAbove(result.updated_at, result.created_at);
         });
     });
 
@@ -188,7 +189,7 @@ describe("models tests", () => {
         .attachProjectTag(projectId, tagId)
         .then(() => projects.getProjectByIdWithTags(projectId))
         .then(result => {
-          assert.equal(result.title, projectTitle);
+          assert.equal(result.title, projectTitle1);
           assert.deepEqual(result.tags, [tagName]);
         });
     });
@@ -200,7 +201,7 @@ describe("models tests", () => {
         .then(results => {
           assert.equal(Array.isArray(results), true);
           assert.equal(results.length, 2);
-          assert.deepEqual(results[0].title, projectTitle);
+          assert.deepEqual(results[0].title, projectTitle2);
           assert.deepEqual(results[0].body, projectBody);
           assert.deepEqual(results[0].screenshot_url, screenshotUrl);
           assert.deepEqual(results[0].live_url, liveUrl);
