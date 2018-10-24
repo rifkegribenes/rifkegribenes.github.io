@@ -48,7 +48,11 @@ const reduceResults = results => {
     }
   });
 
-  return uniqueProjects.length > 1 ? uniqueProjects : uniqueProjects[0];
+  return uniqueProjects.length > 1
+    ? uniqueProjects
+    : uniqueProjects.length > 0
+      ? uniqueProjects[0]
+      : "No projects found";
 };
 
 /* ============================ PUBLIC METHODS ============================= */
@@ -78,6 +82,17 @@ const attachProjectTag = (projectId, tagId) => {
     .insert({ project_id: projectId, tag_id: tagId })
     .into(TABLES.PROJECTS_TAGS)
     .returning(["id", "project_id", "tag_id"]);
+};
+
+/** Remove a tag from a project - via join table
+ *  @param    {Number}   project_id Project id for join table.
+ *  @param    {Number}   tag_id     Tag id for join table.
+ *  @returns  nothing returned.
+ */
+const removeProjectTag = (projectId, tagId) => {
+  return db("projects_tags")
+    .where({ project_id: projectId, tag_id: tagId })
+    .del();
 };
 
 /** Find a project by id; populate its associated tags
@@ -119,6 +134,26 @@ const updateProject = (id, updates) => {
     .returning("*");
 };
 
+/** Delete a project
+ *  (also deletes that project's rows in the join table)
+ *  @param    {Number}   id         Id of the project to delete.
+ *  @returns   nothing returned.
+ */
+const deleteProject = id => {
+  // first delete rows in the join table containing that project id
+  return (
+    db("projects_tags")
+      .where({ project_id: id })
+      .del()
+      // then delete the project
+      .then(() => {
+        return db("projects")
+          .where({ id })
+          .del();
+      })
+  );
+};
+
 /** Get all projects; populate their associated tags
  *  @returns   {Array}   Array of project objects, each w/array of its tags.
  */
@@ -143,8 +178,10 @@ const getAllProjectsWithTags = () => {
 
 module.exports = {
   createProject,
-  updateProject,
   attachProjectTag,
+  removeProjectTag,
   getProjectByIdWithTags,
+  updateProject,
+  deleteProject,
   getAllProjectsWithTags
 };

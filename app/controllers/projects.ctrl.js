@@ -139,7 +139,15 @@ const getProjects = () => {
  *  @returns  {Object}            Project object w/nested tags
  */
 const getProjectById = projectId => {
-  return project.getProjectByIdWithTags(projectId);
+  return projects.getProjectByIdWithTags(projectId);
+};
+
+/** Delete project
+ *  @param    {Number}   projectId   Id of the project to delete.
+ *  @returns  Nothing returned.
+ */
+const deleteProject = projectId => {
+  return projects.deleteProject(projectId);
 };
 
 /* ================================ EXPORT ================================= */
@@ -148,5 +156,6 @@ module.exports = {
   createProjectWithTags,
   updateProjectWithTags,
   getProjects,
-  getProjectById
+  getProjectById,
+  deleteProject
 };

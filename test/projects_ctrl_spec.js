@@ -18,34 +18,50 @@ const screenshotUrl = "http://example.com/screenshot.png";
 const liveUrl = "http://example.com";
 const githubUrl = "http://github.com/rifkegribenes";
 
+const updatedProjectTitle = "updated project";
+const updatedProjectBody = "updated project body text";
+const updatedTagName = "updated tag from controller";
+const updatedScreenshotUrl = "http://example.com/updated-screenshot.png";
+const updatedLiveUrl = "http://example.com/update";
+const updatedGithubUrl = "http://github.com/rifkegribenes/update";
+const updatedTags = [tagName, updatedTagName];
+
 /* ================================= TESTS ================================= */
 
-describe("projects controller", () => {
+describe("projects controller tests", () => {
   let projectId;
+  let tagId;
 
   // create a tag and 2 projects
   beforeEach(() => {
-    return tags
-      .createTag(tagName)
-      .then(() => {
-        return projects.createProject(
-          projectTitle,
-          projectBody,
-          screenshotUrl,
-          liveUrl,
-          githubUrl
-        );
-      })
-      .then(([project]) => (projectId = project.id))
-      .then(() => {
-        return projects.createProject(
-          projectTitle,
-          projectBody,
-          screenshotUrl,
-          liveUrl,
-          githubUrl
-        );
-      });
+    return (
+      tags
+        .createTag(tagName)
+        .then(tag => (tagId = tag.id))
+        .then(() => {
+          return projects.createProject(
+            projectTitle,
+            projectBody,
+            screenshotUrl,
+            liveUrl,
+            githubUrl
+          );
+        })
+        .then(([project]) => (projectId = project.id))
+        // attach the newly created tag to the project whose id we just stored
+        .then(() => {
+          return projects.attachProjectTag(projectId, tagId);
+        })
+        .then(() => {
+          return projects.createProject(
+            projectTitle,
+            projectBody,
+            screenshotUrl,
+            liveUrl,
+            githubUrl
+          );
+        })
+    );
   });
 
   afterEach(() => {
@@ -55,7 +71,7 @@ describe("projects controller", () => {
       .then(() => db(TABLES.PROJECTS).del());
   });
 
-  it("creates a new project associated with a list of tags", () => {
+  it("POST creates a new project associated with a list of tags", () => {
     const newProjectTitle = "second project";
     const newProjectBody = "second project body text";
     const newTagName = "second tag";
@@ -83,15 +99,21 @@ describe("projects controller", () => {
       });
   });
 
-  it("updates a project with tags", () => {
-    const updatedProjectTitle = "updated project";
-    const updatedProjectBody = "updated project body text";
-    const updatedTagName = "updated tag from controller";
-    const updatedScreenshotUrl = "http://example.com/updated-screenshot.png";
-    const updatedLiveUrl = "http://example.com/update";
-    const updatedGithubUrl = "http://github.com/rifkegribenes/update";
-    const updatedTags = [tagName, updatedTagName];
+  it("GET gets one project by id", () => {
+    return controller.getProjectById(projectId).then(result => {
+      console.log("projects_ctrl_spec.js > 98");
+      console.log(result);
+      assert.equal(result.title, projectTitle);
+      assert.equal(result.body, projectBody);
+      assert.equal(result.screenshot_url, screenshotUrl);
+      assert.equal(result.live_url, liveUrl);
+      assert.equal(result.github_url, githubUrl);
+      assert.deepEqual(result.tags, [tagName]);
+      assert.typeOf(result.tags, "array");
+    });
+  });
 
+  it("PUT updates a project with tags", () => {
     const updates = {
       title: updatedProjectTitle,
       body: updatedProjectBody,
@@ -119,7 +141,7 @@ describe("projects controller", () => {
       });
   });
 
-  it("gets all projects", () => {
+  it("GET gets all projects", () => {
     return controller.getProjects().then(results => {
       assert.equal(Array.isArray(results), true);
       assert.equal(results.length, 2);
@@ -130,5 +152,13 @@ describe("projects controller", () => {
       assert.deepEqual(results[0].github_url, githubUrl);
       assert.typeOf(results[0].tags, "array");
     });
+  });
+
+  it("DELETE deletes a project", () => {
+    return controller.deleteProject(projectId).then(() =>
+      controller.getProjectById(projectId).then(result => {
+        assert.equal(result, "No projects found");
+      })
+    );
   });
 });

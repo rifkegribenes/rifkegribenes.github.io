@@ -32,7 +32,7 @@ const github_token = "5678";
 
 /* ================================= TESTS ================================= */
 
-describe("db models", () => {
+describe("models tests", () => {
   afterEach(() => {
     return db(TABLES.PROJECTS_TAGS)
       .del()
@@ -41,7 +41,7 @@ describe("db models", () => {
       .then(() => db(TABLES.USERS).del());
   });
 
-  it("creates a new project", () => {
+  it("POST creates a new project", () => {
     return projects
       .createProject(
         projectTitle,
@@ -67,7 +67,7 @@ describe("db models", () => {
       });
   });
 
-  it("creates a new tag", () => {
+  it("POST creates a new tag", () => {
     return tags
       .createTag(tagName)
       .then(result => {
@@ -79,7 +79,7 @@ describe("db models", () => {
       });
   });
 
-  it("creates a new user", () => {
+  it("POST creates a new user", () => {
     return users
       .createUser(username, email, github_id, github_token)
       .then(result => {
@@ -97,7 +97,7 @@ describe("db models", () => {
       });
   });
 
-  describe("projects, tags, and users", () => {
+  describe("", () => {
     let projectId;
     let tagId;
     let userId;
@@ -132,7 +132,7 @@ describe("db models", () => {
         });
     });
 
-    it("attaches a project and tag", () => {
+    it("PUT attaches a tag to a project", () => {
       return projects
         .attachProjectTag(projectId, tagId)
         .then(() => {
@@ -147,17 +147,22 @@ describe("db models", () => {
         .then(result => assert.equal(result.length, 1));
     });
 
-    it("gets one project with all associated tags", () => {
+    it("PUT detaches a tag from a project", () => {
       return projects
-        .attachProjectTag(projectId, tagId)
-        .then(() => projects.getProjectByIdWithTags(projectId))
-        .then(result => {
-          assert.equal(result.title, projectTitle);
-          assert.deepEqual(result.tags, [tagName]);
-        });
+        .removeProjectTag(projectId, tagId)
+        .then(() => {
+          return db
+            .select("*")
+            .from(TABLES.PROJECTS_TAGS)
+            .where({
+              project_id: projectId,
+              tag_id: tagId
+            });
+        })
+        .then(result => assert.equal(result.length, 0));
     });
 
-    it("updates a project when all fields are updated", () => {
+    it("PUT updates a project when all fields are updated", () => {
       const updates = {
         title: updatedProjectTitle,
         body: updatedProjectBody,
@@ -178,7 +183,17 @@ describe("db models", () => {
         });
     });
 
-    it("gets all projects with associated tags", () => {
+    it("GET gets one project with all associated tags", () => {
+      return projects
+        .attachProjectTag(projectId, tagId)
+        .then(() => projects.getProjectByIdWithTags(projectId))
+        .then(result => {
+          assert.equal(result.title, projectTitle);
+          assert.deepEqual(result.tags, [tagName]);
+        });
+    });
+
+    it("GET gets all projects with associated tags", () => {
       return projects
         .attachProjectTag(projectId, tagId)
         .then(() => projects.getAllProjectsWithTags())
@@ -194,7 +209,7 @@ describe("db models", () => {
         });
     });
 
-    it("gets one user by id", () => {
+    it("GET gets one user by id", () => {
       return users.getUserById(userId).then(result => {
         assert.equal(result.username, username);
         assert.equal(result.email, email);
@@ -202,6 +217,14 @@ describe("db models", () => {
         assert.equal(result.github_token, github_token);
         return db.select("*").from(TABLES.USERS);
       });
+    });
+
+    it("DELETE deletes a project", () => {
+      return projects.deleteProject(projectId).then(() =>
+        projects.getProjectByIdWithTags(projectId).then(result => {
+          assert.equal(result, "No projects found");
+        })
+      );
     });
   });
 });
