@@ -199,9 +199,11 @@ describe("models tests", () => {
         .attachProjectTag(projectId, tagId)
         .then(() => projects.getAllProjectsWithTags())
         .then(results => {
+          const arrayOfKeys = key => results.map(obj => obj[key]);
           assert.equal(Array.isArray(results), true);
           assert.equal(results.length, 2);
-          assert.deepEqual(results[0].title, projectTitle2);
+          assert.include(arrayOfKeys("title"), projectTitle1);
+          assert.include(arrayOfKeys("title"), projectTitle2);
           assert.deepEqual(results[0].body, projectBody);
           assert.deepEqual(results[0].screenshot_url, screenshotUrl);
           assert.deepEqual(results[0].live_url, liveUrl);

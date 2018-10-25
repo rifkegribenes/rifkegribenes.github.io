@@ -10,6 +10,7 @@ const { db, TABLES } = require("../app/config/knex");
 const projects = require("../db/models/projects");
 const tags = require("../db/models/tags");
 const controller = require("../app/controllers/projects.ctrl");
+const utils = require("../app/utils");
 
 const tagName = "new tag";
 const originalTags = [tagName];
@@ -125,13 +126,11 @@ describe("projects controller tests", () => {
     return controller
       .updateProjectWithTags(projectId, updates, updatedTags)
       .then(result => {
-        console.log("projects_ctrl_spec.js > 126");
-        console.log(result);
         // the updated project should contain all tags included in the updates
         //  plus any pre-existing tags
-        const concatenatedTags = [...originalTags, ...updatedTags];
-        console.log("concatenatedTags:");
-        console.log(concatenatedTags);
+        const concatenatedTags = [...originalTags, ...updatedTags].filter(
+          utils.onlyUnique
+        );
         assert.equal(result.title, updatedProjectTitle);
         assert.equal(result.body, updatedProjectBody);
         assert.equal(result.screenshot_url, updatedScreenshotUrl);

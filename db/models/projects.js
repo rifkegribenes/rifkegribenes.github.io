@@ -3,6 +3,7 @@
 /* ================================= SETUP ================================= */
 
 const { db, TABLES } = require("../../app/config/knex");
+const utils = require("../../app/utils");
 
 /* ============================ PRIVATE METHODS ============================ */
 
@@ -13,10 +14,10 @@ const { db, TABLES } = require("../../app/config/knex");
  */
 const getProjectTags = (allProjects, projectId) => {
   return allProjects.reduce((tags, project) => {
-    if (project.id === projectId) {
+    if (project.id === projectId && tags.indexOf(project.tag_name === -1)) {
       tags.push(project.tag_name);
     }
-    return tags;
+    return tags.filter(utils.onlyUnique);
   }, []);
 };
 
@@ -78,6 +79,8 @@ const createProject = (title, body, screenshot_url, live_url, github_url) => {
  *  @param    {Number}   tag_id     Tag id for join table.
  *  @returns  {Array}               Array of 1 newly-created row object.
  */
+
+// need to modify this so you can't attach the same tag twice...
 const attachProjectTag = (projectId, tagId) => {
   return db
     .insert({ project_id: projectId, tag_id: tagId })
