@@ -4,13 +4,11 @@
 
 /* ================================= SETUP ================================= */
 
-const router = require('express').Router();
-
+const router = require("express").Router();
 
 /* =========================== LOAD CONTROLLERS ============================ */
 
-const projectCtrl = require('../controllers/projects.ctrl');
-
+const projectCtrl = require("../controllers/projects.ctrl");
 
 /* ================================ ROUTES ================================= */
 
@@ -28,14 +26,14 @@ const projectCtrl = require('../controllers/projects.ctrl');
 //        }
 //   Returns: JSON 'project' object on success.
 //
-router.post('/projects', (req, res) => {
-    const { title, body, screenshotUrl, liveUrl, githubUrl, tags } = req.body;
+router.post("/projects", (req, res) => {
+  const { title, body, screenshotUrl, liveUrl, githubUrl, tags } = req.body;
 
-    projectCtrl.createPostWithTopics(title, body, screenshotUrl, liveUrl, githubUrl, tags)
-        .then((project) => res.status(200).json(project))
-        .catch((err) => res.status(500).json({ message: err.message }) );
+  projectCtrl
+    .createProjectWithTags(title, body, screenshotUrl, liveUrl, githubUrl, tags)
+    .then(project => res.status(200).json(project))
+    .catch(err => res.status(500).json({ message: err.message }));
 });
-
 
 // GET ALL PROJECTS
 //   Example: GET >> /api/projects
@@ -43,12 +41,12 @@ router.post('/projects', (req, res) => {
 //   Expects: null
 //   Returns: Array of project objects on success.
 //
-router.get('/projects', (req, res) => {
-    projectCtrl.getProjects()
-        .then((projects) => res.status(200).json(projects))
-        .catch((err) => res.status(500).json({ message: err.message }) );
+router.get("/projects", (req, res) => {
+  projectCtrl
+    .getProjects()
+    .then(projects => res.status(200).json(projects))
+    .catch(err => res.status(500).json({ message: err.message }));
 });
-
 
 // GET ONE PROJECT
 //   Example: GET >> /api/projects/3
@@ -59,12 +57,12 @@ router.get('/projects', (req, res) => {
 //        }
 //   Returns: project object on success.
 //
-router.get('/projects/:id', (req, res) => {
-    projectCtrl.getProjectById(req.params.id)
-        .then(project => res.status(200).json(project) )
-        .catch((err) => res.status(404).json({ message: err.message }) );
+router.get("/projects/:id", (req, res) => {
+  projectCtrl
+    .getProjectById(req.params.id)
+    .then(project => res.status(200).json(project))
+    .catch(err => res.status(404).json({ message: err.message }));
 });
-
 
 /* ================================ EXPORT ================================= */
 
