@@ -2,7 +2,7 @@
 
 /* ================================= setup ================================= */
 
-import uuid from "uuid";
+const uuid = require("uuid");
 const { db, TABLES } = require("../../app/config/knex");
 
 /* ============================ public methods ============================= */
