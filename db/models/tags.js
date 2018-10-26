@@ -2,8 +2,8 @@
 
 /* ================================= setup ================================= */
 
-const { db, TABLES } = require('../../app/config/knex');
-
+import uuid from "uuid";
+const { db, TABLES } = require("../../app/config/knex");
 
 /* ============================ public methods ============================= */
 
@@ -12,13 +12,13 @@ const { db, TABLES } = require('../../app/config/knex');
  *  element. We return just the 1st element, the new tag object.
  *  @param    {String}  tag   Name of the new tag
  *  @returns  {Object}        The newly-created tag.
-*/
-const createTag = (tag) => {
-    return db
-        .insert({ tag })
-        .into(TABLES.TAGS)
-        .returning(['id', 'tag'])
-        .then(result => result[0] );
+ */
+const createTag = tag => {
+  return db
+    .insert({ id: uuid.v4(), tag })
+    .into(TABLES.TAGS)
+    .returning(["id", "tag"])
+    .then(result => result[0]);
 };
 
 /** get lists of tags
@@ -26,14 +26,13 @@ const createTag = (tag) => {
  *    Syntax: `.whereIn(column, array)`
  *  @param    {Array}  tagList   List of tags to search for
  *  @returns  {Array}              Array of tags objects.
-*/
-const getTagsByTagList = (tagList) => {
-    return db
-        .select(['id', 'tag'])
-        .from(TABLES.TAGS)
-        .whereIn('tag', tagList);
+ */
+const getTagsByTagList = tagList => {
+  return db
+    .select(["id", "tag"])
+    .from(TABLES.TAGS)
+    .whereIn("tag", tagList);
 };
-
 
 /* ================================ exports ================================ */
 

@@ -2,6 +2,7 @@
 
 /* ================================= SETUP ================================= */
 
+import uuid from "uuid";
 const { db, TABLES } = require("../../app/config/knex");
 const utils = require("../../app/utils");
 
@@ -68,7 +69,14 @@ const reduceResults = results => {
  */
 const createProject = (title, body, screenshot_url, live_url, github_url) => {
   return db
-    .insert({ title, body, screenshot_url, live_url, github_url })
+    .insert({
+      id: uuid.v4(),
+      title,
+      body,
+      screenshot_url,
+      live_url,
+      github_url
+    })
     .into(TABLES.PROJECTS)
     .returning("*");
 };
@@ -83,7 +91,7 @@ const createProject = (title, body, screenshot_url, live_url, github_url) => {
 // need to modify this so you can't attach the same tag twice...
 const attachProjectTag = (projectId, tagId) => {
   return db
-    .insert({ project_id: projectId, tag_id: tagId })
+    .insert({ id: uuid.v4(), project_id: projectId, tag_id: tagId })
     .into(TABLES.PROJECTS_TAGS)
     .returning(["id", "project_id", "tag_id"])
     .then(() => {

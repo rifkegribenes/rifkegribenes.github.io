@@ -2,8 +2,8 @@
 
 /* ================================= SETUP ================================= */
 
-const { db, TABLES } = require('../../app/config/knex');
-
+import uuid from "uuid";
+const { db, TABLES } = require("../../app/config/knex");
 
 /* ============================ PUBLIC METHODS ============================= */
 
@@ -13,28 +13,29 @@ const { db, TABLES } = require('../../app/config/knex');
  *  @param    {String}   github_id      New user github id.
  *  @param    {String}   github_token   New user github token.
  *  @returns  {Array}    Array of 1 newly-created User object.
-*/
+ */
 const createUser = (username, email, github_id, github_token) => {
-    return db
-        .insert({ username, email, github_id, github_token })
-        .into(TABLES.USERS)
-        .returning('*');
+  return db
+    .insert({ id: uuid.v4(), username, email, github_id, github_token })
+    .into(TABLES.USERS)
+    .returning("*");
 };
-
 
 /** Find a user by id
  *  @param    {Number}   id   The id of the user we want.
  *  @returns  {Object}        User object.
-*/
+ */
 
-const getUserById = (id) => {
-    return db(TABLES.USERS).where({id}).first()
-      .returning('*');
+const getUserById = id => {
+  return db(TABLES.USERS)
+    .where({ id })
+    .first()
+    .returning("*");
 };
 
 /* ================================ exports ================================ */
 
 module.exports = {
-    createUser,
-    getUserById
+  createUser,
+  getUserById
 };

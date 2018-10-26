@@ -1,7 +1,7 @@
 exports.up = function(knex, Promise) {
   return Promise.all([
     knex.schema.createTable("tags", table => {
-      table.increments("id").primary();
+      table.uuid("id").primary();
       table
         .string("tag")
         .notNullable()
@@ -10,7 +10,7 @@ exports.up = function(knex, Promise) {
     }),
 
     knex.schema.createTable("projects", table => {
-      table.increments("id").primary();
+      table.uuid("id").primary();
       table
         .string("title")
         .notNullable()
@@ -24,13 +24,13 @@ exports.up = function(knex, Promise) {
 
     // join table for many-to-many between projects and tags
     knex.schema.createTable("projects_tags", table => {
-      table.increments("id").primary();
+      table.uuid("id").primary();
       table
-        .integer("project_id")
+        .uuid("project_id")
         .references("id")
         .inTable("projects");
       table
-        .integer("tag_id")
+        .uuid("tag_id")
         .references("id")
         .inTable("tags");
       table.timestamps(false, true);
