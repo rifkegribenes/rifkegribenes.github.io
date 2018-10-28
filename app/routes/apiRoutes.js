@@ -43,7 +43,6 @@ router.post("/projects", (req, res) => {
 //   Secured: no
 //   Expects:
 //     1) request body properties : {
-//          id              : String
 //          updates         : Object {
 //              title           : String
 //              body            : String
@@ -53,10 +52,14 @@ router.post("/projects", (req, res) => {
 //             }
 //          tags                : [String]
 //        }
+//      2) request params         : {
+//          id              : String
+//      }
 //   Returns: JSON updated project object on success.
 //
 router.put("/projects/:id", (req, res) => {
-  const { id, updates, tags } = req.body;
+  const { updates, tags } = req.body;
+  const { id } = req.params;
 
   projectCtrl
     .updateProjectWithTags(id, updates, tags)

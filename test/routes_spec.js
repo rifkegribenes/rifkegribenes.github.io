@@ -34,6 +34,7 @@ const updatedGithubUrl = "http://github.com/rifkegribenes/update";
 const updatedTags = [tagName, updatedTagName];
 
 let id;
+let id2;
 
 /* ================================= TESTS ================================= */
 
@@ -48,6 +49,7 @@ suite("Functional Tests", function() {
           .post("/api/projects/")
           .send({ title, body, screenshotUrl, liveUrl, githubUrl, tags })
           .end(function(err, res) {
+            id = res.body.id;
             assert.equal(res.status, 200);
             assert.isNull(err);
           });
@@ -63,6 +65,7 @@ suite("Functional Tests", function() {
             tags: tags2
           })
           .end(function(err, res) {
+            id2 = res.body.id;
             assert.equal(res.status, 200);
             assert.isNull(err);
             done();
@@ -88,7 +91,69 @@ suite("Functional Tests", function() {
             assert.property(res.body[0], "live_url");
             assert.property(res.body[0], "github_url");
             assert.isArray(res.body[0].tags);
-            id = res.body[0].id;
+            done();
+          });
+      });
+
+      test("get one project by id", function(done) {
+        chai
+          .request(app)
+          .get(`/api/projects/${id}`)
+          .end(function(err, res) {
+            assert.equal(res.status, 200);
+            assert.isNull(err);
+            assert.property(res.body, "id");
+            assert.property(res.body, "created_at");
+            assert.property(res.body, "updated_at");
+            assert.property(res.body, "title");
+            assert.property(res.body, "body");
+            assert.property(res.body, "screenshot_url");
+            assert.property(res.body, "live_url");
+            assert.property(res.body, "github_url");
+            assert.isArray(res.body.tags);
+            done();
+          });
+      });
+    });
+
+    suite("PUT", function() {
+      test("update a project", function(done) {
+        const updates = {
+          title: updatedTitle,
+          body: updatedBody,
+          screenshot_url: updatedScreenshotUrl,
+          live_url: updatedLiveUrl,
+          github_url: updatedGithubUrl
+        };
+        chai
+          .request(app)
+          .get(`/api/projects/${id}`)
+          .send({ updates, tags: updatedTags })
+          .end(function(err, res) {
+            assert.equal(res.status, 200);
+            assert.isNull(err);
+            assert.property(res.body, "id");
+            assert.property(res.body, "created_at");
+            assert.property(res.body, "updated_at");
+            assert.property(res.body, "title");
+            assert.property(res.body, "body");
+            assert.property(res.body, "screenshot_url");
+            assert.property(res.body, "live_url");
+            assert.property(res.body, "github_url");
+            assert.isArray(res.body.tags);
+            done();
+          });
+      });
+    });
+
+    suite("DELETE", function() {
+      test("delete a project", function(done) {
+        chai
+          .request(app)
+          .delete(`/api/projects/${id}`)
+          .end(function(err, res) {
+            assert.equal(res.body.message, "Project deleted successfully");
+            assert.isNull(err);
             done();
           });
       });

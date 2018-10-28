@@ -161,10 +161,8 @@ describe("projects controller tests", () => {
   });
 
   it("DELETE deletes a project", () => {
-    return controller.deleteProject(projectId).then(() =>
-      controller.getProjectById(projectId).then(result => {
-        assert.equal(result, "No projects found");
-      })
-    );
+    return controller.deleteProject(projectId).then(result => {
+      assert.equal(result.message, "Project deleted successfully");
+    });
   });
 });

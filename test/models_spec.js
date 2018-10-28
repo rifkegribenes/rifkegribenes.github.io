@@ -231,11 +231,9 @@ describe("models tests", () => {
     });
 
     it("DELETE deletes a project", () => {
-      return projects.deleteProject(projectId).then(() =>
-        projects.getProjectByIdWithTags(projectId).then(result => {
-          assert.equal(result, "No projects found");
-        })
-      );
+      return projects.deleteProject(projectId).then(result => {
+        assert.equal(result.message, "Project deleted successfully");
+      });
     });
   });
 });

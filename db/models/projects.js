@@ -171,9 +171,13 @@ const deleteProject = id => {
       .del()
       // then delete the project
       .then(() => {
-        return db("projects")
+        db("projects")
           .where({ id })
           .del();
+      })
+      .then(() => {
+        // then return success message to client
+        return { message: "Project deleted successfully" };
       })
   );
 };
