@@ -30,14 +30,23 @@ const createProjectWithTags = (
 ) => {
   let persistedTags;
   let persistedProject;
-
+  console.log(`projects.ctrl.js > 33:`);
+  console.log(`projectTitle: ${projectTitle}`);
+  console.log(`tagnames: ${tagNames}`);
+  if (!projectTitle || !tagNames) {
+    console.log("why are u giving me shit data???");
+    return;
+  }
   return tags
     .getTagsByTagList(tagNames)
     .then(existingTags => {
+      console.log(`projects.ctrl.js > 37: existing tags:`);
+      console.log(existingTags);
       persistedTags = existingTags;
       const unpersistedTags = tagNames.filter(tag => {
         return persistedTags.map(p => p.tag).indexOf(tag) === -1;
       });
+      console.log(`projects.ctrl.js > 42: unpersistedTags: ${unpersistedTags}`);
       return Promise.all(
         unpersistedTags.map(tag => {
           return tags.createTag(tag);
@@ -144,7 +153,7 @@ const getProjectById = projectId => {
 
 /** Delete project
  *  @param    {Number}   projectId   Id of the project to delete.
- *  @returns  Nothing returned.
+ *  @returns  Success message or error.
  */
 const deleteProject = projectId => {
   return projects.deleteProject(projectId);

@@ -10,8 +10,10 @@ const { db, TABLES } = require("../app/config/knex");
 const projects = require("../db/models/projects");
 const tags = require("../db/models/tags");
 const users = require("../db/models/users");
+const utils = require("../app/utils");
 
-const tagName = "new tag";
+const tagName = `new tag ${utils.randomText()}`;
+const tagName2 = `new tag ${utils.randomText()}`;
 const projectTitle1 = "new project";
 const projectTitle2 = "new project2";
 const projectBody = "new project body text";
@@ -33,6 +35,8 @@ const github_token = "5678";
 
 /* ================================= TESTS ================================= */
 
+let id;
+
 describe("models tests", () => {
   afterEach(() => {
     return db(TABLES.PROJECTS_TAGS)
@@ -52,12 +56,16 @@ describe("models tests", () => {
         githubUrl
       )
       .then(([result]) => {
+        id = result.id;
         assert.equal(result.title, projectTitle1);
         assert.equal(result.body, projectBody);
         assert.equal(result.screenshot_url, screenshotUrl);
         assert.equal(result.live_url, liveUrl);
         assert.equal(result.github_url, githubUrl);
-        return db.select("*").from(TABLES.PROJECTS);
+        return db
+          .select("*")
+          .from(TABLES.PROJECTS)
+          .where({ id });
       })
       .then(([result]) => {
         assert.equal(result.title, projectTitle1);

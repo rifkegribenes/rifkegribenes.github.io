@@ -10,7 +10,7 @@ const utils = require("../../app/utils");
 
 /** Get array of tags for a specified project ID
  *  @param    {Array}   allProjects   Input array of projects objects
- *  @param    {Number}  projectId     Specific project to return tags for
+ *  @param    {String}  projectId     Specific project to return tags for
  *  @returns  {Array}                 Array of tags associated with a project
  */
 const getProjectTags = (allProjects, projectId) => {
@@ -83,8 +83,8 @@ const createProject = (title, body, screenshot_url, live_url, github_url) => {
 
 /** Attach a tag to a project - via join table,
  *  then update the project's updated_at
- *  @param    {Number}   project_id Project id for join table.
- *  @param    {Number}   tag_id     Tag id for join table.
+ *  @param    {String}   project_id Project id for join table.
+ *  @param    {String}   tag_id     Tag id for join table.
  *  @returns  {Array}               Array of 1 newly-created row object.
  */
 
@@ -103,8 +103,8 @@ const attachProjectTag = (projectId, tagId) => {
 
 /** Remove a tag from a project - via join table,
  *  then update the project's updated_at
- *  @param    {Number}   project_id Project id for join table.
- *  @param    {Number}   tag_id     Tag id for join table.
+ *  @param    {String}   project_id Project id for join table.
+ *  @param    {String}   tag_id     Tag id for join table.
  *  @returns  nothing returned.
  */
 const removeProjectTag = (projectId, tagId) => {
@@ -119,7 +119,7 @@ const removeProjectTag = (projectId, tagId) => {
 };
 
 /** Find a project by id; populate its associated tags
- *  @param    {Number}   id   The id of the project we want.
+ *  @param    {String}   id   The id of the project we want.
  *  @returns  {Object}        Project plus nested array of tags.
  */
 const getProjectByIdWithTags = id => {
@@ -141,7 +141,7 @@ const getProjectByIdWithTags = id => {
 };
 
 /** Update a project
- *  @param    {Number}   id         Id of the project to update.
+ *  @param    {String}   id         Id of the project to update.
  *  @param    {Object}   updates    Key/value pairs of fields to update.
  *  @param    {String}   title          Updated project title.
  *  @param    {String}   body           Updated project body text.
@@ -160,7 +160,7 @@ const updateProject = (id, updates) => {
 
 /** Delete a project
  *  (also deletes that project's rows in the join table)
- *  @param    {Number}   id         Id of the project to delete.
+ *  @param    {String}   id         Id of the project to delete.
  *  @returns   nothing returned.
  */
 const deleteProject = id => {

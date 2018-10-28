@@ -22,7 +22,7 @@ const createUser = (username, email, github_id, github_token) => {
 };
 
 /** Find a user by id
- *  @param    {Number}   id   The id of the user we want.
+ *  @param    {String}   id   The id of the user we want.
  *  @returns  {Object}        User object.
  */
 
