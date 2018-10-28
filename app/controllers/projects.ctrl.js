@@ -30,23 +30,16 @@ const createProjectWithTags = (
 ) => {
   let persistedTags;
   let persistedProject;
-  console.log(`projects.ctrl.js > 33:`);
-  console.log(`projectTitle: ${projectTitle}`);
-  console.log(`tagnames: ${tagNames}`);
-  if (!projectTitle || !tagNames) {
-    console.log("why are u giving me shit data???");
-    return;
-  }
+  // check which of submitted tags already exist in database
   return tags
     .getTagsByTagList(tagNames)
     .then(existingTags => {
-      console.log(`projects.ctrl.js > 37: existing tags:`);
-      console.log(existingTags);
       persistedTags = existingTags;
+      // add any tags that don't yet exist to the unpersistedTags array
       const unpersistedTags = tagNames.filter(tag => {
         return persistedTags.map(p => p.tag).indexOf(tag) === -1;
       });
-      console.log(`projects.ctrl.js > 42: unpersistedTags: ${unpersistedTags}`);
+      // create new tags in the db for each of the unpersisted tags
       return Promise.all(
         unpersistedTags.map(tag => {
           return tags.createTag(tag);
@@ -55,8 +48,12 @@ const createProjectWithTags = (
     })
     .then(newTags => {
       if (newTags) {
+        // if any new tags were created, add them to the persisted tags list
         persistedTags = persistedTags.concat(newTags);
       }
+      // create a new project, including all tag names
+      // (now we know all these tags have a matching DB entry
+      // and can be attached to a project)
       return projects.createProject(
         projectTitle,
         projectBody,
@@ -69,11 +66,13 @@ const createProjectWithTags = (
     .then(([newProject]) => {
       persistedProject = newProject;
       const pool = persistedTags.map(tag => {
+        // attach all necessary tags to the new project
         return projects.attachProjectTag(persistedProject.id, tag.id);
       });
       return Promise.all(pool);
     })
     .then(() => {
+      // then return the new project with tags to the client
       return projects.getProjectByIdWithTags(persistedProject.id);
     });
 };
@@ -101,14 +100,21 @@ const updateProjectWithTags = (id, updates, tagNames) => {
   let persistedTags;
 
   if (tagNames) {
+    // only need to do this step if new tags names are submitted as updates
+    // check all submitted tags against exiting tags in the database
+    // TODO: this whole section is repeated in create and update methods,
+    // this should be refactored as a standalone method
+    // and called from create and update methods
     return tags
       .getTagsByTagList(tagNames)
       .then(existingTags => {
         persistedTags = existingTags;
+        // add any tags that don't yet exist to the unpersistedTags array
         const unpersistedTags = tagNames.filter(tag => {
           return persistedTags.map(p => p.tag).indexOf(tag) === -1;
         });
         return Promise.all(
+          // create new tags in the db for each of the unpersisted tags
           unpersistedTags.map(tag => {
             return tags.createTag(tag);
           })
@@ -116,20 +122,27 @@ const updateProjectWithTags = (id, updates, tagNames) => {
       })
       .then(newTags => {
         if (newTags) {
+          // if any new tags were created, add them to the persisted tags list
           persistedTags = persistedTags.concat(newTags);
         }
+        // update the project's other fields in the db
         return projects.updateProject(id, updates);
       })
       .then(([updatedProject]) => {
         const pool = persistedTags.map(tag => {
+          // attach all tags to the updated project
+          // TODO: check first to see if these tags have already been attached
           return projects.attachProjectTag(id, tag.id);
         });
         return Promise.all(pool);
       })
       .then(() => {
+        // then return the updated project (and tags) to the client
         return projects.getProjectByIdWithTags(id);
       });
   } else {
+    // if no tags submitted with the update request then this is way easier...
+    // just find the requested projet and update requested fields
     return projects.updateProject(id, updates).then(() => {
       return projects.getProjectByIdWithTags(id);
     });

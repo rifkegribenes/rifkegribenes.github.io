@@ -33,6 +33,8 @@ const updatedLiveUrl = "http://example.com/update";
 const updatedGithubUrl = "http://github.com/rifkegribenes/update";
 const updatedTags = [tagName, updatedTagName];
 
+let id;
+
 /* ================================= TESTS ================================= */
 
 chai.use(chaiHttp);
@@ -40,7 +42,7 @@ chai.use(chaiHttp);
 suite("Functional Tests", function() {
   suite("API ROUTING FOR /api/projects/", function() {
     suite("POST", function() {
-      test("create new project", function(done) {
+      test("create 2 new projects", function(done) {
         chai
           .request(app)
           .post("/api/projects/")
@@ -48,6 +50,45 @@ suite("Functional Tests", function() {
           .end(function(err, res) {
             assert.equal(res.status, 200);
             assert.isNull(err);
+          });
+        chai
+          .request(app)
+          .post("/api/projects/")
+          .send({
+            title: title2,
+            body,
+            screenshotUrl,
+            liveUrl,
+            githubUrl,
+            tags: tags2
+          })
+          .end(function(err, res) {
+            assert.equal(res.status, 200);
+            assert.isNull(err);
+            done();
+          });
+      });
+    });
+
+    suite("GET", function() {
+      test("get all projects", function(done) {
+        chai
+          .request(app)
+          .get("/api/projects")
+          .end(function(err, res) {
+            assert.equal(res.status, 200);
+            assert.isNull(err);
+            assert.isArray(res.body);
+            assert.property(res.body[0], "id");
+            assert.property(res.body[0], "created_at");
+            assert.property(res.body[0], "updated_at");
+            assert.property(res.body[0], "title");
+            assert.property(res.body[0], "body");
+            assert.property(res.body[0], "screenshot_url");
+            assert.property(res.body[0], "live_url");
+            assert.property(res.body[0], "github_url");
+            assert.isArray(res.body[0].tags);
+            id = res.body[0].id;
             done();
           });
       });
