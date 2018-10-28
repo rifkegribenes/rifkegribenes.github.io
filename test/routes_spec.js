@@ -16,10 +16,8 @@ const tagName = `new tag ${utils.randomText()}`;
 const tagName2 = `new tag ${utils.randomText()}`;
 const tags = [tagName];
 const tags2 = [tagName2];
-console.log(`routes.spec.js > 19: tagName, tagName2: ${(tagName, tagName2)}`);
 const title = `new project ${utils.randomText()}`;
 const title2 = `new project2 ${utils.randomText()}`;
-console.log(`routes.spec.js > 22: title, title2: ${(title, title2)}`);
 const body = "new project body text";
 const screenshotUrl = "http://example.com/screenshot.png";
 const liveUrl = "http://example.com";
@@ -33,8 +31,16 @@ const updatedLiveUrl = "http://example.com/update";
 const updatedGithubUrl = "http://github.com/rifkegribenes/update";
 const updatedTags = [tagName, updatedTagName];
 
+const username = "testUserName";
+const email = "test@email.com";
+const updatedUsername = "updatedUsername";
+const updatedEmail = "updatedEmail@email.com";
+const github_id = "1234";
+const github_token = "5678";
+
 let id;
 let id2;
+let userId;
 
 /* ================================= TESTS ================================= */
 
@@ -153,6 +159,81 @@ suite("Functional Tests", function() {
           .delete(`/api/projects/${id}`)
           .end(function(err, res) {
             assert.equal(res.body.message, "Project deleted successfully");
+            assert.isNull(err);
+            done();
+          });
+      });
+    });
+  });
+
+  suite("API ROUTING FOR /api/users/", function() {
+    suite("POST", function() {
+      test("create new user", function(done) {
+        chai
+          .request(app)
+          .post("/api/users/")
+          .send({ username, email, github_id, github_token })
+          .end(function(err, res) {
+            userId = res.body.id;
+            assert.equal(res.status, 200);
+            assert.isNull(err);
+            done();
+          });
+      });
+    });
+
+    suite("GET", function() {
+      test("get one user by id", function(done) {
+        chai
+          .request(app)
+          .get(`/api/users/${userId}`)
+          .end(function(err, res) {
+            assert.equal(res.status, 200);
+            assert.isNull(err);
+            assert.property(res.body, "id");
+            assert.property(res.body, "created_at");
+            assert.property(res.body, "updated_at");
+            assert.property(res.body, "email");
+            assert.property(res.body, "username");
+            assert.property(res.body, "github_id");
+            assert.property(res.body, "github_token");
+            done();
+          });
+      });
+    });
+
+    suite("PUT", function() {
+      test("update a user", function(done) {
+        const updates = {
+          email: updatedEmail,
+          username: updatedUsername
+        };
+        chai
+          .request(app)
+          .get(`/api/users/${userId}`)
+          .send({ updates })
+          .end(function(err, res) {
+            assert.equal(res.status, 200);
+            assert.isNull(err);
+            assert.property(res.body, "id");
+            assert.property(res.body, "created_at");
+            assert.property(res.body, "updated_at");
+            assert.property(res.body, "email");
+            assert.property(res.body, "username");
+            assert.property(res.body, "github_id");
+            assert.property(res.body, "github_token");
+            done();
+          });
+      });
+    });
+
+    suite("DELETE", function() {
+      test("delete a user", function(done) {
+        chai
+          .request(app)
+          .delete(`/api/users/${userId}`)
+          .end(function(err, res) {
+            assert.equal(res.body.message, "User deleted successfully");
             assert.isNull(err);
             done();
           });

@@ -26,7 +26,6 @@ const updatedProjectBody = "updated project body text";
 const updatedScreenshotUrl = "http://example.com/updated-screenshot.png";
 const updatedLiveUrl = "http://example.com/updated";
 const updatedGithubUrl = "http://github.com/rifkegribenes/updated";
-// const updatedTag = "updated tag";
 
 const username = "testUserName";
 const email = "test@email.com";
