@@ -108,7 +108,7 @@ const attachProjectTag = (projectId, tagId) => {
  *  @returns  nothing returned.
  */
 const removeProjectTag = (projectId, tagId) => {
-  return db("projects_tags")
+  return db(TABLES.PROJECTS_TAGS)
     .where({ project_id: projectId, tag_id: tagId })
     .del()
     .then(() => {
@@ -143,15 +143,15 @@ const getProjectByIdWithTags = id => {
 /** Update a project
  *  @param    {String}   id         Id of the project to update.
  *  @param    {Object}   updates    Key/value pairs of fields to update.
- *  @param    {String}   title          Updated project title.
- *  @param    {String}   body           Updated project body text.
- *  @param    {String}   screenshot_url Updated project screenshot_url.
- *  @param    {String}   live_url       Updated project live_url.
- *  @param    {String}   github_url     Updated project github_url.
+ ****  @param    {String}   title          Updated project title.
+ ****  @param    {String}   body           Updated project body text.
+ ****  @param    {String}   screenshot_url Updated project screenshot_url.
+ ****  @param    {String}   live_url       Updated project live_url.
+ ****  @param    {String}   github_url     Updated project github_url.
  *  @returns  {Object}        Project plus nested array of tags.
  */
 const updateProject = (id, updates) => {
-  return db("projects")
+  return db(TABLES.PROJECTS)
     .where({ id })
     .update(updates)
     .update("updated_at", db.fn.now())
@@ -161,17 +161,17 @@ const updateProject = (id, updates) => {
 /** Delete a project
  *  (also deletes that project's rows in the join table)
  *  @param    {String}   id         Id of the project to delete.
- *  @returns   nothing returned.
+ *  @returns   success message
  */
 const deleteProject = id => {
   // first delete rows in the join table containing that project id
   return (
-    db("projects_tags")
+    db(TABLES.PROJECTS_TAGS)
       .where({ project_id: id })
       .del()
       // then delete the project
       .then(() => {
-        db("projects")
+        db(TABLES.PROJECTS)
           .where({ id })
           .del();
       })

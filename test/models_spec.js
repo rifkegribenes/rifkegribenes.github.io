@@ -30,12 +30,15 @@ const updatedGithubUrl = "http://github.com/rifkegribenes/updated";
 
 const username = "testUserName";
 const email = "test@email.com";
+const updatedUsername = "updatedUsername";
+const updatedEmail = "updatedEmail@email.com";
 const github_id = "1234";
 const github_token = "5678";
 
 /* ================================= TESTS ================================= */
 
 let id;
+let userId;
 
 describe("models tests", () => {
   afterEach(() => {
@@ -103,6 +106,7 @@ describe("models tests", () => {
         assert.equal(result.email, email);
         assert.equal(result.github_id, github_id);
         assert.equal(result.github_token, github_token);
+        userId = result.id;
       });
   });
 
@@ -192,6 +196,20 @@ describe("models tests", () => {
         });
     });
 
+    it("PUT updates a user", () => {
+      const updates = {
+        username: updatedUsername,
+        email: updatedEmail
+      };
+      return users.updateUser(userId, updates).then(results => {
+        assert.equal(results[0].email, updatedEmail);
+        assert.equal(results[0].username, updatedUsername);
+        assert.equal(results[0].github_token, github_token);
+        assert.equal(results[0].github_id, github_id);
+        assert.isAbove(results[0].updated_at, results[0].created_at);
+      });
+    });
+
     it("GET gets one project with all associated tags", () => {
       return projects
         .attachProjectTag(projectId, tagId)
@@ -220,6 +238,17 @@ describe("models tests", () => {
         });
     });
 
+    it("GET gets all users", () => {
+      return users.getUsers().then(results => {
+        const arrayOfKeys = key => results.map(obj => obj[key]);
+        assert.equal(Array.isArray(results), true);
+        assert.include(arrayOfKeys("username"), username);
+        assert.include(arrayOfKeys("email"), email);
+        assert.deepEqual(results[0].github_id, github_id);
+        assert.deepEqual(results[0].github_token, github_token);
+      });
+    });
+
     it("GET gets one user by id", () => {
       return users.getUserById(userId).then(result => {
         assert.equal(result.username, username);
@@ -233,6 +262,12 @@ describe("models tests", () => {
     it("DELETE deletes a project", () => {
       return projects.deleteProject(projectId).then(result => {
         assert.equal(result.message, "Project deleted successfully");
+      });
+    });
+
+    it("DELETE deletes a user", () => {
+      return users.deleteUser(userId).then(result => {
+        assert.equal(result.message, "User deleted successfully");
       });
     });
   });
