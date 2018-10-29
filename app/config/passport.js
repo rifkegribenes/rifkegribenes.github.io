@@ -1,30 +1,36 @@
 // Importing Passport, strategies, and config
-const passport = require('passport'),
-  Model = require('../../db/models/projects'),
-  Auth = require('../config/auth'),
-  JwtStrategy = require('passport-jwt').Strategy,
-  ExtractJwt = require('passport-jwt').ExtractJwt,
-  GithubStrategy = require('passport-github2').Strategy;
+const passport = require("passport"),
+  User = require("../../db/models/users"),
+  Auth = require("../config/auth"),
+  JwtStrategy = require("passport-jwt").Strategy,
+  ExtractJwt = require("passport-jwt").ExtractJwt,
+  GithubStrategy = require("passport-github2").Strategy;
 
-module.exports = (passport) => {
-
+module.exports = passport => {
   // JWT strategy options
   const jwtOptions = {
     // Telling Passport to check authorization headers for JWT
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     // Telling Passport where to find the secret
     secretOrKey: process.env.JWT_SECRET,
-    passReqToCallback : true
+    passReqToCallback: true
   };
 
   // JWT login strategy
-  passport.use('jwt', new JwtStrategy(jwtOptions,
-    (req, payload, done) => {
+  passport.use(
+    "jwt",
+    new JwtStrategy(jwtOptions, (req, payload, done) => {
       // console.log(payload);
       const id = payload._id;
-      return knex('users').where({id}).first()
-        .then((user) => { done(null, user); })
-        .catch((err) => { done(err, null); });
+      return knex("users")
+        .where({ id })
+        .first()
+        .then(user => {
+          done(null, user);
+        })
+        .catch(err => {
+          done(err, null);
+        });
       // User.findById(payload._id, (err, user) => {
       //   if (err) { return done(err, false); }
 
@@ -34,7 +40,8 @@ module.exports = (passport) => {
       //     done(null, false);
       //   }
       // });
-  }));
+    })
+  );
 
   //= ========================
   // Social logins
@@ -43,18 +50,22 @@ module.exports = (passport) => {
   // helper methods for updating existing profile with social login info
 
   const findExistingUser = (profile, token, done) => {
-    console.log('findExistingUser');
+    console.log("findExistingUser");
     const github_id = profile.id;
-    return knex('users').where({github_id}).first()
-      .then((user) => {
+    return knex("users")
+      .where({ github_id })
+      .first()
+      .then(user => {
         if (!user) {
-          console.log('user not found, going to saveNewUser');
-          return saveNewUser(profile, token, done)
+          console.log("user not found, going to saveNewUser");
+          return saveNewUser(profile, token, done);
         } else {
           return done(null, user);
         }
       })
-      .catch((err) => { done(err, null); });
+      .catch(err => {
+        done(err, null);
+      });
     // User.findOne({'github.id': profile.id})
     // .exec()
     // .then(user => {
@@ -66,13 +77,13 @@ module.exports = (passport) => {
     //   }
     // })
     // )
-  }
+  };
 
   // save new user
   const saveNewUser = (profile, token, done) => {
-    console.log('saveNewUser');
-    console.log('#########################');
-    console.log('github profile data structure');
+    console.log("saveNewUser");
+    console.log("#########################");
+    console.log("github profile data structure");
     console.log(profile);
     const github_id = profile.id;
     const github_token = token;
@@ -80,8 +91,8 @@ module.exports = (passport) => {
     const username = profile.username;
 
     // save new user to database
-    Model.createUser(username, email, github_id, github_token)
-      .then((user) => {
+    User.createUser(username, email, github_id, github_token)
+      .then(user => {
         console.log(`saving new user to db`);
         return done(null, user);
       })
@@ -89,35 +100,38 @@ module.exports = (passport) => {
         console.log(err);
         return done(err, null);
       });
-  }
+  };
 
   // Github strategy options
   const githubOptions = {
     clientID: Auth.githubAuth.clientID,
     clientSecret: Auth.githubAuth.clientSecret,
     redirect_uri: Auth.githubAuth.callbackURL,
-    profileFields: ['id', 'emails', 'username'],
+    profileFields: ["id", "emails", "username"],
     passReqToCallback: true,
-    scope: ['profile', 'email']
+    scope: ["profile", "email"]
   };
 
   // Github login strategy
-  passport.use('github', new GithubStrategy(githubOptions,
-    (req, token, refreshToken, profile, done) => {
-      console.log(`Github login by ${profile.username}, ID: ${profile.id}`);
-      process.nextTick( () => {
-        // console.log(req.user);
-        // check if user is already logged in
-        if (!req.user) {
-          findExistingUser(profile, token, done)
-        } else {
-          // found logged-in user. Return
-          console.log('gh found user');
-          console.log(req.user);
-          return done(null, req.user);
-        }
-      }); // process.nextTick()
-    }) // GithubStrategy
+  passport.use(
+    "github",
+    new GithubStrategy(
+      githubOptions,
+      (req, token, refreshToken, profile, done) => {
+        console.log(`Github login by ${profile.username}, ID: ${profile.id}`);
+        process.nextTick(() => {
+          // console.log(req.user);
+          // check if user is already logged in
+          if (!req.user) {
+            findExistingUser(profile, token, done);
+          } else {
+            // found logged-in user. Return
+            console.log("gh found user");
+            console.log(req.user);
+            return done(null, req.user);
+          }
+        }); // process.nextTick()
+      }
+    ) // GithubStrategy
   );
-
-}
+};

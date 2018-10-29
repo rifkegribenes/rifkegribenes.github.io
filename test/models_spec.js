@@ -14,12 +14,12 @@ const utils = require("../app/utils");
 
 const tagName = `new tag ${utils.randomText()}`;
 const tagName2 = `new tag ${utils.randomText()}`;
-const projectTitle1 = "new project";
-const projectTitle2 = "new project2";
-const projectBody = "new project body text";
-const screenshotUrl = "http://example.com/screenshot.png";
-const liveUrl = "http://example.com";
-const githubUrl = "http://github.com/rifkegribenes";
+const title1 = "new project";
+const title2 = "new project2";
+const body = "new project body text";
+const screenshot_url = "http://example.com/screenshot.png";
+const live_url = "http://example.com";
+const github_url = "http://github.com/rifkegribenes";
 
 const updatedProjectTitle = "updated project";
 const updatedProjectBody = "updated project body text";
@@ -50,31 +50,25 @@ describe("models tests", () => {
 
   it("POST creates a new project", () => {
     return projects
-      .createProject(
-        projectTitle1,
-        projectBody,
-        screenshotUrl,
-        liveUrl,
-        githubUrl
-      )
+      .createProject(title1, body, screenshot_url, live_url, github_url)
       .then(([result]) => {
         id = result.id;
-        assert.equal(result.title, projectTitle1);
-        assert.equal(result.body, projectBody);
-        assert.equal(result.screenshot_url, screenshotUrl);
-        assert.equal(result.live_url, liveUrl);
-        assert.equal(result.github_url, githubUrl);
+        assert.equal(result.title, title1);
+        assert.equal(result.body, body);
+        assert.equal(result.screenshot_url, screenshot_url);
+        assert.equal(result.live_url, live_url);
+        assert.equal(result.github_url, github_url);
         return db
           .select("*")
           .from(TABLES.PROJECTS)
           .where({ id });
       })
       .then(([result]) => {
-        assert.equal(result.title, projectTitle1);
-        assert.equal(result.body, projectBody);
-        assert.equal(result.screenshot_url, screenshotUrl);
-        assert.equal(result.live_url, liveUrl);
-        assert.equal(result.github_url, githubUrl);
+        assert.equal(result.title, title1);
+        assert.equal(result.body, body);
+        assert.equal(result.screenshot_url, screenshot_url);
+        assert.equal(result.live_url, live_url);
+        assert.equal(result.github_url, github_url);
       });
   });
 
@@ -121,20 +115,20 @@ describe("models tests", () => {
         .then(tag => {
           tagId = tag.id;
           return projects.createProject(
-            projectTitle2,
-            projectBody,
-            screenshotUrl,
-            liveUrl,
-            githubUrl
+            title2,
+            body,
+            screenshot_url,
+            live_url,
+            github_url
           );
         })
         .then(() =>
           projects.createProject(
-            projectTitle1,
-            projectBody,
-            screenshotUrl,
-            liveUrl,
-            githubUrl
+            title1,
+            body,
+            screenshot_url,
+            live_url,
+            github_url
           )
         )
         .then(([project]) => (projectId = project.id))
@@ -214,8 +208,8 @@ describe("models tests", () => {
         .attachProjectTag(projectId, tagId)
         .then(() => projects.getProjectByIdWithTags(projectId))
         .then(result => {
-          assert.equal(result.title, projectTitle1);
-          assert.deepEqual(result.tags, [tagName]);
+          assert.equal(result.title, title1);
+          assert.deepEqual(result.tag_names, [tagName]);
         });
     });
 
@@ -227,13 +221,13 @@ describe("models tests", () => {
           const arrayOfKeys = key => results.map(obj => obj[key]);
           assert.equal(Array.isArray(results), true);
           assert.equal(results.length, 2);
-          assert.include(arrayOfKeys("title"), projectTitle1);
-          assert.include(arrayOfKeys("title"), projectTitle2);
-          assert.deepEqual(results[0].body, projectBody);
-          assert.deepEqual(results[0].screenshot_url, screenshotUrl);
-          assert.deepEqual(results[0].live_url, liveUrl);
-          assert.deepEqual(results[0].github_url, githubUrl);
-          assert.typeOf(results[0].tags, "array");
+          assert.include(arrayOfKeys("title"), title1);
+          assert.include(arrayOfKeys("title"), title2);
+          assert.deepEqual(results[0].body, body);
+          assert.deepEqual(results[0].screenshot_url, screenshot_url);
+          assert.deepEqual(results[0].live_url, live_url);
+          assert.deepEqual(results[0].github_url, github_url);
+          assert.typeOf(results[0].tag_names, "array");
         });
     });
 

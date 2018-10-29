@@ -17,4 +17,9 @@ const randomText = () => {
   return text;
 };
 
-module.exports = { onlyUnique, randomText };
+/** Error handler for route controllers */
+const handleError = (res, err) => {
+  return res.status(500).json({ message: err });
+};
+
+module.exports = { onlyUnique, randomText, handleError };

@@ -45,7 +45,7 @@ const reduceResults = results => {
         github_url: project.github_url,
         created_at: project.created_at,
         updated_at: project.updated_at,
-        tags: getProjectTags(results, project.id)
+        tag_names: getProjectTags(results, project.id)
       });
     }
   });

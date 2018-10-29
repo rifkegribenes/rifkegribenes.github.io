@@ -4,35 +4,30 @@
 
 /* ================================= SETUP ================================= */
 
+const utils = require("../utils");
+
 // import models
 const projects = require("../../db/models/projects");
 const tags = require("../../db/models/tags");
 
-/* ============================ ROUTE HANDLERS ============================= */
+/* ============================ HELPER METHODS ============================= */
 
-/** Create a new project with associated tags
- *  Creates tags if they don't already exist.
- *  @param    {String}   projectTitle    Title of the new project.
- *  @param    {String}   projectBody     Body text of the new project.
- *  @param    {String}   screenshotUrl   URL of screenshot image.
- *  @param    {String}   liveUrl         URL to live project.
- *  @param    {String}   githubUrl       URL of github repo.
- *  @param    {Array}    tagNames        Array of tags {String}
- *  @returns  {Object}                   New project object w/nested tags
- *  OR error message
+/** Check a list of tag names against existing tags in DB
+ *  Create new tags if they don't already exist.
+ *  @param    {Object}   res              HTTP response object
+ *  @param    {Array}    tag_names        Array of tag names {String}
+ *  @returns  {Array|Object}    Array of tag names
+ *                              OR response object with error message
  */
-const createProjectWithTags = (req, res, next) => {
-  const { title, body, screenshotUrl, liveUrl, githubUrl, tagNames } = req.body;
 
-  let persistedTags;
-  let persistedProject;
-  // check which of submitted tags already exist in database
+const checkAndCreateTags = (res, tag_names) => {
+  let persistedTags = [];
   return tags
-    .getTagsByTagList(tagNames)
+    .getTagsByTagList(tag_names)
     .then(existingTags => {
       persistedTags = existingTags;
       // add any tags that don't yet exist to the unpersistedTags array
-      const unpersistedTags = tagNames.filter(tag => {
+      const unpersistedTags = tag_names.filter(tag => {
         return persistedTags.map(p => p.tag).indexOf(tag) === -1;
       });
       // create new tags in the db for each of the unpersisted tags
@@ -47,102 +42,150 @@ const createProjectWithTags = (req, res, next) => {
         // if any new tags were created, add them to the persisted tags list
         persistedTags = persistedTags.concat(newTags);
       }
-      // create a new project, including all tag names
-      // (now we know all these tags have a matching DB entry
-      // and can be attached to a project)
-      return projects.createProject(
+      return persistedTags;
+    })
+    .catch(err => {
+      console.log(`projects.ctrl.js > checkAndCreateTags: ${err}`);
+      return utils.handleError(res, err);
+    });
+};
+
+/* ============================ ROUTE HANDLERS ============================= */
+
+/** Create a new project with associated tags
+ *  Creates tags if they don't already exist.
+ *  @param    {String}   title           Title of the new project.
+ *  @param    {String}   body            Body text of the new project.
+ *  @param    {String}   screenshot_url  URL of screenshot image.
+ *  @param    {String}   live_url         URL to live project.
+ *  @param    {String}   github_url       URL of github repo.
+ *  @param    {Array}    tag_names        Array of tags {String}
+ *  @returns  {Object}                   New project object w/nested tags
+ *  OR error message
+ */
+const createProjectWithTags = (req, res, next) => {
+  const {
+    title,
+    body,
+    screenshot_url,
+    live_url,
+    github_url,
+    tag_names
+  } = req.body;
+  console.log("projects.ctrl.js > 26");
+  console.log(tag_names);
+  let persistedTags;
+  let persistedProject;
+  // if tags are included in post body
+  if (tag_names) {
+    // check which of submitted tags already exist in database
+    checkAndCreateTags(res, tag_names)
+      .then(existingTags => {
+        persistedTags = existingTags;
+        // create a new project, including all tag names
+        // (now we know all these tags have a matching DB entry
+        // and can be attached to a project)
+        return projects
+          .createProject(
+            title,
+            body,
+            screenshot_url,
+            live_url,
+            github_url,
+            persistedTags
+          )
+          .then(([newProject]) => {
+            persistedProject = newProject;
+            const pool = persistedTags.map(tag => {
+              // attach all necessary tags to the new project
+              return projects.attachProjectTag(persistedProject.id, tag.id);
+            });
+            return Promise.all(pool);
+          })
+          .then(() => {
+            // then return the new project with tags to the client
+            projects
+              .getProjectByIdWithTags(persistedProject.id)
+              .then(project => res.status(200).json(project))
+              .catch(err => {
+                console.log(`projects.ctrl.js > 73: ${err}`);
+                return utils.handleError(res, err);
+              });
+          });
+      })
+      .catch(err => {
+        console.log(`projects.ctrl.js > 108: ${err}`);
+        return utils.handleError(res, err);
+      });
+  } else {
+    projects
+      .createProject(
         title,
         body,
-        screenshotUrl,
-        liveUrl,
-        githubUrl,
-        tagNames
-      );
-    })
-    .then(([newProject]) => {
-      persistedProject = newProject;
-      const pool = persistedTags.map(tag => {
-        // attach all necessary tags to the new project
-        return projects.attachProjectTag(persistedProject.id, tag.id);
+        screenshot_url,
+        live_url,
+        github_url,
+        persistedTags
+      )
+      .then(project => res.status(200).json(project))
+      .catch(err => {
+        console.log(`projects.ctrl.js > 117: ${err}`);
+        return utils.handleError(res, err);
       });
-      return Promise.all(pool);
-    })
-    .then(() => {
-      // then return the new project with tags to the client
-      projects
-        .getProjectByIdWithTags(persistedProject.id)
-        .then(project => res.status(200).json(project))
-        .catch(err => {
-          console.log(`projects.ctrl.js > 73: ${err}`);
-          res.status(500).json({ message: err.message });
-        });
-    });
+  }
 };
 
 /** Update an existing project and associated tags
  *  Creates tags if they don't already exist.
  *  @param    {String}   id              Id of project to update.
  *  @param    {Object}   updates         Key/value pairs for fields to update.
- ****  @param    {String}   projectTitle    Updated project title.
- ****  @param    {String}   projectBody     Updated body text.
- ****  @param    {String}   screenshotUrl   Updated screenshot URL.
- ****  @param    {String}   liveUrl         Updated live URL.
- ****  @param    {String}   githubUrl       Updated github URL.
- *  @param    {Array}    tagNames        Updated array of tags {String}
+ ****  @param    {String}   projectTitle     Updated project title.
+ ****  @param    {String}   projectBody      Updated body text.
+ ****  @param    {String}   screenshot_url   Updated screenshot URL.
+ ****  @param    {String}   live_url         Updated live URL.
+ ****  @param    {String}   github_url       Updated github URL.
+ *  @param    {Array}    tag_names        Updated array of tags {String}
  *  @returns  {Object}                   Updated project object w/nested tags
  *  OR error message
  */
 const updateProjectWithTags = (req, res, next) => {
   console.log("projects.ctrl.js > 95");
   console.log(req.body);
-  const { updates, tags } = req.body;
+  const { updates, tag_names } = req.body;
   const { id } = req.params;
-  let persistedTags;
 
-  if (tagNames) {
+  if (tag_names) {
     // only need to do this step if new tags names are submitted as updates
     // check all submitted tags against exiting tags in the database
-    // TODO: this whole section is repeated in create and update methods,
-    // this should be refactored as a standalone method
-    // and called from create and update methods
-    return tags
-      .getTagsByTagList(tagNames)
-      .then(existingTags => {
-        persistedTags = existingTags;
-        // add any tags that don't yet exist to the unpersistedTags array
-        const unpersistedTags = tagNames.filter(tag => {
-          return persistedTags.map(p => p.tag).indexOf(tag) === -1;
-        });
-        return Promise.all(
-          // create new tags in the db for each of the unpersisted tags
-          unpersistedTags.map(tag => {
-            return tags.createTag(tag);
-          })
-        );
-      })
-      .then(newTags => {
-        if (newTags) {
-          // if any new tags were created, add them to the persisted tags list
-          persistedTags = persistedTags.concat(newTags);
-        }
+    checkAndCreateTags(res, tag_names)
+      .then(persistedTags => {
         // update the project's other fields in the db
-        return projects.updateProject(id, updates);
+        return projects
+          .updateProject(id, updates)
+          .then(([updatedProject]) => {
+            const pool = persistedTags.map(tag => {
+              // attach all tags to the updated project
+              // TODO: check first to see if these tags have already been attached
+              return projects.attachProjectTag(id, tag.id);
+            });
+            return Promise.all(pool);
+          })
+          .then(() => {
+            // then return the updated project (and tags) to the client
+            return projects.getProjectByIdWithTags(id);
+          })
+          .catch(err => {
+            console.log(`projects.ctrl.js > 166: ${err}`);
+            return utils.handleError(res, err);
+          });
       })
-      .then(([updatedProject]) => {
-        const pool = persistedTags.map(tag => {
-          // attach all tags to the updated project
-          // TODO: check first to see if these tags have already been attached
-          return projects.attachProjectTag(id, tag.id);
-        });
-        return Promise.all(pool);
-      })
-      .then(() => {
-        // then return the updated project (and tags) to the client
-        return projects.getProjectByIdWithTags(id);
+      .catch(err => {
+        console.log(`projects.ctrl.js > 171: ${err}`);
+        return utils.handleError(res, err);
       });
   } else {
-    // if no tags submitted with the update request then this is way easier...
-    // just find the requested projet and update requested fields
+    // if no tags submitted with the update request then just
+    // find the requested projet and update requested fields
     projects.updateProject(id, updates).then(() => {
       projects
         .getProjectByIdWithTags(id)
