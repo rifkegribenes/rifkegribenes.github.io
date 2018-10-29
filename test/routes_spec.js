@@ -14,8 +14,8 @@ const utils = require("../app/utils");
 
 const tagName = `new tag ${utils.randomText()}`;
 const tagName2 = `new tag ${utils.randomText()}`;
-const tags = [tagName];
-const tags2 = [tagName2];
+const tagNames = [tagName];
+const tagNames2 = [tagName2];
 const title = `new project ${utils.randomText()}`;
 const title2 = `new project2 ${utils.randomText()}`;
 const body = "new project body text";
@@ -53,7 +53,7 @@ suite("Functional Tests", function() {
         chai
           .request(app)
           .post("/api/projects/")
-          .send({ title, body, screenshotUrl, liveUrl, githubUrl, tags })
+          .send({ title, body, screenshotUrl, liveUrl, githubUrl, tagNames })
           .end(function(err, res) {
             id = res.body.id;
             assert.equal(res.status, 200);
@@ -68,7 +68,7 @@ suite("Functional Tests", function() {
             screenshotUrl,
             liveUrl,
             githubUrl,
-            tags: tags2
+            tagNames: tagNames2
           })
           .end(function(err, res) {
             id2 = res.body.id;

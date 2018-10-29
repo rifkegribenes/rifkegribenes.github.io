@@ -14,14 +14,24 @@ const users = require("../../db/models/users");
  *  @param    {String}   email           Email from github profile.
  *  @param    {String}   github_id       Github unique ID.
  *  @param    {String}   github_token    Github auth token.
- *  @returns  {Object}                   New user object.
+ *  @returns  {Object}                   New user object OR error message.
  */
-const createUser = (username, email, github_id, github_token) => {
+const createUser = (req, res, next) => {
+  const { username, email, github_id, github_token } = req.body;
   if (username && email) {
     // since mine is the only user account i want authorized to use this app,
     // only allow it to create a user with my username
     // if (username === "rifkegribenes" && email === "rifkegribenes@gmail.com") {
-    return users.createUser(username, email, github_id, github_token);
+    return users
+      .createUser(username, email, github_id, github_token)
+      .then(users => {
+        const user = users[0];
+        res.status(200).json(user);
+      })
+      .catch(err => {
+        console.log(`users.ctrl.js > 31: ${err}`);
+        res.status(500).json({ message: err.message });
+      });
   } else {
     return { message: "You are not authorized to create a user account" };
   }
@@ -32,33 +42,47 @@ const createUser = (username, email, github_id, github_token) => {
  *  @param    {Object}   updates         Key/value pairs for fields to update.
  ****  @param    {String}   username        Updated username.
  ****  @param    {String}   email           Updated email.
- *  @returns  {Object}                   Updated user object.
+ *  @returns  {Object}                   Updated user object OR error message.
  */
-const updateUser = (id, updates) => {
-  return users.updateUser(id, updates);
+const updateUser = (req, res, next) => {
+  const { updates } = req.body;
+  const { id } = req.params;
+  return users
+    .updateUser(id, updates)
+    .then(user => res.status(200).json(user))
+    .catch(err => res.status(500).json({ message: err.message }));
 };
 
 /** Delete user
  *  @param    {String}   id   Id of the user to delete.
- *  @returns  Success message or error.
+ *  @returns  Success or error message.
  */
-const deleteUser = id => {
-  return users.deleteUser(id);
+const deleteUser = (req, res, next) => {
+  return users
+    .deleteUser(req.params.id)
+    .then(() => res.status(200).json({ message: "User deleted successfully" }))
+    .catch(err => res.status(404).json({ message: err.message }));
 };
 
 /** Get all users
- *  @returns  {Array}   Array of user objects
+ *  @returns  {Array|Object}   Array of user objects OR error message
  */
 const getUsers = () => {
-  return users.getUsers();
+  return users
+    .getUsers()
+    .then(users => res.status(200).json(users))
+    .catch(err => res.status(404).json({ message: err.message }));
 };
 
 /** Get one user
  *  @param    {String}   id   Id of the requested user.
- *  @returns  {Object}        User object.
+ *  @returns  {Object}        User object OR error message.
  */
-const getUserById = id => {
-  return users.getUserById(id);
+const getUserById = (req, res, next) => {
+  return users
+    .getUserById(req.params.id)
+    .then(user => res.status(200).json(user))
+    .catch(err => res.status(404).json({ message: err.message }));
 };
 
 /* ================================ EXPORT ================================= */

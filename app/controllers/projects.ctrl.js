@@ -19,15 +19,11 @@ const tags = require("../../db/models/tags");
  *  @param    {String}   githubUrl       URL of github repo.
  *  @param    {Array}    tagNames        Array of tags {String}
  *  @returns  {Object}                   New project object w/nested tags
+ *  OR error message
  */
-const createProjectWithTags = (
-  projectTitle,
-  projectBody,
-  screenshotUrl,
-  liveUrl,
-  githubUrl,
-  tagNames
-) => {
+const createProjectWithTags = (req, res, next) => {
+  const { title, body, screenshotUrl, liveUrl, githubUrl, tagNames } = req.body;
+
   let persistedTags;
   let persistedProject;
   // check which of submitted tags already exist in database
@@ -55,8 +51,8 @@ const createProjectWithTags = (
       // (now we know all these tags have a matching DB entry
       // and can be attached to a project)
       return projects.createProject(
-        projectTitle,
-        projectBody,
+        title,
+        body,
         screenshotUrl,
         liveUrl,
         githubUrl,
@@ -73,7 +69,13 @@ const createProjectWithTags = (
     })
     .then(() => {
       // then return the new project with tags to the client
-      return projects.getProjectByIdWithTags(persistedProject.id);
+      projects
+        .getProjectByIdWithTags(persistedProject.id)
+        .then(project => res.status(200).json(project))
+        .catch(err => {
+          console.log(`projects.ctrl.js > 73: ${err}`);
+          res.status(500).json({ message: err.message });
+        });
     });
 };
 
@@ -88,15 +90,13 @@ const createProjectWithTags = (
  ****  @param    {String}   githubUrl       Updated github URL.
  *  @param    {Array}    tagNames        Updated array of tags {String}
  *  @returns  {Object}                   Updated project object w/nested tags
+ *  OR error message
  */
-const updateProjectWithTags = (id, updates, tagNames) => {
-  const {
-    projectTitle,
-    projectBody,
-    screenshotUrl,
-    liveUrl,
-    githubUrl
-  } = updates;
+const updateProjectWithTags = (req, res, next) => {
+  console.log("projects.ctrl.js > 95");
+  console.log(req.body);
+  const { updates, tags } = req.body;
+  const { id } = req.params;
   let persistedTags;
 
   if (tagNames) {
@@ -143,33 +143,49 @@ const updateProjectWithTags = (id, updates, tagNames) => {
   } else {
     // if no tags submitted with the update request then this is way easier...
     // just find the requested projet and update requested fields
-    return projects.updateProject(id, updates).then(() => {
-      return projects.getProjectByIdWithTags(id);
+    projects.updateProject(id, updates).then(() => {
+      projects
+        .getProjectByIdWithTags(id)
+        .then(project => res.status(200).json(project))
+        .catch(err => res.status(500).json({ message: err.message }));
     });
   }
 };
 
 /** Get all projects
  *  @returns  {Array}   Array of project objects w/their nested tags
+ *  OR error messsage
  */
-const getProjects = () => {
-  return projects.getAllProjectsWithTags();
+const getProjects = (req, res, next) => {
+  return projects
+    .getAllProjectsWithTags()
+    .then(projects => res.status(200).json(projects))
+    .catch(err => res.status(500).json({ message: err.message }));
 };
 
 /** Get one project
  *  @param    {Number}   projectId   Id of the required project.
  *  @returns  {Object}            Project object w/nested tags
+ *  OR error message
  */
-const getProjectById = projectId => {
-  return projects.getProjectByIdWithTags(projectId);
+const getProjectById = (req, res, next) => {
+  return projects
+    .getProjectByIdWithTags(req.params.id)
+    .then(project => res.status(200).json(project))
+    .catch(err => res.status(404).json({ message: err.message }));
 };
 
 /** Delete project
  *  @param    {Number}   projectId   Id of the project to delete.
  *  @returns  Success message or error.
  */
-const deleteProject = projectId => {
-  return projects.deleteProject(projectId);
+const deleteProject = (req, res, next) => {
+  return projects
+    .deleteProject(req.params.id)
+    .then(() =>
+      res.status(200).json({ message: "Project deleted successfully" })
+    )
+    .catch(err => res.status(404).json({ message: err.message }));
 };
 
 /* ================================ EXPORT ================================= */

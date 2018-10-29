@@ -5,11 +5,45 @@
 /* ================================= SETUP ================================= */
 
 const router = require("express").Router();
+const passport = require("passport");
+const Auth = require("../config/auth");
 
 /* =========================== LOAD CONTROLLERS ============================ */
 
 const projectCtrl = require("../controllers/projects.ctrl");
 const userCtrl = require("../controllers/users.ctrl");
+
+/* =========================== ROUTE MIDDLEWARE ============================ */
+
+const requireAuth = (req, res, next) => {
+  passport.authenticate("jwt", { session: false }, (err, user, info) => {
+    console.log("requireAuth");
+    if (err) {
+      console.log(`router.js > 23: ${err}`);
+      return res.status(422).send({ success: false, message: err.message });
+    }
+    if (!user) {
+      return res
+        .status(422)
+        .send({
+          success: false,
+          message: "Sorry, you must log in to view this page."
+        });
+    }
+    if (user) {
+      console.log(`router.js > 30: user found`);
+      req.login(user, loginErr => {
+        if (loginErr) {
+          console.log(`router.js > 32: ${loginErr}`);
+          return next(loginErr);
+        } else {
+          console.log(`router.js > 35: returning next`);
+          return next(loginErr, user);
+        }
+      }); // req.login
+    }
+  })(req, res, next);
+};
 
 /* ============================== PROJECT ROUTES =========================== */
 
@@ -27,17 +61,7 @@ const userCtrl = require("../controllers/users.ctrl");
 //        }
 //   Returns: JSON project object on success.
 //
-router.post("/projects", (req, res) => {
-  const { title, body, screenshotUrl, liveUrl, githubUrl, tags } = req.body;
-
-  projectCtrl
-    .createProjectWithTags(title, body, screenshotUrl, liveUrl, githubUrl, tags)
-    .then(project => res.status(200).json(project))
-    .catch(err => {
-      console.log(`apiRoutes.js > 36: ${err}`);
-      res.status(500).json({ message: err.message });
-    });
-});
+router.post("/projects", projectCtrl.createProjectWithTags);
 
 // UPDATE A PROJECT
 //   Example: PUT >> /api/projects/:id
@@ -58,15 +82,7 @@ router.post("/projects", (req, res) => {
 //      }
 //   Returns: JSON updated project object on success.
 //
-router.put("/projects/:id", (req, res) => {
-  const { updates, tags } = req.body;
-  const { id } = req.params;
-
-  projectCtrl
-    .updateProjectWithTags(id, updates, tags)
-    .then(project => res.status(200).json(project))
-    .catch(err => res.status(500).json({ message: err.message }));
-});
+router.put("/projects/:id", projectCtrl.updateProjectWithTags);
 
 // GET ALL PROJECTS
 //   Example: GET >> /api/projects
@@ -74,12 +90,7 @@ router.put("/projects/:id", (req, res) => {
 //   Expects: null
 //   Returns: Array of project objects on success.
 //
-router.get("/projects", (req, res) => {
-  projectCtrl
-    .getProjects()
-    .then(projects => res.status(200).json(projects))
-    .catch(err => res.status(500).json({ message: err.message }));
-});
+router.get("/projects", projectCtrl.getProjects);
 
 // GET ONE PROJECT
 //   Example: GET >> /api/projects/80f5ad9a-9c1f-4df0-813b-c7bdc339d7b3
@@ -90,12 +101,7 @@ router.get("/projects", (req, res) => {
 //        }
 //   Returns: JSON project object on success.
 //
-router.get("/projects/:id", (req, res) => {
-  projectCtrl
-    .getProjectById(req.params.id)
-    .then(project => res.status(200).json(project))
-    .catch(err => res.status(404).json({ message: err.message }));
-});
+router.get("/projects/:id", projectCtrl.getProjectById);
 
 // DELETE PROJECT
 //   Example: DELETE >> /api/projects/80f5ad9a-9c1f-4df0-813b-c7bdc339d7b3
@@ -106,14 +112,7 @@ router.get("/projects/:id", (req, res) => {
 //        }
 //   Returns: success message on success.
 //
-router.delete("/projects/:id", (req, res) => {
-  projectCtrl
-    .deleteProject(req.params.id)
-    .then(() =>
-      res.status(200).json({ message: "Project deleted successfully" })
-    )
-    .catch(err => res.status(404).json({ message: err.message }));
-});
+router.delete("/projects/:id", projectCtrl.deleteProject);
 
 /* ================================ USER ROUTES ============================ */
 
@@ -129,20 +128,7 @@ router.delete("/projects/:id", (req, res) => {
 //        }
 //   Returns: JSON user object on success.
 //
-router.post("/users", (req, res) => {
-  const { username, email, github_id, github_token } = req.body;
-
-  userCtrl
-    .createUser(username, email, github_id, github_token)
-    .then(users => {
-      const user = users[0];
-      res.status(200).json(user);
-    })
-    .catch(err => {
-      console.log(`apiRoutes.js > 139: ${err}`);
-      res.status(500).json({ message: err.message });
-    });
-});
+router.post("/users", userCtrl.createUser);
 
 // UPDATE A USER
 //   Example: PUT >> /api/users/:id
@@ -159,15 +145,7 @@ router.post("/users", (req, res) => {
 //      }
 //   Returns: JSON updated user object on success.
 //
-router.put("/users/:id", (req, res) => {
-  const { updates } = req.body;
-  const { id } = req.params;
-
-  userCtrl
-    .updateUser(id, updates)
-    .then(user => res.status(200).json(user))
-    .catch(err => res.status(500).json({ message: err.message }));
-});
+router.put("/users/:id", userCtrl.updateUser);
 
 // GET ONE USER
 //   Example: GET >> /api/users/80f5ad9a-9c1f-4df0-813b-c7bdc339d7b3
@@ -178,12 +156,15 @@ router.put("/users/:id", (req, res) => {
 //        }
 //   Returns: JSON user object on success.
 //
-router.get("/users/:id", (req, res) => {
-  userCtrl
-    .getUserById(req.params.id)
-    .then(user => res.status(200).json(user))
-    .catch(err => res.status(404).json({ message: err.message }));
-});
+router.get("/users/:id", userCtrl.getUserById);
+
+// GET ALL USERS
+//   Example: GET >> /api/users/
+//   Secured: no
+//   Expects: null
+//   Returns: Array of user objects on success.
+//
+router.get("/users/", userCtrl.getUsers);
 
 // DELETE USER
 //   Example: DELETE >> /api/users/80f5ad9a-9c1f-4df0-813b-c7bdc339d7b3
@@ -194,12 +175,7 @@ router.get("/users/:id", (req, res) => {
 //        }
 //   Returns: success message on success.
 //
-router.delete("/users/:id", (req, res) => {
-  userCtrl
-    .deleteUser(req.params.id)
-    .then(() => res.status(200).json({ message: "User deleted successfully" }))
-    .catch(err => res.status(404).json({ message: err.message }));
-});
+router.delete("/users/:id", userCtrl.deleteUser);
 
 /* ================================ EXPORT ================================= */
 
