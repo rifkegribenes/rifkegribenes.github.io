@@ -17,7 +17,7 @@ import Avatar from "@material-ui/core/Avatar";
 
 import { BASE_URL } from "../store/actions/apiConfig.js";
 import { skip } from "../utils";
-import pinIcon from "../img/pin.svg";
+import rainbowIcon from "../img/rainbow_icon.svg";
 
 const styles = theme => ({
   root: {
@@ -103,13 +103,8 @@ class NavBar extends React.Component {
     const { classes } = this.props;
     const { anchorEl } = this.state;
     const { loggedIn } = this.props.appState;
-    const linkMap = {
-      profile: "Profile",
-      all: "All Pins",
-      mypins: "My Pins",
-      new: "Add Pin"
-    };
-    const linkList = loggedIn ? Object.keys(linkMap) : ["all"];
+    const links = ["about", "projects", "contact"];
+    const linkList = loggedIn ? links : ["all"];
     const ListItemLink = props => {
       const { primary, to, handleClose } = props;
       return (
@@ -128,7 +123,7 @@ class NavBar extends React.Component {
       <ListItemLink
         to={`/${link}`}
         key={index}
-        primary={linkMap[link]}
+        primary={links[link]}
         handleClose={this.handleClose}
       />
     ));
@@ -163,7 +158,7 @@ class NavBar extends React.Component {
             >
               {menuLinks}
             </Menu>
-            <img src={pinIcon} alt="" className={classes.logo} />
+            <img src={rainbowIcon} alt="" className={classes.logo} />
             <Typography
               variant="title"
               color="inherit"
@@ -176,8 +171,7 @@ class NavBar extends React.Component {
             {loggedIn ? (
               <div className={classes.admin}>
                 <Avatar
-                  alt={this.props.profile.profile.firstName}
-                  src={this.props.profile.profile.avatarUrl}
+                  alt={this.props.profile.profile.username}
                   className={classes.avatar}
                 />
                 <Button
@@ -223,8 +217,7 @@ NavBar.propTypes = {
   }),
   profile: PropTypes.shape({
     profile: PropTypes.shape({
-      firstName: PropTypes.string,
-      avatarUrl: PropTypes.string
+      username: PropTypes.string
     })
   }),
   location: PropTypes.shape({
