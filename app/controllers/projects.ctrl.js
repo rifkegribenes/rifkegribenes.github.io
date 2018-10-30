@@ -72,8 +72,9 @@ const createProjectWithTags = (req, res, next) => {
     github_url,
     tag_names
   } = req.body;
-  console.log("projects.ctrl.js > 26");
-  console.log(tag_names);
+  if (!title || typeof title !== "string") {
+    return res.status(500).json({ message: "Project title is required" });
+  }
   let persistedTags;
   let persistedProject;
   // if tags are included in post body
@@ -149,10 +150,12 @@ const createProjectWithTags = (req, res, next) => {
  *  OR error message
  */
 const updateProjectWithTags = (req, res, next) => {
-  console.log("projects.ctrl.js > 95");
-  console.log(req.body);
   const { updates, tag_names } = req.body;
   const { id } = req.params;
+
+  if (!updates || !Object.keys(updates).length) {
+    return res.status(404).json({ message: "No updates submitted" });
+  }
 
   if (tag_names) {
     // only need to do this step if new tags names are submitted as updates
@@ -163,6 +166,15 @@ const updateProjectWithTags = (req, res, next) => {
         return projects
           .updateProject(id, updates)
           .then(([updatedProject]) => {
+            if (updatedProject.message || !updatedProject) {
+              return res
+                .status(404)
+                .json({
+                  message:
+                    updatedProject.message ||
+                    "An error occured while trying to update this project"
+                });
+            }
             const pool = persistedTags.map(tag => {
               // attach all tags to the updated project
               // TODO: check first to see if these tags have already been attached
@@ -189,7 +201,19 @@ const updateProjectWithTags = (req, res, next) => {
     projects.updateProject(id, updates).then(() => {
       projects
         .getProjectByIdWithTags(id)
-        .then(project => res.status(200).json(project))
+        .then(project => {
+          if (project.message || !project) {
+            return res
+              .status(404)
+              .json({
+                message:
+                  project.message ||
+                  "An error occured while trying to update this project"
+              });
+          } else {
+            return res.status(200).json(project);
+          }
+        })
         .catch(err => res.status(500).json({ message: err.message }));
     });
   }
@@ -202,7 +226,9 @@ const updateProjectWithTags = (req, res, next) => {
 const getProjects = (req, res, next) => {
   return projects
     .getAllProjectsWithTags()
-    .then(projects => res.status(200).json(projects))
+    .then(projects => {
+      res.status(200).json(projects);
+    })
     .catch(err => res.status(500).json({ message: err.message }));
 };
 
@@ -214,7 +240,12 @@ const getProjects = (req, res, next) => {
 const getProjectById = (req, res, next) => {
   return projects
     .getProjectByIdWithTags(req.params.id)
-    .then(project => res.status(200).json(project))
+    .then(project => {
+      if (project.message) {
+        return res.status(404).json({ message: "Project not found" });
+      }
+      res.status(200).json(project);
+    })
     .catch(err => res.status(404).json({ message: err.message }));
 };
 
@@ -225,9 +256,17 @@ const getProjectById = (req, res, next) => {
 const deleteProject = (req, res, next) => {
   return projects
     .deleteProject(req.params.id)
-    .then(() =>
-      res.status(200).json({ message: "Project deleted successfully" })
-    )
+    .then(result => {
+      if (result.message === "Project deleted successfully") {
+        return res.status(200).json({ message: result.message });
+      } else {
+        return res
+          .status(404)
+          .json({
+            message: "An error occurred and the project was not deleted."
+          });
+      }
+    })
     .catch(err => res.status(404).json({ message: err.message }));
 };
 

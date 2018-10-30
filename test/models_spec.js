@@ -179,13 +179,13 @@ describe("models tests", () => {
       return projects
         .updateProject(projectId, updates)
         .then(() => projects.getProjectByIdWithTags(projectId))
-        .then(result => {
-          assert.equal(result.title, updatedProjectTitle);
-          assert.equal(result.body, updatedProjectBody);
-          assert.equal(result.screenshot_url, updatedScreenshotUrl);
-          assert.equal(result.live_url, updatedLiveUrl);
-          assert.equal(result.github_url, updatedGithubUrl);
-          assert.isAbove(result.updated_at, result.created_at);
+        .then(results => {
+          assert.equal(results[0].title, updatedProjectTitle);
+          assert.equal(results[0].body, updatedProjectBody);
+          assert.equal(results[0].screenshot_url, updatedScreenshotUrl);
+          assert.equal(results[0].live_url, updatedLiveUrl);
+          assert.equal(results[0].github_url, updatedGithubUrl);
+          assert.isAbove(results[0].updated_at, results[0].created_at);
         });
     });
 
@@ -207,9 +207,9 @@ describe("models tests", () => {
       return projects
         .attachProjectTag(projectId, tagId)
         .then(() => projects.getProjectByIdWithTags(projectId))
-        .then(result => {
-          assert.equal(result.title, title1);
-          assert.deepEqual(result.tag_names, [tagName]);
+        .then(results => {
+          assert.equal(results[0].title, title1);
+          assert.deepEqual(results[0].tag_names, [tagName]);
         });
     });
 

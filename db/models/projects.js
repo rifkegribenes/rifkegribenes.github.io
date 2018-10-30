@@ -11,7 +11,8 @@ const utils = require("../../app/utils");
 /** Get array of tags for a specified project ID
  *  @param    {Array}   allProjects   Input array of projects objects
  *  @param    {String}  projectId     Specific project to return tags for
- *  @returns  {Array}                 Array of tags associated with a project
+ *  @returns  {Array|Object}          Array of tags associated with a project
+ *                                    OR object with error message
  */
 const getProjectTags = (allProjects, projectId) => {
   return allProjects.reduce((tags, project) => {
@@ -27,7 +28,8 @@ const getProjectTags = (allProjects, projectId) => {
  *  duplicate projects, where each project is repeated for each tag
  *  associated with it.
  *  @param    {Array}         results   The raw query result set.
- *  @returns  {Array|Object}            Normally an array; obj if only a single project.
+ *  @returns  {Array|Object}            Array of project objects
+ *                                      OR object with error message
  */
 const reduceResults = results => {
   const uniqueProjectIds = {};
@@ -50,11 +52,9 @@ const reduceResults = results => {
     }
   });
 
-  return uniqueProjects.length > 1
+  return uniqueProjects.length > 0
     ? uniqueProjects
-    : uniqueProjects.length > 0
-      ? uniqueProjects[0]
-      : "No projects found";
+    : { message: "No projects found" };
 };
 
 /* ============================ PUBLIC METHODS ============================= */
@@ -65,7 +65,8 @@ const reduceResults = results => {
  *  @param    {String}   screenshot_url New project screenshot_url.
  *  @param    {String}   live_url       New project live_url.
  *  @param    {String}   github_url     New project github_url.
- *  @returns  {Array}    Array of 1 newly-created Project object.
+ *  @returns  {Array}    Array of 1 newly-created Project object
+ *                        OR object with error message
  */
 const createProject = (title, body, screenshot_url, live_url, github_url) => {
   return db
@@ -78,14 +79,18 @@ const createProject = (title, body, screenshot_url, live_url, github_url) => {
       github_url
     })
     .into(TABLES.PROJECTS)
-    .returning("*");
+    .returning("*")
+    .catch(err => {
+      return { message: err };
+    });
 };
 
 /** Attach a tag to a project - via join table,
  *  then update the project's updated_at
  *  @param    {String}   project_id Project id for join table.
  *  @param    {String}   tag_id     Tag id for join table.
- *  @returns  {Array}               Array of 1 newly-created row object.
+ *  @returns  {Array}               Array of 1 newly-created row object
+ *                                  OR object with error message
  */
 
 // need to modify this so you can't attach the same tag twice...
@@ -98,6 +103,9 @@ const attachProjectTag = (projectId, tagId) => {
       return db("projects")
         .where({ id: projectId })
         .update("updated_at", db.fn.now());
+    })
+    .catch(err => {
+      return { message: err };
     });
 };
 
@@ -105,7 +113,7 @@ const attachProjectTag = (projectId, tagId) => {
  *  then update the project's updated_at
  *  @param    {String}   project_id Project id for join table.
  *  @param    {String}   tag_id     Tag id for join table.
- *  @returns  nothing returned.
+ *  @returns  Success message or error message.
  */
 const removeProjectTag = (projectId, tagId) => {
   return db(TABLES.PROJECTS_TAGS)
@@ -115,12 +123,20 @@ const removeProjectTag = (projectId, tagId) => {
       return db("projects")
         .where({ id: projectId })
         .update("updated_at", db.fn.now());
+    })
+    .then(() => {
+      // then return success message to client
+      return { message: "Tag removed successfully" };
+    })
+    .catch(err => {
+      return { message: err };
     });
 };
 
 /** Find a project by id; populate its associated tags
  *  @param    {String}   id   The id of the project we want.
- *  @returns  {Object}        Project plus nested array of tags.
+ *  @returns  {Object}        Project plus nested array of tags
+ *                            OR object with error message
  */
 const getProjectByIdWithTags = id => {
   return db
@@ -137,7 +153,10 @@ const getProjectByIdWithTags = id => {
       `${TABLES.TAGS}.id`
     )
     .where(`${TABLES.PROJECTS}.id`, id)
-    .then(reduceResults);
+    .then(reduceResults)
+    .catch(err => {
+      return { message: err };
+    });
 };
 
 /** Update a project
@@ -148,20 +167,24 @@ const getProjectByIdWithTags = id => {
  ****  @param    {String}   screenshot_url Updated project screenshot_url.
  ****  @param    {String}   live_url       Updated project live_url.
  ****  @param    {String}   github_url     Updated project github_url.
- *  @returns  {Object}        Project plus nested array of tags.
+ *  @returns  {Object}        Project plus nested array of tags
+ *                            OR object with error message
  */
 const updateProject = (id, updates) => {
   return db(TABLES.PROJECTS)
     .where({ id })
     .update(updates)
     .update("updated_at", db.fn.now())
-    .returning("*");
+    .returning("*")
+    .catch(err => {
+      return { message: err };
+    });
 };
 
 /** Delete a project
  *  (also deletes that project's rows in the join table)
  *  @param    {String}   id         Id of the project to delete.
- *  @returns   success message
+ *  @returns   success message or error message
  */
 const deleteProject = id => {
   // first delete rows in the join table containing that project id
@@ -179,11 +202,16 @@ const deleteProject = id => {
         // then return success message to client
         return { message: "Project deleted successfully" };
       })
+      .catch(err => {
+        return { message: err };
+      })
   );
 };
 
 /** Get all projects; populate their associated tags
- *  @returns   {Array}   Array of project objects, each w/array of its tags.
+ *  @returns   {Array|Object}   Array of project objects, each w/array of tags
+ *                              OR object with error message
+ *
  */
 const getAllProjectsWithTags = () => {
   return db
@@ -199,7 +227,11 @@ const getAllProjectsWithTags = () => {
       `${TABLES.PROJECTS_TAGS}.tag_id`,
       `${TABLES.TAGS}.id`
     )
-    .then(reduceResults);
+    .then(reduceResults)
+    .catch(err => {
+      console.log(`projects.js > 233: ${err}`);
+      return { message: err };
+    });
 };
 
 /* ================================ exports ================================ */
