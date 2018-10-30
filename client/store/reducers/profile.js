@@ -1,0 +1,69 @@
+import update from "immutability-helper";
+
+import { LOGOUT } from "../actions";
+import {
+  VALIDATE_TOKEN_REQUEST,
+  VALIDATE_TOKEN_SUCCESS,
+  VALIDATE_TOKEN_FAILURE,
+  GET_PROFILE_REQUEST,
+  GET_PROFILE_SUCCESS,
+  GET_PROFILE_FAILURE
+} from "../actions/apiProfileActions";
+
+const INITIAL_STATE = {
+  loading: false,
+  profile: {
+    id: "",
+    username: "",
+    email: ""
+  },
+  error: null
+};
+
+function profile(state = INITIAL_STATE, action) {
+  let error;
+
+  switch (action.type) {
+    case LOGOUT:
+      return INITIAL_STATE;
+
+    case VALIDATE_TOKEN_REQUEST:
+    case GET_PROFILE_REQUEST:
+      return update(state, {
+        loading: { $set: true },
+        error: { $set: null }
+      });
+
+    case VALIDATE_TOKEN_SUCCESS:
+    case GET_PROFILE_SUCCESS:
+      return update(state, {
+        loading: { $set: false },
+        profile: {
+          id: { $set: action.payload.user.id },
+          username: { $set: action.payload.user.username },
+          email: { $set: action.payload.user.email }
+        },
+        error: { $set: null }
+      });
+
+    case VALIDATE_TOKEN_FAILURE:
+    case GET_PROFILE_FAILURE:
+      console.log(action.type);
+      console.log(action.payload);
+      if (typeof action.payload.message === "string") {
+        error = action.payload.message;
+      } else {
+        error = "Sorry, something went wrong :(\nPlease try again.";
+      }
+      console.log(error);
+      return update(state, {
+        spinnerClass: { $set: "spinner__hide" },
+        error: { $set: error }
+      });
+
+    default:
+      return state;
+  }
+}
+
+export default profile;
