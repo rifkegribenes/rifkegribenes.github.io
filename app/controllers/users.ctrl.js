@@ -33,7 +33,9 @@ const createUser = (req, res, next) => {
         res.status(500).json({ message: err.message });
       });
   } else {
-    return { message: "You are not authorized to create a user account" };
+    return res
+      .status(500)
+      .json({ message: "There was an error creating the user account" });
   }
 };
 
@@ -47,9 +49,22 @@ const createUser = (req, res, next) => {
 const updateUser = (req, res, next) => {
   const { updates } = req.body;
   const { id } = req.params;
+  if (!updates || !Object.keys(updates).length) {
+    return res.status(404).json({ message: "No updates submitted" });
+  }
+
   return users
     .updateUser(id, updates)
-    .then(user => res.status(200).json(user))
+    .then(user => {
+      if (user.message || !user) {
+        return res.status(404).json({
+          message:
+            user.message || "An error occured while trying to update this user"
+        });
+      } else {
+        return res.status(200).json(user);
+      }
+    })
     .catch(err => res.status(500).json({ message: err.message }));
 };
 
@@ -60,7 +75,15 @@ const updateUser = (req, res, next) => {
 const deleteUser = (req, res, next) => {
   return users
     .deleteUser(req.params.id)
-    .then(() => res.status(200).json({ message: "User deleted successfully" }))
+    .then(result => {
+      if (result.message === "User deleted successfully") {
+        return res.status(200).json({ message: result.message });
+      } else {
+        return res.status(404).json({
+          message: "An error occurred and the user was not deleted."
+        });
+      }
+    })
     .catch(err => res.status(404).json({ message: err.message }));
 };
 
@@ -81,7 +104,15 @@ const getUsers = () => {
 const getUserById = (req, res, next) => {
   return users
     .getUserById(req.params.id)
-    .then(user => res.status(200).json(user))
+    .then(user => {
+      if (!user || user.message) {
+        return res
+          .status(404)
+          .json({ message: user.message || "User not found" });
+      } else {
+        res.status(200).json(user);
+      }
+    })
     .catch(err => res.status(404).json({ message: err.message }));
 };
 

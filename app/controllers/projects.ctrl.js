@@ -57,11 +57,11 @@ const checkAndCreateTags = (res, tag_names) => {
  *  @param    {String}   title           Title of the new project.
  *  @param    {String}   body            Body text of the new project.
  *  @param    {String}   screenshot_url  URL of screenshot image.
- *  @param    {String}   live_url         URL to live project.
- *  @param    {String}   github_url       URL of github repo.
- *  @param    {Array}    tag_names        Array of tags {String}
+ *  @param    {String}   live_url        URL to live project.
+ *  @param    {String}   github_url      URL of github repo.
+ *  @param    {Array}    tag_names       Array of tags {String}
  *  @returns  {Object}                   New project object w/nested tags
- *  OR error message
+ *                                       OR error message
  */
 const createProjectWithTags = (req, res, next) => {
   const {
@@ -147,7 +147,7 @@ const createProjectWithTags = (req, res, next) => {
  ****  @param    {String}   github_url       Updated github URL.
  *  @param    {Array}    tag_names        Updated array of tags {String}
  *  @returns  {Object}                   Updated project object w/nested tags
- *  OR error message
+ *                                       OR error message
  */
 const updateProjectWithTags = (req, res, next) => {
   const { updates, tag_names } = req.body;
@@ -167,13 +167,11 @@ const updateProjectWithTags = (req, res, next) => {
           .updateProject(id, updates)
           .then(([updatedProject]) => {
             if (updatedProject.message || !updatedProject) {
-              return res
-                .status(404)
-                .json({
-                  message:
-                    updatedProject.message ||
-                    "An error occured while trying to update this project"
-                });
+              return res.status(404).json({
+                message:
+                  updatedProject.message ||
+                  "An error occured while trying to update this project"
+              });
             }
             const pool = persistedTags.map(tag => {
               // attach all tags to the updated project
@@ -203,13 +201,11 @@ const updateProjectWithTags = (req, res, next) => {
         .getProjectByIdWithTags(id)
         .then(project => {
           if (project.message || !project) {
-            return res
-              .status(404)
-              .json({
-                message:
-                  project.message ||
-                  "An error occured while trying to update this project"
-              });
+            return res.status(404).json({
+              message:
+                project.message ||
+                "An error occured while trying to update this project"
+            });
           } else {
             return res.status(200).json(project);
           }
@@ -233,7 +229,7 @@ const getProjects = (req, res, next) => {
 };
 
 /** Get one project
- *  @param    {Number}   projectId   Id of the required project.
+ *  @param    {String}   projectId   Id of the required project.
  *  @returns  {Object}            Project object w/nested tags
  *  OR error message
  */
@@ -241,16 +237,17 @@ const getProjectById = (req, res, next) => {
   return projects
     .getProjectByIdWithTags(req.params.id)
     .then(project => {
-      if (project.message) {
+      if (project.message || !project) {
         return res.status(404).json({ message: "Project not found" });
+      } else {
+        res.status(200).json(project);
       }
-      res.status(200).json(project);
     })
     .catch(err => res.status(404).json({ message: err.message }));
 };
 
 /** Delete project
- *  @param    {Number}   projectId   Id of the project to delete.
+ *  @param    {String}   projectId   Id of the project to delete.
  *  @returns  Success message or error.
  */
 const deleteProject = (req, res, next) => {
@@ -260,11 +257,9 @@ const deleteProject = (req, res, next) => {
       if (result.message === "Project deleted successfully") {
         return res.status(200).json({ message: result.message });
       } else {
-        return res
-          .status(404)
-          .json({
-            message: "An error occurred and the project was not deleted."
-          });
+        return res.status(404).json({
+          message: "An error occurred and the project was not deleted."
+        });
       }
     })
     .catch(err => res.status(404).json({ message: err.message }));

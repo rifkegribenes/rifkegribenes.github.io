@@ -197,7 +197,7 @@ suite("routes : projects", function() {
   });
 
   suite("DELETE /api/projects/:id", function() {
-    test("delete a project", function(done) {
+    test("deletes a project", function(done) {
       chai
         .request(app)
         .delete(`/api/projects/${id}`)
