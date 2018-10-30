@@ -1,5 +1,7 @@
 /** miscellaneous utility methods **/
 
+const jwt = require("jsonwebtoken");
+
 /** Helper method to remove duplicates from an array **/
 const onlyUnique = (value, index, self) => {
   return self.indexOf(value) === index;
@@ -22,4 +24,26 @@ const handleError = (res, err) => {
   return res.status(500).json({ message: err });
 };
 
-module.exports = { onlyUnique, randomText, handleError };
+/** Extract id from user object for use in generating JWT */
+const setUserInfo = req => {
+  const getUserInfo = {
+    _id: req._id
+  };
+
+  return getUserInfo;
+};
+
+/** Generate JWT */
+generateToken = req => {
+  return jwt.sign(user, process.env.JWT_SECRET, {
+    expiresIn: "7d"
+  });
+};
+
+module.exports = {
+  onlyUnique,
+  randomText,
+  handleError,
+  setUserInfo,
+  generateToken
+};

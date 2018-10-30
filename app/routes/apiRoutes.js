@@ -6,12 +6,12 @@
 
 const router = require("express").Router();
 const passport = require("passport");
-const Auth = require("../config/auth");
 
 /* =========================== LOAD CONTROLLERS ============================ */
 
 const projectCtrl = require("../controllers/projects.ctrl");
 const userCtrl = require("../controllers/users.ctrl");
+const authCtrl = require("../controllers/auth.ctrl");
 
 /* =========================== ROUTE MIDDLEWARE ============================ */
 
@@ -42,6 +42,31 @@ const requireAuth = (req, res, next) => {
     }
   })(req, res, next);
 };
+
+/* ============================== AUTH ROUTES =========================== */
+
+// GITHUB AUTH WITH PASSPORT
+//   Example: GET >> /auth/github
+//   Secured: no
+//   Expects: null
+//   Returns: Redirect to github callback route on success.
+//
+router.get(
+  "/auth/github",
+  passport.authenticate("github", { scope: ["profile", "email"] })
+);
+
+// GITHUB CALLBACK ROUTE
+//   Example: GET >> /auth/github/callback
+//   Secured: no
+//   Expects: null
+//   Returns: User object and token.
+//
+router.get(
+  "/auth/github/callback",
+  passport.authenticate("github"),
+  authCtrl.githubCallback
+);
 
 /* ============================== PROJECT ROUTES =========================== */
 
