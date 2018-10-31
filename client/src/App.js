@@ -13,10 +13,10 @@ import * as apiProfileActions from "./store/actions/apiProfileActions";
 
 import NavBar from "./containers/NavBar";
 import Footer from "./components/Footer";
-// import NotFound from "./components/NotFound";
+import NotFound from "./components/NotFound";
 import AlertDialog from "./components/AlertDialog";
-// import Profile from "./containers/Profile";
-// import Logout from "./containers/Logout";
+import Dashboard from "./containers/Dashboard";
+import Logout from "./containers/Logout";
 
 import Notifier, { openSnackbar } from "./containers/Notifier";
 
@@ -141,17 +141,17 @@ class App extends Component {
               buttonText="Delete"
             />
           )}
-          {/*          <Switch>
-            <Route
+          <Switch>
+            {/*            <Route
               exact
               path="/"
               render={routeProps => <AllPins {...routeProps} />}
-            />
+            />*/}
             <Route
-              path="/profile/:id?/:token?"
-              render={routeProps => <Profile {...routeProps} />}
+              path="/admin/:id?/:token?"
+              render={routeProps => <Dashboard {...routeProps} />}
             />
-            <Route
+            {/*            <Route
               path="/mypins"
               render={routeProps => (
                 <UserPins
@@ -197,7 +197,7 @@ class App extends Component {
             <Route
               path="/all"
               render={routeProps => <AllPins {...routeProps} />}
-            />
+            />*/}
             <Route
               path="/logout"
               render={routeProps => (
@@ -210,7 +210,7 @@ class App extends Component {
                 <NotFound classes={this.props.classes} {...routeProps} />
               )}
             />
-          </Switch>*/}
+          </Switch>
         </main>
         <Footer classes={this.props.classes} />
       </React.Fragment>
