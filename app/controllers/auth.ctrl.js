@@ -9,7 +9,7 @@ const users = require("../../db/models/users");
 
 const passport = require("passport");
 const utils = require("../utils");
-const userController = require("./user.ctrl");
+const userController = require("./users.ctrl");
 
 const APP_HOST = process.env.APP_HOST;
 const CLIENT_URL =

@@ -179,6 +179,7 @@ export function addProject(token, body) {
 
 /*
 * Function: updateProject -- update existing project
+* @param {string} id project id
 * @param {object} body (project object)
 *  --  @param {object} updates
 *  --  -- @param {string} title,
@@ -195,7 +196,7 @@ export function addProject(token, body) {
 *   UDPATE_PROJECT_FAILURE:
 *     If database error, hides spinner, displays error toastr
 */
-export function updateProject(token, body) {
+export function updateProject(token, id, body) {
   return {
     [RSAA]: {
       endpoint: `${BASE_URL}/api/projects/${id}`,
