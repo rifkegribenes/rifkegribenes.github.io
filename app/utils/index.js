@@ -34,7 +34,7 @@ const setUserInfo = req => {
 };
 
 /** Generate JWT */
-generateToken = req => {
+generateToken = user => {
   return jwt.sign(user, process.env.JWT_SECRET, {
     expiresIn: "7d"
   });

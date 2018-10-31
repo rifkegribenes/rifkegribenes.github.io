@@ -22,9 +22,7 @@ module.exports = passport => {
     new JwtStrategy(jwtOptions, (req, payload, done) => {
       // console.log(payload);
       const id = payload._id;
-      return knex("users")
-        .where({ id })
-        .first()
+      User.getUserById(id)
         .then(user => {
           done(null, user);
         })
@@ -52,9 +50,7 @@ module.exports = passport => {
   const findExistingUser = (profile, token, done) => {
     console.log("findExistingUser");
     const github_id = profile.id;
-    return knex("users")
-      .where({ github_id })
-      .first()
+    User.getUserByGithubId(github_id)
       .then(user => {
         if (!user) {
           console.log("user not found, going to saveNewUser");

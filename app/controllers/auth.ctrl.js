@@ -41,7 +41,7 @@ exports.githubCallback = (req, res) => {
       const userInfo = utils.setUserInfo(userObj);
       const token = utils.generateToken(userInfo);
       return res.redirect(
-        `${CLIENT_URL}/#/redirect=profile/${userObj._doc._id}/${token}`
+        `${CLIENT_URL}/#/redirect=profile/${userObj.id}/${token}`
       );
     } else {
       return res.redirect("/login");

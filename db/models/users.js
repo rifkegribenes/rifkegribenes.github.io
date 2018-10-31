@@ -57,6 +57,18 @@ const getUserById = id => {
     .returning("*");
 };
 
+/** Find a user by github_id
+ *  @param    {String}   github_id   The github_id of the user to return.
+ *  @returns  {Object}        User object.
+ */
+
+const getUserByGithubId = github_id => {
+  return db(TABLES.USERS)
+    .where({ github_id })
+    .first()
+    .returning("*");
+};
+
 /** Delete user
  *  @param    {String}   id   The id of the user to delete.
  *  @returns  success message
@@ -78,6 +90,7 @@ module.exports = {
   createUser,
   updateUser,
   getUserById,
+  getUserByGithubId,
   getUsers,
   deleteUser
 };
