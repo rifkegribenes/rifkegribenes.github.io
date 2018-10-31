@@ -39,9 +39,9 @@ function profile(state = INITIAL_STATE, action) {
       return update(state, {
         loading: { $set: false },
         profile: {
-          id: { $set: action.payload.user.id },
-          username: { $set: action.payload.user.username },
-          email: { $set: action.payload.user.email }
+          id: { $set: action.payload.id },
+          username: { $set: action.payload.username },
+          email: { $set: action.payload.email }
         },
         error: { $set: null }
       });

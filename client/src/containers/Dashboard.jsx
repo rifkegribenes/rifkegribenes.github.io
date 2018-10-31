@@ -115,7 +115,7 @@ class Dashboard extends React.Component {
     const { classes } = this.props;
     const { loggedIn } = this.props.appState;
     const redirect = window.localStorage.getItem("redirect");
-    const { userName, avatarUrl } = this.props.profile.profile;
+    const { username } = this.props.profile.profile;
     return (
       <div className={classes.container}>
         {loggedIn &&
@@ -126,15 +126,11 @@ class Dashboard extends React.Component {
                 image={RainbowBokehImage}
                 title="Colored Lights"
               >
-                <Avatar
-                  alt={`${userName}`}
-                  src={avatarUrl}
-                  className={classes.avatar}
-                />
+                <Avatar alt={`${username}`} className={classes.avatar} />
               </CardMedia>
               <CardContent>
-                <Typography variant="headline" className={classes.name}>
-                  {`${userName}`}
+                <Typography variant="h5" className={classes.name}>
+                  {`${username}`}
                 </Typography>
               </CardContent>
             </Card>

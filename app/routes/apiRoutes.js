@@ -71,7 +71,7 @@ router.get(
 /* ============================== PROJECT ROUTES =========================== */
 
 // CREATE A PROJECT
-//   Example: POST >> /api/projects
+//   Example: POST >> /api/project
 //   Secured: yes
 //   Expects:
 //     1) request body properties : {
@@ -84,11 +84,11 @@ router.get(
 //        }
 //   Returns: JSON project object on success.
 //
-router.post("/projects", projectCtrl.createProjectWithTags);
-// router.post("/projects", requireAuth, projectCtrl.createProjectWithTags);
+router.post("/project", projectCtrl.createProjectWithTags);
+// router.post("/project", requireAuth, projectCtrl.createProjectWithTags);
 
 // UPDATE A PROJECT
-//   Example: PUT >> /api/projects/:id
+//   Example: PUT >> /api/project/:id
 //   Secured: yes
 //   Expects:
 //     1) request body properties : {
@@ -106,19 +106,19 @@ router.post("/projects", projectCtrl.createProjectWithTags);
 //      }
 //   Returns: JSON updated project object on success.
 //
-router.put("/projects/:id", projectCtrl.updateProjectWithTags);
-// router.put("/projects/:id", requireAuth, projectCtrl.updateProjectWithTags);
+router.put("/project/:id", projectCtrl.updateProjectWithTags);
+// router.put("/project/:id", requireAuth, projectCtrl.updateProjectWithTags);
 
 // GET ALL PROJECTS
-//   Example: GET >> /api/projects
+//   Example: GET >> /api/project
 //   Secured: no
 //   Expects: null
 //   Returns: Array of project objects on success.
 //
-router.get("/projects", projectCtrl.getProjects);
+router.get("/project", projectCtrl.getProjects);
 
 // GET ONE PROJECT
-//   Example: GET >> /api/projects/80f5ad9a-9c1f-4df0-813b-c7bdc339d7b3
+//   Example: GET >> /api/project/80f5ad9a-9c1f-4df0-813b-c7bdc339d7b3
 //   Secured: no
 //   Expects:
 //     1) request params : {
@@ -126,10 +126,10 @@ router.get("/projects", projectCtrl.getProjects);
 //        }
 //   Returns: JSON project object on success.
 //
-router.get("/projects/:id", projectCtrl.getProjectById);
+router.get("/project/:id", projectCtrl.getProjectById);
 
 // DELETE PROJECT
-//   Example: DELETE >> /api/projects/80f5ad9a-9c1f-4df0-813b-c7bdc339d7b3
+//   Example: DELETE >> /api/project/80f5ad9a-9c1f-4df0-813b-c7bdc339d7b3
 //   Secured: yes
 //   Expects:
 //     1) request params : {
@@ -137,13 +137,13 @@ router.get("/projects/:id", projectCtrl.getProjectById);
 //        }
 //   Returns: success message on success.
 //
-router.delete("/projects/:id", projectCtrl.deleteProject);
-// router.delete("/projects/:id", requireAuth, projectCtrl.deleteProject);
+router.delete("/project/:id", projectCtrl.deleteProject);
+// router.delete("/project/:id", requireAuth, projectCtrl.deleteProject);
 
 /* ================================ USER ROUTES ============================ */
 
 // CREATE A USER
-//   Example: POST >> /api/users
+//   Example: POST >> /api/user
 //   Secured: no
 //   Expects:
 //     1) request body properties : {
@@ -154,10 +154,10 @@ router.delete("/projects/:id", projectCtrl.deleteProject);
 //        }
 //   Returns: JSON user object on success.
 //
-router.post("/users", userCtrl.createUser);
+router.post("/user", userCtrl.createUser);
 
 // UPDATE A USER
-//   Example: PUT >> /api/users/:id
+//   Example: PUT >> /api/user/:id
 //   Secured: yes
 //   Expects:
 //     1) request body properties : {
@@ -171,11 +171,11 @@ router.post("/users", userCtrl.createUser);
 //      }
 //   Returns: JSON updated user object on success.
 //
-router.put("/users/:id", userCtrl.updateUser);
-// router.put("/users/:id", requireAuth, userCtrl.updateUser);
+router.put("/user/:id", userCtrl.updateUser);
+// router.put("/user/:id", requireAuth, userCtrl.updateUser);
 
 // GET ONE USER
-//   Example: GET >> /api/users/80f5ad9a-9c1f-4df0-813b-c7bdc339d7b3
+//   Example: GET >> /api/user/80f5ad9a-9c1f-4df0-813b-c7bdc339d7b3
 //   Secured: no
 //   Expects:
 //     1) request params : {
@@ -183,18 +183,18 @@ router.put("/users/:id", userCtrl.updateUser);
 //        }
 //   Returns: JSON user object on success.
 //
-router.get("/users/:id", userCtrl.getUserById);
+router.get("/user/:id", userCtrl.getUserById);
 
 // GET ALL USERS
-//   Example: GET >> /api/users/
+//   Example: GET >> /api/user/
 //   Secured: no
 //   Expects: null
 //   Returns: Array of user objects on success.
 //
-router.get("/users/", userCtrl.getUsers);
+router.get("/user/", userCtrl.getUsers);
 
 // DELETE USER
-//   Example: DELETE >> /api/users/80f5ad9a-9c1f-4df0-813b-c7bdc339d7b3
+//   Example: DELETE >> /api/user/80f5ad9a-9c1f-4df0-813b-c7bdc339d7b3
 //   Secured: yes
 //   Expects:
 //     1) request params : {
@@ -202,8 +202,8 @@ router.get("/users/", userCtrl.getUsers);
 //        }
 //   Returns: success message on success.
 //
-router.delete("/users/:id", userCtrl.deleteUser);
-// router.delete("/users/:id", requireAuth, userCtrl.deleteUser);
+router.delete("/user/:id", userCtrl.deleteUser);
+// router.delete("/user/:id", requireAuth, userCtrl.deleteUser);
 
 /* ================================ EXPORT ================================= */
 

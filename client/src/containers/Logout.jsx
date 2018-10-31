@@ -18,7 +18,7 @@ class Logout extends React.Component {
   render() {
     return (
       <div className={this.props.classes.container}>
-        <Typography variant="headline" className={this.props.classes.message}>
+        <Typography variant="h5" className={this.props.classes.message}>
           Goodbye!
         </Typography>
       </div>

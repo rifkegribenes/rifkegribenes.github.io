@@ -133,7 +133,7 @@ class NavBar extends React.Component {
           <Toolbar>
             <Button
               color="secondary"
-              variant="raised"
+              variant="contained"
               className={classes.skip}
               onClick={() => skip("main")}
             >
@@ -159,11 +159,7 @@ class NavBar extends React.Component {
               {menuLinks}
             </Menu>
             <img src={rainbowIcon} alt="" className={classes.logo} />
-            <Typography
-              variant="title"
-              color="inherit"
-              className={classes.flex}
-            >
+            <Typography variant="h6" color="inherit" className={classes.flex}>
               <Link to="/" className={classes.title}>
                 Pinterest Clone
               </Link>

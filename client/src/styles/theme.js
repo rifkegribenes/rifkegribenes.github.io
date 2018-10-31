@@ -21,5 +21,8 @@ export default createMuiTheme({
       xl: 1280
     }
   },
-  overrides: {}
+  overrides: {},
+  typography: {
+    useNextVariants: true
+  }
 });

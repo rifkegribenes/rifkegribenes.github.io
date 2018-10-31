@@ -38,12 +38,12 @@ let id2;
 
 chai.use(chaiHttp);
 
-suite("routes : projects", function() {
-  suite("POST /api/projects/", function() {
+suite("routes : project", function() {
+  suite("POST /api/project/", function() {
     test("creates and returns new project", function(done) {
       chai
         .request(app)
-        .post("/api/projects/")
+        .post("/api/project/")
         .send({ title, body, screenshot_url, live_url, github_url, tag_names })
         .end(function(err, res) {
           id = res.body[0].id;
@@ -66,7 +66,7 @@ suite("routes : projects", function() {
     test("returns an error if request body is malformed", function(done) {
       chai
         .request(app)
-        .post("/api/projects/")
+        .post("/api/project/")
         .send({ name: "project" })
         .end(function(err, res) {
           assert.equal(res.status, 500);
@@ -77,11 +77,11 @@ suite("routes : projects", function() {
     });
   });
 
-  suite("GET /api/projects/", function() {
+  suite("GET /api/project/", function() {
     test("gets all projects", function(done) {
       chai
         .request(app)
-        .get("/api/projects")
+        .get("/api/project")
         .end(function(err, res) {
           assert.equal(res.status, 200);
           assert.isNull(err);
@@ -101,11 +101,11 @@ suite("routes : projects", function() {
     });
   });
 
-  suite("GET /api/projects/:id", function() {
+  suite("GET /api/project/:id", function() {
     test("get one project by id", function(done) {
       chai
         .request(app)
-        .get(`/api/projects/${id}`)
+        .get(`/api/project/${id}`)
         .end(function(err, res) {
           assert.equal(res.status, 200);
           assert.isNull(err);
@@ -125,7 +125,7 @@ suite("routes : projects", function() {
     test("returns error if project id missing or malformed", function(done) {
       chai
         .request(app)
-        .get("/api/projects/123456789")
+        .get("/api/project/123456789")
         .end(function(err, res) {
           assert.equal(res.status, 404);
           assert.equal(res.type, "application/json");
@@ -135,7 +135,7 @@ suite("routes : projects", function() {
     });
   });
 
-  suite("PUT /api/projects/:id", function() {
+  suite("PUT /api/project/:id", function() {
     test("updates a project", function(done) {
       const updates = {
         title: updatedTitle,
@@ -146,7 +146,7 @@ suite("routes : projects", function() {
       };
       chai
         .request(app)
-        .get(`/api/projects/${id}`)
+        .get(`/api/project/${id}`)
         .send({ updates, tags: updatedTags })
         .end(function(err, res) {
           assert.equal(res.status, 200);
@@ -173,7 +173,7 @@ suite("routes : projects", function() {
       };
       chai
         .request(app)
-        .put("/api/projects/123456789")
+        .put("/api/project/123456789")
         .send({ updates, tags: updatedTags })
         .end(function(err, res) {
           assert.equal(res.status, 404);
@@ -185,7 +185,7 @@ suite("routes : projects", function() {
     test("returns error if updates missing or malformed", function(done) {
       chai
         .request(app)
-        .put(`/api/projects/${id}`)
+        .put(`/api/project/${id}`)
         .send({ name: undefined })
         .end(function(err, res) {
           assert.equal(res.status, 404);
@@ -196,11 +196,11 @@ suite("routes : projects", function() {
     });
   });
 
-  suite("DELETE /api/projects/:id", function() {
+  suite("DELETE /api/project/:id", function() {
     test("deletes a project", function(done) {
       chai
         .request(app)
-        .delete(`/api/projects/${id}`)
+        .delete(`/api/project/${id}`)
         .end(function(err, res) {
           assert.equal(res.body.message, "Project deleted successfully");
           assert.isNull(err);
@@ -210,7 +210,7 @@ suite("routes : projects", function() {
     test("returns error if project id missing or malformed", function(done) {
       chai
         .request(app)
-        .delete("/api/projects/123456789")
+        .delete("/api/project/123456789")
         .end(function(err, res) {
           assert.equal(res.status, 404);
           assert.equal(res.type, "application/json");

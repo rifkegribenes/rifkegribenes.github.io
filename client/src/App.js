@@ -122,7 +122,7 @@ class App extends Component {
   };
 
   render() {
-    const { form, deleteDialogOpen, currentProject } = this.props.project;
+    const { deleteDialogOpen, currentProject } = this.props.project;
     return (
       <React.Fragment>
         <CssBaseline />

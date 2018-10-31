@@ -27,12 +27,12 @@ let id2;
 
 chai.use(chaiHttp);
 
-suite("routes : users", function() {
-  suite("POST /api/users/", function() {
+suite("routes : user", function() {
+  suite("POST /api/user/", function() {
     test("creates and returns new user", function(done) {
       chai
         .request(app)
-        .post("/api/users/")
+        .post("/api/user/")
         .send({ username, email, github_id, github_token })
         .end(function(err, res) {
           userId = res.body.id;
@@ -44,7 +44,7 @@ suite("routes : users", function() {
     test("returns an error if request body is malformed", function(done) {
       chai
         .request(app)
-        .post("/api/users/")
+        .post("/api/user/")
         .send({ name: "user" })
         .end(function(err, res) {
           assert.equal(res.status, 500);
@@ -55,11 +55,11 @@ suite("routes : users", function() {
     });
   });
 
-  suite("GET /api/users/:id", function() {
+  suite("GET /api/user/:id", function() {
     test("gets one user by id", function(done) {
       chai
         .request(app)
-        .get(`/api/users/${userId}`)
+        .get(`/api/user/${userId}`)
         .end(function(err, res) {
           assert.equal(res.status, 200);
           assert.isNull(err);
@@ -76,7 +76,7 @@ suite("routes : users", function() {
     test("returns error if user id missing or malformed", function(done) {
       chai
         .request(app)
-        .get("/api/users/123456789")
+        .get("/api/user/123456789")
         .end(function(err, res) {
           assert.equal(res.status, 404);
           assert.equal(res.type, "application/json");
@@ -86,7 +86,7 @@ suite("routes : users", function() {
     });
   });
 
-  suite("PUT /api/users/:id", function() {
+  suite("PUT /api/user/:id", function() {
     test("updates a user", function(done) {
       const updates = {
         email: updatedEmail,
@@ -94,7 +94,7 @@ suite("routes : users", function() {
       };
       chai
         .request(app)
-        .put(`/api/users/${userId}`)
+        .put(`/api/user/${userId}`)
         .send({ updates })
         .end(function(err, res) {
           assert.equal(res.status, 200);
@@ -116,7 +116,7 @@ suite("routes : users", function() {
       };
       chai
         .request(app)
-        .put("/api/users/123456789")
+        .put("/api/user/123456789")
         .send({ updates })
         .end(function(err, res) {
           assert.equal(res.status, 500);
@@ -128,7 +128,7 @@ suite("routes : users", function() {
     test("returns error if updates missing or malformed", function(done) {
       chai
         .request(app)
-        .put(`/api/users/${userId}`)
+        .put(`/api/user/${userId}`)
         .send({ name: undefined })
         .end(function(err, res) {
           assert.equal(res.status, 404);
@@ -143,7 +143,7 @@ suite("routes : users", function() {
     test("delete a user", function(done) {
       chai
         .request(app)
-        .delete(`/api/users/${userId}`)
+        .delete(`/api/user/${userId}`)
         .end(function(err, res) {
           assert.equal(res.body.message, "User deleted successfully");
           assert.isNull(err);
@@ -153,7 +153,7 @@ suite("routes : users", function() {
     test("returns error if user id missing or malformed", function(done) {
       chai
         .request(app)
-        .delete("/api/users/123456789")
+        .delete("/api/user/123456789")
         .end(function(err, res) {
           assert.equal(res.status, 404);
           assert.equal(res.type, "application/json");
