@@ -1,16 +1,17 @@
 import { createMuiTheme } from "@material-ui/core/styles";
 
 export default createMuiTheme({
+  appBar: {
+    color: "#212121",
+    textColor: "#69f0ae"
+  },
   palette: {
-    primary: {
-      main: "#bd081c"
-    },
-    secondary: {
-      main: "#8e8e8e"
-    },
-    error: {
-      main: "#f44336"
-    }
+    primary1Color: "#00e676",
+    primary2Color: "#388e3c",
+    accent1Color: "#40c4ff",
+    textColor: "rgba(255, 255, 255, 0.87)",
+    secondaryTextColor: "#9e9e9e",
+    type: "dark"
   },
   breakpoints: {
     values: {
