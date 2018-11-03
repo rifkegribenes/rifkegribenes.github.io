@@ -21,7 +21,8 @@ import rainbowIcon from "../img/rainbow_icon.svg";
 
 const styles = theme => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    color: theme.palette.primary3Color
   },
   flex: {
     flexGrow: 1
@@ -34,8 +35,13 @@ const styles = theme => ({
     }
   },
   title: {
-    color: "white",
+    flexGrow: 1,
+    color: theme.palette.secondary.main,
+    fontFamily: '"Titillium Web", sans-serif',
+    fontSize: "1.7em",
     textDecoration: "none",
+    paddingLeft: 10,
+    fontWeight: 200,
     [theme.breakpoints.down("xs")]: {
       fontSize: "1.1rem"
     }
@@ -129,10 +135,10 @@ class NavBar extends React.Component {
     ));
     return (
       <div className={classes.root}>
-        <AppBar position="static">
+        <AppBar position="static" color="primary3Color">
           <Toolbar>
             <Button
-              color="secondary"
+              color="primary1Color"
               variant="contained"
               className={classes.skip}
               onClick={() => skip("main")}
@@ -141,7 +147,7 @@ class NavBar extends React.Component {
             </Button>
             <IconButton
               className={classes.menuButton}
-              color="inherit"
+              color="secondary"
               aria-label="Menu"
               aria-owns={anchorEl ? "nav-menu" : null}
               aria-haspopup="true"
@@ -159,9 +165,9 @@ class NavBar extends React.Component {
               {menuLinks}
             </Menu>
             <img src={rainbowIcon} alt="" className={classes.logo} />
-            <Typography variant="h6" color="inherit" className={classes.flex}>
+            <Typography variant="h6" color="inherit" className={classes.title}>
               <Link to="/" className={classes.title}>
-                Pinterest Clone
+                rifkegribenes.io
               </Link>
             </Typography>
             {loggedIn ? (
@@ -171,8 +177,7 @@ class NavBar extends React.Component {
                   className={classes.avatar}
                 />
                 <Button
-                  variant="contained"
-                  size="small"
+                  variant="outlined"
                   color="secondary"
                   className={classes.loginButton}
                   href="/logout"
@@ -182,9 +187,8 @@ class NavBar extends React.Component {
               </div>
             ) : (
               <Button
-                variant="contained"
+                variant="outlined"
                 color="secondary"
-                size="small"
                 href={`${BASE_URL}/api/auth/github`}
                 className={classes.loginButton}
                 onClick={() => {

@@ -62,7 +62,7 @@ const styles = theme => ({
     width: "100vw",
     margin: "auto",
     position: "fixed",
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.primary3Color,
     bottom: 0,
     padding: 5,
     display: "flex",
