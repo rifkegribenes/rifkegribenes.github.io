@@ -42,8 +42,11 @@ const styles = theme => ({
     textDecoration: "none",
     paddingLeft: 10,
     fontWeight: 200,
-    [theme.breakpoints.down("xs")]: {
+    [theme.breakpoints.down("sm")]: {
       fontSize: "1.1rem"
+    },
+    [theme.breakpoints.down("xs")]: {
+      display: "none"
     }
   },
   loginButton: {

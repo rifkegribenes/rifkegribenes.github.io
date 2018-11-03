@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import github from "../img/github-white.svg";
+import github from "../img/github-lime.svg";
 
 const Footer = props => (
   <div className={props.classes.footer}>

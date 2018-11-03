@@ -32,6 +32,12 @@ const styles = theme => ({
   container: {
     maxWidth: 1200,
     padding: 60,
+    [theme.breakpoints.down("md")]: {
+      padding: 20
+    },
+    [theme.breakpoints.down("sm")]: {
+      padding: 0
+    },
     margin: "auto",
     height: "100%",
     minHeight: "80vh",
@@ -65,14 +71,18 @@ const styles = theme => ({
     backgroundColor: theme.palette.primary3Color,
     bottom: 0,
     padding: 5,
+    height: 73,
     display: "flex",
     justifyContent: "center",
+    alignItems: "middle",
     boxShadow: "0 1px 5px 2px rgba(0,0,0,.2)",
     zIndex: 2
   },
   footerIcon: {
-    width: 20,
-    height: "auto"
+    width: 30,
+    height: "auto",
+    marginTop: 15,
+    fill: theme.palette.secondary.main
   }
 });
 

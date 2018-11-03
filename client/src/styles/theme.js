@@ -46,6 +46,9 @@ export default createMuiTheme({
         fontWeight: 400
       }
     },
+    "MuiButton-outlinedSecondary": {
+      border: 2
+    },
     MuiTypography: {
       root: {
         fontFamily: [
