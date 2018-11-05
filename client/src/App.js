@@ -12,6 +12,7 @@ import * as apiProjectActions from "./store/actions/apiProjectActions";
 import * as apiProfileActions from "./store/actions/apiProfileActions";
 
 import NavBar from "./containers/NavBar";
+import Hero from "./components/Hero";
 import Footer from "./components/Footer";
 import NotFound from "./components/NotFound";
 import AlertDialog from "./components/AlertDialog";
@@ -44,6 +45,10 @@ const styles = theme => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "center"
+  },
+  hero: {
+    maxHeight: "80vh",
+    width: "auto"
   },
   message: {
     margin: "auto",
@@ -152,11 +157,13 @@ class App extends Component {
             />
           )}
           <Switch>
-            {/*            <Route
+            <Route
               exact
               path="/"
-              render={routeProps => <AllPins {...routeProps} />}
-            />*/}
+              render={routeProps => (
+                <Hero classes={this.props.classes} {...routeProps} />
+              )}
+            />
             <Route
               path="/admin/:id?/:token?"
               render={routeProps => <Dashboard {...routeProps} />}

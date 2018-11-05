@@ -28,11 +28,11 @@ const styles = theme => ({
     flexGrow: 1
   },
   menuButton: {
-    marginLeft: -12,
-    marginRight: 20,
-    [theme.breakpoints.down("xs")]: {
-      marginRight: 0
-    }
+    marginLeft: 12
+    // marginRight: 20,
+    // [theme.breakpoints.down("xs")]: {
+    //   marginRight: 0
+    // }
   },
   title: {
     flexGrow: 1,
@@ -82,7 +82,16 @@ const styles = theme => ({
     }
   },
   menuItem: {
-    padding: "24px 16px"
+    padding: "24px 16px",
+    fontFamily: [
+      '"Titillium Web"',
+      '"Helvetica Neue"',
+      "Helvetica",
+      "Arial",
+      "sans-serif"
+    ].join(","),
+    fontWeight: 400,
+    color: theme.palette.secondary.main
   },
   logo: {
     height: 40,
@@ -113,7 +122,9 @@ class NavBar extends React.Component {
     const { anchorEl } = this.state;
     const { loggedIn } = this.props.appState;
     const links = ["about", "projects", "contact"];
-    const linkList = loggedIn ? links : ["all"];
+    const linkList = !loggedIn
+      ? links
+      : ["about", "projects", "contact", "logout"];
     const ListItemLink = props => {
       const { primary, to, handleClose } = props;
       return (
@@ -132,7 +143,7 @@ class NavBar extends React.Component {
       <ListItemLink
         to={`/${link}`}
         key={index}
-        primary={links[link]}
+        primary={links[index]}
         handleClose={this.handleClose}
       />
     ));
@@ -148,25 +159,6 @@ class NavBar extends React.Component {
             >
               Skip to content &rsaquo;
             </Button>
-            <IconButton
-              className={classes.menuButton}
-              color="secondary"
-              aria-label="Menu"
-              aria-owns={anchorEl ? "nav-menu" : null}
-              aria-haspopup="true"
-              onClick={this.handleClick}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="nav-menu"
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={this.handleClose}
-              component="nav"
-            >
-              {menuLinks}
-            </Menu>
             <img src={rainbowIcon} alt="" className={classes.logo} />
             <Typography variant="h6" color="inherit" className={classes.title}>
               <Link to="/" className={classes.title}>
@@ -206,6 +198,25 @@ class NavBar extends React.Component {
                 Login
               </Button>
             )}
+            <IconButton
+              className={classes.menuButton}
+              color="secondary"
+              aria-label="Menu"
+              aria-owns={anchorEl ? "nav-menu" : null}
+              aria-haspopup="true"
+              onClick={this.handleClick}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id="nav-menu"
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={this.handleClose}
+              component="nav"
+            >
+              {menuLinks}
+            </Menu>
           </Toolbar>
         </AppBar>
       </div>

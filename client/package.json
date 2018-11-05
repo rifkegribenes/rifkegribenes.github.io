@@ -11,8 +11,10 @@
     "react-dom": "^16.5.2",
     "react-redux": "^5.1.0",
     "react-router-dom": "^4.3.1",
+    "react-vivus": "^0.0.2",
     "redux": "^4.0.1",
-    "redux-api-middleware": "^2.3.0"
+    "redux-api-middleware": "^2.3.0",
+    "vivus": "^0.4.4"
   },
   "devDependencies": {
     "react-scripts": "2.0.5"
