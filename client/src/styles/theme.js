@@ -2,10 +2,9 @@ import { createMuiTheme } from "@material-ui/core/styles";
 
 export default createMuiTheme({
   palette: {
-    primary1Color: "#00e676", // dark gray
-    primary2Color: "#388e3c",
-    primary3Color: "#212121", // medium gray
-    accent1Color: "#40c4ff",
+    primary: {
+      main: "rgb(10,10,10)" // dark gray
+    },
     secondary: {
       main: "#76ff03" // lime green
     },
@@ -23,6 +22,7 @@ export default createMuiTheme({
     }
   },
   typography: {
+    useNextVariants: true,
     // fontFamily: [
     //   '"Titillium Web"',
     //   '"Helvetica Neue"',
@@ -60,8 +60,5 @@ export default createMuiTheme({
         ].join(",")
       }
     }
-  },
-  typography: {
-    useNextVariants: true
   }
 });

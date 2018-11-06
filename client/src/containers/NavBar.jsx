@@ -22,10 +22,13 @@ import rainbowIcon from "../img/rainbow_icon.svg";
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    color: theme.palette.primary3Color
+    color: theme.palette.primary.main
   },
   flex: {
     flexGrow: 1
+  },
+  appBar: {
+    backgroundColor: theme.palette.primary.main
   },
   menuButton: {
     marginLeft: 12
@@ -149,10 +152,10 @@ class NavBar extends React.Component {
     ));
     return (
       <div className={classes.root}>
-        <AppBar position="static" color="primary3Color">
+        <AppBar position="static" className={classes.appBar}>
           <Toolbar>
             <Button
-              color="primary1Color"
+              color="primary"
               variant="contained"
               className={classes.skip}
               onClick={() => skip("main")}

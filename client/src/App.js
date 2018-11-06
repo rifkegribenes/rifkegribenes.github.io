@@ -46,6 +46,10 @@ const styles = theme => ({
     flexDirection: "column",
     justifyContent: "center"
   },
+  svgContainer: {
+    maxHeight: "80vh",
+    width: "auto"
+  },
   hero: {
     maxHeight: "80vh",
     width: "auto"
@@ -73,7 +77,7 @@ const styles = theme => ({
     width: "100vw",
     margin: "auto",
     position: "fixed",
-    backgroundColor: theme.palette.primary3Color,
+    backgroundColor: theme.palette.primary.main,
     bottom: 0,
     padding: 5,
     height: 73,
