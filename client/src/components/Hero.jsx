@@ -1,16 +1,40 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Typography from "@material-ui/core/Typography";
+import Avatar from "@material-ui/core/Avatar";
 import legos from "../img/isometric_legos_animated.svg";
+import avatarPic from "../img/sarah_posterize.png";
 
 const Hero = props => {
   return (
-    <div className={props.classes.svgContainer}>
-      <img
-        alt="lego bricks"
-        id="lego-svg"
-        src={legos}
-        class={props.classes.hero}
-      />
+    <div className={props.classes.hero}>
+      <div className={props.classes.heroText}>
+        <Typography variant="h2" className={props.classes.heroHead}>
+          Hello!
+          <br />
+          What do you
+          <br />
+          want to build?
+        </Typography>
+        <Typography variant="p" className={props.classes.heroBody}>
+          I'm a software engineer and UI/UX designer
+          <br />
+          and I'd love to help you build it!
+        </Typography>
+        <Avatar
+          alt="Sarah Schneider"
+          className={props.classes.heroAvatar}
+          src={avatarPic}
+        />
+      </div>
+      <div className={props.classes.heroSvgWrap}>
+        <img
+          alt="lego bricks"
+          id="lego-svg"
+          src={legos}
+          class={props.classes.heroSvg}
+        />
+      </div>
     </div>
   );
 };

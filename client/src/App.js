@@ -46,13 +46,34 @@ const styles = theme => ({
     flexDirection: "column",
     justifyContent: "center"
   },
-  svgContainer: {
+  hero: {
+    display: "flex"
+  },
+  heroSvgWrap: {
+    height: "100%",
+    minHeight: "80vh",
+    width: "100%",
+    padding: "60px 60px 60px 0"
+  },
+  heroSvg: {
     maxHeight: "80vh",
     width: "auto"
   },
-  hero: {
-    maxHeight: "80vh",
-    width: "auto"
+  heroText: {
+    padding: 60,
+    width: "100%",
+    maxWidth: 600
+  },
+  heroHead: {},
+  heroBody: {
+    color: theme.palette.secondary.light,
+    fontSize: "1.5em",
+    padding: "40px 0"
+  },
+  heroAvatar: {
+    width: 100,
+    height: 100,
+    border: `1px solid ${theme.palette.secondary.main}`
   },
   message: {
     margin: "auto",

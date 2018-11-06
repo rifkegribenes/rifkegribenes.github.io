@@ -23,14 +23,13 @@ export default createMuiTheme({
   },
   typography: {
     useNextVariants: true,
-    // fontFamily: [
-    //   '"Titillium Web"',
-    //   '"Helvetica Neue"',
-    //   'Helvetica',
-    //   'Arial',
-    //   'sans-serif'
-    // ].join(','),
-    fontFamily: '"Titillium Web", sans-serif'
+    fontFamily: [
+      '"Titillium Web"',
+      '"Helvetica Neue"',
+      "Helvetica",
+      "Arial",
+      "sans-serif"
+    ].join(",")
   },
   overrides: {
     MuiButton: {
