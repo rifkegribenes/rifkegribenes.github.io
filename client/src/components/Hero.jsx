@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import legos from "../img/isometric_legos_animated.svg";
-import avatarPic from "../img/sarah_posterize.png";
+import avatarPic from "../img/sarah_2018_200.png";
 
 const Hero = props => {
   return (
