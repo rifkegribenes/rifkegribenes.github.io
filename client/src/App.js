@@ -20,6 +20,7 @@ import Dashboard from "./containers/Dashboard";
 import Logout from "./containers/Logout";
 
 import Notifier, { openSnackbar } from "./containers/Notifier";
+import nodeAnimation from "./utils/nodeAnimation";
 
 const styles = theme => ({
   root: {
@@ -54,6 +55,12 @@ const styles = theme => ({
     minHeight: "80vh",
     width: "100%",
     padding: "60px 60px 60px 0"
+  },
+  heroCanvas: {
+    display: "block",
+    width: "100%",
+    height: "100%",
+    margin: "0 auto"
   },
   heroSvg: {
     maxHeight: "80vh",
@@ -122,6 +129,7 @@ class App extends Component {
   };
 
   componentDidMount() {
+    nodeAnimation();
     if (this.props.location.hash) {
       const hash = this.props.location.hash.slice(2);
       const url = `/${hash.split("=")[1]}`;

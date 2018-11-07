@@ -16,7 +16,7 @@ const Hero = props => {
           <br />
           want to build?
         </Typography>
-        <Typography variant="p" className={props.classes.heroBody}>
+        <Typography variant="body1" className={props.classes.heroBody}>
           I'm a software engineer and UI/UX designer
           <br />
           and I'd love to help you build it!
@@ -28,12 +28,13 @@ const Hero = props => {
         />
       </div>
       <div className={props.classes.heroSvgWrap}>
-        <img
+        {/*        <img
           alt="lego bricks"
           id="lego-svg"
           src={legos}
           class={props.classes.heroSvg}
-        />
+        />*/}
+        <canvas id="canvas" className={props.classes.heroCanvas} />
       </div>
     </div>
   );
