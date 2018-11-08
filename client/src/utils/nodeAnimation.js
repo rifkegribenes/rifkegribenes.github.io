@@ -3,7 +3,6 @@
 
 const nodeAnimation = () => {
   const requestAnimFrame = (function() {
-    console.log("rAF");
     return (
       window.requestAnimationFrame ||
       window.webkitRequestAnimationFrame ||
@@ -35,8 +34,6 @@ const nodeAnimation = () => {
       .getPropertyValue("width")
       .slice(0, -2);
 
-    console.log(style_height, style_width);
-
     //scale the canvas
     canvas.setAttribute("height", style_height * dpi);
     canvas.setAttribute("width", style_width * dpi);
@@ -44,9 +41,13 @@ const nodeAnimation = () => {
 
   var particle_count = 70,
     particles = [],
-    couleurs = ["#ffde74", "#ffa974", "#ff715a", "#8a1253"];
+    colors = [
+      "rgba(188, 255, 3, .7)",
+      "rgba(7, 214, 246, .5)",
+      "rgba(255, 255, 255, .5)"
+    ];
   function Particle() {
-    this.radius = Math.round(Math.random() * 3 + 5);
+    this.radius = Math.round(Math.random() * 3 + 2);
     this.x = Math.floor(
       Math.random() *
         (+getComputedStyle(canvas)
@@ -67,11 +68,11 @@ const nodeAnimation = () => {
           1) +
         this.radius
     );
-    this.color = couleurs[Math.round(Math.random() * couleurs.length)];
-    this.speedx = Math.round(Math.random() * 201 + 0) / 100;
-    this.speedy = Math.round(Math.random() * 201 + 0) / 100;
+    this.color = colors[Math.round(Math.random() * colors.length)];
+    this.speedx = Math.round(Math.random() * 101 + 0) / 100;
+    this.speedy = Math.round(Math.random() * 101 + 0) / 100;
 
-    switch (Math.round(Math.random() * couleurs.length)) {
+    switch (Math.round(Math.random() * colors.length)) {
       case 1:
         this.speedx *= 1;
         this.speedy *= 1;

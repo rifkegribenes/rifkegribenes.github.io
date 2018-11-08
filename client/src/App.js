@@ -58,9 +58,15 @@ const styles = theme => ({
   },
   heroCanvas: {
     display: "block",
+    position: "absolute",
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
     width: "100%",
     height: "100%",
-    margin: "0 auto"
+    margin: "0 auto",
+    padding: "73px 0 63px 0"
   },
   heroSvg: {
     maxHeight: "80vh",

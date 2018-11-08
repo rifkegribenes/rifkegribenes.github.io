@@ -2,12 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
-import legos from "../img/isometric_legos_animated.svg";
+// import legos from "../img/isometric_legos_animated.svg";
 import avatarPic from "../img/sarah_2018_200.png";
 
 const Hero = props => {
   return (
     <div className={props.classes.hero}>
+      <canvas id="canvas" className={props.classes.heroCanvas} />
       <div className={props.classes.heroText}>
         <Typography variant="h2" className={props.classes.heroHead}>
           Hello!
@@ -34,7 +35,6 @@ const Hero = props => {
           src={legos}
           class={props.classes.heroSvg}
         />*/}
-        <canvas id="canvas" className={props.classes.heroCanvas} />
       </div>
     </div>
   );
