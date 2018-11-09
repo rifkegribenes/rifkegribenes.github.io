@@ -48,7 +48,10 @@ const styles = theme => ({
     justifyContent: "center"
   },
   hero: {
-    display: "flex"
+    display: "flex",
+    [theme.breakpoints.down("sm")]: {
+      flexWrap: "wrap"
+    }
   },
   heroSvgWrap: {
     height: "100%",
@@ -75,13 +78,31 @@ const styles = theme => ({
   heroText: {
     padding: 60,
     width: "100%",
-    maxWidth: 600
+    maxWidth: 900,
+    margin: "0 auto",
+    [theme.breakpoints.down("sm")]: {
+      padding: 20
+    }
   },
-  heroHead: {},
+  heroHead: {
+    fontSize: "6.75em",
+    [theme.breakpoints.down("md")]: {
+      fontSize: "4.75em"
+    },
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "3em"
+    }
+  },
   heroBody: {
     color: theme.palette.secondary.light,
-    fontSize: "1.5em",
-    padding: "40px 0"
+    fontSize: "3.5em",
+    padding: "40px 0",
+    [theme.breakpoints.down("md")]: {
+      fontSize: "2.5em"
+    },
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "1.2em"
+    }
   },
   heroAvatar: {
     width: 100,
@@ -131,11 +152,18 @@ const styles = theme => ({
 
 class App extends Component {
   state = {
-    deleteDialogOpen: false
+    deleteDialogOpen: false,
+    animation: false
   };
 
   componentDidMount() {
-    nodeAnimation();
+    if (document.getElementById("canvas") && !this.state.animation) {
+      nodeAnimation();
+      const newState = { ...this.state };
+      newState.animation = true;
+      this.setState(newState);
+    }
+
     if (this.props.location.hash) {
       const hash = this.props.location.hash.slice(2);
       const url = `/${hash.split("=")[1]}`;
@@ -161,6 +189,15 @@ class App extends Component {
       }
     } else {
       // console.log("logged in");
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (!this.state.animation && document.getElementById("canvas")) {
+      nodeAnimation();
+      const newState = { ...this.state };
+      newState.animation = true;
+      this.setState(newState);
     }
   }
 
