@@ -42,7 +42,8 @@ export default createMuiTheme({
           "Arial",
           "sans-serif"
         ].join(","),
-        fontWeight: 400
+        fontWeight: 400,
+        textDecoration: "none"
       }
     },
     "MuiButton-outlinedSecondary": {

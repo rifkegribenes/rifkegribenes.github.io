@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Typography from "@material-ui/core/Typography";
-import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+// import Avatar from "@material-ui/core/Avatar";
 import withWidth from "@material-ui/core/withWidth";
 // import legos from "../img/isometric_legos_animated.svg";
-import avatarPic from "../img/sarah_2018_200.png";
+// import avatarPic from "../img/sarah_2018_200.png";
 
 const Hero = props => {
   const { width, classes } = props;
@@ -27,11 +28,19 @@ const Hero = props => {
           {width === "xs" || width === "sm" ? <br /> : " "}
           and I'd love to help you build it!
         </Typography>
-        <Avatar
+        {/*        <Avatar
           alt="Sarah Schneider"
           className={classes.heroAvatar}
           src={avatarPic}
-        />
+        />*/}
+        <Button
+          variant="outlined"
+          color="secondary"
+          className={classes.loginButton}
+          href="/contact"
+        >
+          Get in touch
+        </Button>
       </div>
       {/*<div className={classes.heroSvgWrap}>
                 <img
