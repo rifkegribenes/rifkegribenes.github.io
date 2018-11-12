@@ -59,6 +59,9 @@ const styles = theme => ({
     width: "100%",
     padding: "60px 60px 60px 0"
   },
+  heroCanvasWrap: {
+    position: "relative"
+  },
   heroCanvas: {
     display: "block",
     position: "absolute",
@@ -77,6 +80,7 @@ const styles = theme => ({
   },
   heroText: {
     padding: 60,
+    backgroundColor: theme.palette.bodyBackground,
     width: "100%",
     maxWidth: 900,
     margin: "0 auto",
@@ -86,6 +90,7 @@ const styles = theme => ({
   },
   heroHead: {
     fontSize: "6.75em",
+    backgroundColor: theme.palette.bodyBackground,
     [theme.breakpoints.down("md")]: {
       fontSize: "4.75em"
     },
@@ -95,6 +100,7 @@ const styles = theme => ({
   },
   heroBody: {
     color: theme.palette.secondary.light,
+    backgroundColor: theme.palette.bodyBackground,
     fontSize: "3.5em",
     padding: "40px 0",
     [theme.breakpoints.down("md")]: {

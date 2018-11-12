@@ -12,7 +12,6 @@ const Hero = props => {
   console.log(width);
   return (
     <div className={classes.hero}>
-      <canvas id="canvas" className={classes.heroCanvas} />
       <div className={classes.heroText}>
         <Typography variant="h2" className={classes.heroHead}>
           Hello!
@@ -50,6 +49,9 @@ const Hero = props => {
           class={classes.heroSvg}
         />
       </div>*/}
+      <div className={classes.heroSvgWrap}>
+        <canvas id="canvas" className={classes.heroSvg} />
+      </div>
     </div>
   );
 };

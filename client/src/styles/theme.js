@@ -10,6 +10,7 @@ export default createMuiTheme({
     },
     textColor: "rgba(255, 255, 255, 0.87)",
     secondaryTextColor: "#9e9e9e",
+    bodyBackground: "rgb(48,48,48)",
     type: "dark"
   },
   breakpoints: {
