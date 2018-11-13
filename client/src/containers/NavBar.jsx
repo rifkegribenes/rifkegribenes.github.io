@@ -128,7 +128,7 @@ class NavBar extends React.Component {
     const links = ["about", "projects", "contact"];
     const linkList = !loggedIn
       ? links
-      : ["about", "projects", "contact", "logout"];
+      : ["about", "projects", "contact", "new", "logout"];
     const ListItemLink = props => {
       const { primary, to, handleClose } = props;
       return (
@@ -147,7 +147,7 @@ class NavBar extends React.Component {
       <ListItemLink
         to={`/${link}`}
         key={index}
-        primary={links[index]}
+        primary={link}
         handleClose={this.handleClose}
       />
     ));

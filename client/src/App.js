@@ -18,6 +18,7 @@ import NotFound from "./components/NotFound";
 import AlertDialog from "./components/AlertDialog";
 import Dashboard from "./containers/Dashboard";
 import Logout from "./containers/Logout";
+import AddProject from "./containers/AddProject";
 
 import Notifier, { openSnackbar } from "./containers/Notifier";
 import nodeAnimation from "./utils/nodeAnimation";
@@ -289,19 +290,20 @@ class App extends Component {
               )}
             />
             <Route
+              path="/all"
+              render={routeProps => <AllPins {...routeProps} />}
+            />*/}
+            <Route
               path="/new"
               render={routeProps => (
-                <AddPin
-                  addPin={this.addPin}
+                <AddProject
+                  addProject={this.addProject}
                   setRedirect={this.setRedirect}
+                  classes={this.props.classes}
                   {...routeProps}
                 />
               )}
             />
-            <Route
-              path="/all"
-              render={routeProps => <AllPins {...routeProps} />}
-            />*/}
             <Route
               path="/logout"
               render={routeProps => (
