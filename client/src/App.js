@@ -24,7 +24,8 @@ import nodeAnimation from "./utils/nodeAnimation";
 
 const styles = theme => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    boxSizing: "border-box"
   },
   notFound: {
     height: "80vh",
@@ -49,7 +50,7 @@ const styles = theme => ({
   },
   hero: {
     display: "flex",
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("md")]: {
       flexWrap: "wrap"
     }
   },
@@ -84,6 +85,10 @@ const styles = theme => ({
     width: "100%",
     maxWidth: 900,
     margin: "0 auto",
+    [theme.breakpoints.up("md")]: {
+      minWidth: "50%",
+      padding: "60px 0 60px 60px"
+    },
     [theme.breakpoints.down("sm")]: {
       padding: 20
     }
@@ -91,7 +96,7 @@ const styles = theme => ({
   heroHead: {
     fontSize: "6.75em",
     backgroundColor: theme.palette.bodyBackground,
-    [theme.breakpoints.down("md")]: {
+    [theme.breakpoints.down("lg")]: {
       fontSize: "4.75em"
     },
     [theme.breakpoints.down("sm")]: {
@@ -103,7 +108,7 @@ const styles = theme => ({
     backgroundColor: theme.palette.bodyBackground,
     fontSize: "3.5em",
     padding: "40px 0",
-    [theme.breakpoints.down("md")]: {
+    [theme.breakpoints.down("lg")]: {
       fontSize: "2.5em"
     },
     [theme.breakpoints.down("sm")]: {

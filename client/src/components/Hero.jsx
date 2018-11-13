@@ -38,7 +38,7 @@ const Hero = props => {
           className={classes.loginButton}
           href="/contact"
         >
-          Get in touch
+          Get started
         </Button>
       </div>
       {/*<div className={classes.heroSvgWrap}>

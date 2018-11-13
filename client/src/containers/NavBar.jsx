@@ -22,6 +22,7 @@ import rainbowIcon from "../img/rainbow_icon.svg";
 const styles = theme => ({
   root: {
     flexGrow: 1,
+    width: "100vw",
     color: theme.palette.primary.main
   },
   flex: {
