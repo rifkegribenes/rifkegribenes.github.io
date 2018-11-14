@@ -47,6 +47,18 @@ export default createMuiTheme({
         textDecoration: "none"
       }
     },
+    MuiFormLabel: {
+      root: {
+        "&$focused": {
+          color: "secondary"
+        }
+      },
+      focused: {
+        "&$focused": {
+          color: "secondary"
+        }
+      }
+    },
     "MuiButton-outlinedSecondary": {
       border: 2
     },
