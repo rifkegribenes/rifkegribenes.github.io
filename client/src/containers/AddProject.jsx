@@ -64,6 +64,7 @@ class AddProject extends React.Component {
           );
         } else {
           openSnackbar("success", "Project added.");
+          this.props.apiProject.clearForm();
         }
       })
       .catch(err => openSnackbar("error", err));
@@ -74,10 +75,10 @@ class AddProject extends React.Component {
     // const {
     //   title,
     //   body,
-    //   screnshot_url,
+    //   screenshot_url,
     //   github_url,
     //   live_url,
-    //   tags
+    //   tag_names
     // } = this.props.project.currentProject;
     return (
       <div style={{ padding: "20 20 0 20" }}>
