@@ -64,6 +64,7 @@ const checkAndCreateTags = (res, tag_names) => {
  *                                       OR error message
  */
 const createProjectWithTags = (req, res, next) => {
+  console.log("createProjectWithTags");
   const {
     title,
     body,

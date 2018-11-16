@@ -41,7 +41,7 @@ const INITIAL_STATE = {
   form: {
     title: "",
     body: "",
-    screnshot_url: "",
+    screenshot_url: "",
     github_url: "",
     live_url: "",
     tags: "",

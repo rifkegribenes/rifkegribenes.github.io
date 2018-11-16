@@ -299,7 +299,6 @@ class App extends Component {
                 <AddProject
                   addProject={this.addProject}
                   setRedirect={this.setRedirect}
-                  classes={this.props.classes}
                   {...routeProps}
                 />
               )}

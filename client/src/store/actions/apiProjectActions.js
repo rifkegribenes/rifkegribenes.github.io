@@ -60,7 +60,7 @@ export function clearForm() {
 export function getAllProjects() {
   return {
     [RSAA]: {
-      endpoint: `${BASE_URL}/api/projects/`,
+      endpoint: `${BASE_URL}/api/project/`,
       method: "GET",
       types: [
         GET_ALL_PROJECTS_REQUEST,
@@ -100,7 +100,7 @@ export function getAllProjects() {
 export function getProjectById(id) {
   return {
     [RSAA]: {
-      endpoint: `${BASE_URL}/api/projects/${id}`,
+      endpoint: `${BASE_URL}/api/project/${id}`,
       method: "GET",
       types: [
         GET_PROJECT_BY_ID_REQUEST,
@@ -146,7 +146,7 @@ export function getProjectById(id) {
 export function addProject(token, body) {
   return {
     [RSAA]: {
-      endpoint: `${BASE_URL}/api/projects/`,
+      endpoint: `${BASE_URL}/api/project/`,
       method: "POST",
       types: [
         ADD_PROJECT_REQUEST,
@@ -199,7 +199,7 @@ export function addProject(token, body) {
 export function updateProject(token, id, body) {
   return {
     [RSAA]: {
-      endpoint: `${BASE_URL}/api/projects/${id}`,
+      endpoint: `${BASE_URL}/api/project/${id}`,
       method: "PUT",
       types: [
         UPDATE_PROJECT_REQUEST,

@@ -4,7 +4,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 
 const middleware = [
-  // morgan('tiny'),
+  morgan("tiny"),
   cors(),
   bodyParser.json(),
   bodyParser.urlencoded({ extended: true })

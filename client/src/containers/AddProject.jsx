@@ -9,6 +9,7 @@ import Typography from "@material-ui/core/Typography";
 
 import * as apiProjectActions from "../store/actions/apiProjectActions";
 
+import { openSnackbar } from "./Notifier";
 import ButtonWithSpinner from "../components/ButtonWithSpinner";
 
 const styles = theme => ({
@@ -32,25 +33,40 @@ const styles = theme => ({
 });
 
 class AddProject extends React.Component {
-  saveProject = e => {
+  saveProject = () => {
+    const token = this.props.appState.authToken;
     const {
       title,
       body,
-      screnshot_url,
+      screenshot_url,
       github_url,
       live_url,
       tags
     } = this.props.project.form;
+    const tag_names = tags.split(",");
     const newProject = {
       title,
       body,
-      screnshot_url,
+      screenshot_url,
       github_url,
       live_url,
-      tags
+      tag_names
     };
     console.log(newProject);
-    this.props.apiProject.addProject(newProject);
+    this.props.apiProject
+      .addProject(token, newProject)
+      .then(result => {
+        if (result === "ADD_PROJECT_FAILURE" || this.props.project.error) {
+          openSnackbar(
+            "error",
+            this.props.project.error ||
+              "An error occured while trying to save your project."
+          );
+        } else {
+          openSnackbar("success", "Project added.");
+        }
+      })
+      .catch(err => openSnackbar("error", err));
   };
 
   render() {
@@ -141,7 +157,7 @@ class AddProject extends React.Component {
             className={classes.input}
           />
           <ButtonWithSpinner
-            type="submit"
+            type="button"
             color="secondary"
             className={classes.formButton}
             variant="contained"
@@ -160,30 +176,36 @@ AddProject.propTypes = {
   type: PropTypes.string,
   project: PropTypes.shape({
     form: PropTypes.shape({
-      imageUrl: PropTypes.string,
-      siteUrl: PropTypes.string,
       title: PropTypes.string,
-      description: PropTypes.string
+      body: PropTypes.string,
+      screenshot_url: PropTypes.string,
+      github_url: PropTypes.string,
+      live_url: PropTypes.string,
+      tags: PropTypes.string
     }),
     loading: PropTypes.bool,
     currentProject: PropTypes.shape({
-      imageUrl: PropTypes.string,
-      siteUrl: PropTypes.string,
       title: PropTypes.string,
-      description: PropTypes.string
+      body: PropTypes.string,
+      screenshot_url: PropTypes.string,
+      github_url: PropTypes.string,
+      live_url: PropTypes.string,
+      tag_names: PropTypes.arrayOf(PropTypes.string)
     })
   }).isRequired,
   apiProject: PropTypes.shape({
     handleInput: PropTypes.func,
     addProject: PropTypes.func
   }),
-  imageUrl: PropTypes.string,
-  title: PropTypes.string,
+  appState: PropTypes.shape({
+    authToken: PropTypes.string
+  }),
   classes: PropTypes.object
 };
 
 const mapStateToProps = state => ({
-  project: state.project
+  project: state.project,
+  appState: state.appState
 });
 
 const mapDispatchToProps = dispatch => ({
