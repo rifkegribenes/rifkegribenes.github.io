@@ -33,6 +33,28 @@ const styles = theme => ({
 });
 
 class AddProject extends React.Component {
+  componentDidMount() {
+    if (this.props.match.params.id) {
+      this.props.apiProject
+        .getProjectById(this.props.match.params.id)
+        .then(result => {
+          if (result.type === "GET_PROJECT_BY_ID_SUCCESS") {
+            console.log(this.props.project.currentProject);
+            this.props.apiProject.setEditProject(
+              this.props.project.currentProject
+            );
+          } else {
+            openSnackbar(
+              "error",
+              this.props.project.error ||
+                "An error occured while fetching your project."
+            );
+          }
+        })
+        .catch(err => openSnackbar("error", err));
+    }
+  }
+
   saveProject = () => {
     const token = this.props.appState.authToken;
     const {
@@ -71,7 +93,7 @@ class AddProject extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, edit } = this.props;
     // const {
     //   title,
     //   body,
@@ -88,7 +110,7 @@ class AddProject extends React.Component {
           gutterBottom
           style={{ paddingTop: 20 }}
         >
-          New Project
+          {edit ? "Edit Project" : "New Project"}
         </Typography>
         <form className={classes.form} onError={errors => console.log(errors)}>
           <TextField

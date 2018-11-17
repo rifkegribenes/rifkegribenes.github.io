@@ -20,7 +20,8 @@ import {
   HANDLE_INPUT,
   HANDLE_DELETE_OPEN,
   HANDLE_DELETE_CLOSE,
-  CLEAR_FORM
+  CLEAR_FORM,
+  SET_EDIT_PROJECT
 } from "../actions/apiProjectActions";
 
 const INITIAL_STATE = {
@@ -90,10 +91,23 @@ function project(state = INITIAL_STATE, action) {
         error: { $set: null }
       });
 
+    case SET_EDIT_PROJECT:
+      return update(state, {
+        form: {
+          title: { $set: action.payload.title },
+          body: { $set: action.payload.body },
+          screenshot_url: { $set: action.payload.screenshot_url },
+          github_url: { $set: action.payload.github_url },
+          live_url: { $set: action.payload.live_url },
+          tags: { $set: action.payload.tag_names.join(", ") },
+          tag: { $set: "" },
+          dialogOpen: { $set: false }
+        }
+      });
+
     case CLEAR_FORM:
       return update(state, {
         form: {
-          keyword: { $set: "" },
           title: { $set: "" },
           body: { $set: "" },
           screenshot_url: { $set: "" },
@@ -125,9 +139,11 @@ function project(state = INITIAL_STATE, action) {
     case GET_PROJECT_BY_ID_SUCCESS:
     case ADD_PROJECT_SUCCESS:
     case UPDATE_PROJECT_SUCCESS:
+      console.log(action.type);
+      console.log(action.payload);
       return update(state, {
         loading: { $set: false },
-        currentProject: { $set: action.payload.project },
+        currentProject: { $set: action.payload[0] },
         error: { $set: null }
       });
 

@@ -296,8 +296,14 @@ class App extends Component {
             <Route
               path="/new"
               render={routeProps => (
+                <AddProject setRedirect={this.setRedirect} {...routeProps} />
+              )}
+            />
+            <Route
+              path="/edit/:id"
+              render={routeProps => (
                 <AddProject
-                  addProject={this.addProject}
+                  edit={true}
                   setRedirect={this.setRedirect}
                   {...routeProps}
                 />

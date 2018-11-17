@@ -20,6 +20,7 @@ export const HANDLE_INPUT = "HANDLE_INPUT";
 export const HANDLE_DELETE_OPEN = "HANDLE_DELETE_OPEN";
 export const HANDLE_DELETE_CLOSE = "HANDLE_DELETE_CLOSE";
 export const CLEAR_FORM = "CLEAR_FORM";
+export const SET_EDIT_PROJECT = "SET_EDIT_PROJECT";
 
 export function handleInput({ target: { name, value } }) {
   return {
@@ -44,6 +45,13 @@ export function handleDeleteClose() {
 export function clearForm() {
   return {
     type: CLEAR_FORM
+  };
+}
+
+export function setEditProject(project) {
+  return {
+    type: SET_EDIT_PROJECT,
+    payload: project
   };
 }
 
