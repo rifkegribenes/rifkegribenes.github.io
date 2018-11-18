@@ -55,7 +55,7 @@ class AddProject extends React.Component {
     }
   }
 
-  saveProject = () => {
+  saveProject = update => {
     const token = this.props.appState.authToken;
     const {
       title,
@@ -65,8 +65,9 @@ class AddProject extends React.Component {
       live_url,
       tags
     } = this.props.project.form;
-    const tag_names = tags.split(",");
-    const newProject = {
+    const tag_names_raw = tags.split(","); // convert string to array
+    const tag_names = tag_names_raw.map(tag => tag.trim()); // trim whitespace
+    const projectToSave = {
       title,
       body,
       screenshot_url,
@@ -74,34 +75,57 @@ class AddProject extends React.Component {
       live_url,
       tag_names
     };
-    console.log(newProject);
-    this.props.apiProject
-      .addProject(token, newProject)
-      .then(result => {
-        if (result === "ADD_PROJECT_FAILURE" || this.props.project.error) {
-          openSnackbar(
-            "error",
-            this.props.project.error ||
-              "An error occured while trying to save your project."
-          );
-        } else {
-          openSnackbar("success", "Project added.");
-          this.props.apiProject.clearForm();
-        }
-      })
-      .catch(err => openSnackbar("error", err));
+    const projectToUpdate = {
+      updates: {
+        title,
+        body,
+        screenshot_url,
+        github_url,
+        live_url
+      },
+      tag_names
+    };
+    console.log(projectToSave);
+    if (!update) {
+      this.props.apiProject
+        .addProject(token, projectToSave)
+        .then(result => {
+          if (result === "ADD_PROJECT_FAILURE" || this.props.project.error) {
+            openSnackbar(
+              "error",
+              this.props.project.error ||
+                "An error occured while trying to save your project."
+            );
+          } else {
+            openSnackbar("success", "Project added.");
+            this.props.apiProject.clearForm();
+          }
+        })
+        .catch(err => openSnackbar("error", err));
+    } else {
+      console.log("update");
+      const id = this.props.project.currentProject.id;
+      this.props.apiProject
+        .updateProject(token, id, projectToUpdate)
+        .then(result => {
+          console.log(result.type);
+          if (result === "UPDATE_PROJECT_FAILURE" || this.props.project.error) {
+            openSnackbar(
+              "error",
+              this.props.project.error ||
+                "An error occured while trying to update your project."
+            );
+          } else {
+            openSnackbar("success", "Project updated.");
+            this.props.apiProject.clearForm();
+          }
+        })
+        .catch(err => openSnackbar("error", err));
+    }
   };
 
   render() {
     const { classes, edit } = this.props;
-    // const {
-    //   title,
-    //   body,
-    //   screenshot_url,
-    //   github_url,
-    //   live_url,
-    //   tag_names
-    // } = this.props.project.currentProject;
     return (
       <div style={{ padding: "20 20 0 20" }}>
         <Typography
@@ -184,7 +208,7 @@ class AddProject extends React.Component {
             color="secondary"
             className={classes.formButton}
             variant="contained"
-            onClick={this.saveProject}
+            onClick={() => this.saveProject(edit)}
             loading={this.props.project.loading}
           >
             Save project

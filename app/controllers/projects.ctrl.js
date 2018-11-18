@@ -141,8 +141,8 @@ const createProjectWithTags = (req, res, next) => {
  *  Creates tags if they don't already exist.
  *  @param    {String}   id              Id of project to update.
  *  @param    {Object}   updates         Key/value pairs for fields to update.
- ****  @param    {String}   projectTitle     Updated project title.
- ****  @param    {String}   projectBody      Updated body text.
+ ****  @param    {String}   title            Updated project title.
+ ****  @param    {String}   body             Updated body text.
  ****  @param    {String}   screenshot_url   Updated screenshot URL.
  ****  @param    {String}   live_url         Updated live URL.
  ****  @param    {String}   github_url       Updated github URL.
@@ -182,6 +182,7 @@ const updateProjectWithTags = (req, res, next) => {
             return Promise.all(pool);
           })
           .then(() => {
+            console.log("185");
             // then return the updated project (and tags) to the client
             return projects.getProjectByIdWithTags(id);
           })

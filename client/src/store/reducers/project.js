@@ -99,7 +99,7 @@ function project(state = INITIAL_STATE, action) {
           screenshot_url: { $set: action.payload.screenshot_url },
           github_url: { $set: action.payload.github_url },
           live_url: { $set: action.payload.live_url },
-          tags: { $set: action.payload.tag_names.join(", ") },
+          tags: { $set: action.payload.tag_names.join(", ") }, // convert array to comma-separated string
           tag: { $set: "" },
           dialogOpen: { $set: false }
         }
