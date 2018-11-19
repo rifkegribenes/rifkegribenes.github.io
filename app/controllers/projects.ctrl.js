@@ -167,6 +167,7 @@ const updateProjectWithTags = (req, res, next) => {
         return projects
           .updateProject(id, updates)
           .then(([updatedProject]) => {
+            console.log("projects.ctrl.js > 170");
             if (updatedProject.message || !updatedProject) {
               return res.status(404).json({
                 message:
@@ -184,7 +185,8 @@ const updateProjectWithTags = (req, res, next) => {
           .then(() => {
             console.log("185");
             // then return the updated project (and tags) to the client
-            return projects.getProjectByIdWithTags(id);
+            const updatedProject = projects.getProjectByIdWithTags(id)[0];
+            return res.status(200).json(updatedProject);
           })
           .catch(err => {
             console.log(`projects.ctrl.js > 166: ${err}`);

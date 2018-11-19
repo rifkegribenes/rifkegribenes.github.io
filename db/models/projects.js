@@ -32,6 +32,7 @@ const getProjectTags = (allProjects, projectId) => {
  *                                      OR object with error message
  */
 const reduceResults = results => {
+  console.log("db/modles/projects.js > 35");
   const uniqueProjectIds = {};
   const uniqueProjects = [];
 
@@ -51,7 +52,7 @@ const reduceResults = results => {
       });
     }
   });
-
+  console.log(uniqueProjects);
   return uniqueProjects.length > 0
     ? uniqueProjects
     : { message: "No projects found" };
@@ -139,6 +140,7 @@ const removeProjectTag = (projectId, tagId) => {
  *                            OR object with error message
  */
 const getProjectByIdWithTags = id => {
+  console.log("db/models/projects.js > 142");
   return db
     .select(`${TABLES.PROJECTS}.*`, `${TABLES.TAGS}.tag as tag_name`)
     .from(TABLES.PROJECTS)
