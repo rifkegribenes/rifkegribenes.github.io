@@ -138,7 +138,8 @@ const createProjectWithTags = (req, res, next) => {
 };
 
 /** Update an existing project and associated tags
- *  Creates tags if they don't already exist.
+ *  Create tags if they don't already exist.
+ *  Remove existing project/tag relationships if tags not submitted as updates
  *  @param    {String}   id              Id of project to update.
  *  @param    {Object}   updates         Key/value pairs for fields to update.
  ****  @param    {String}   title            Updated project title.
@@ -159,7 +160,7 @@ const updateProjectWithTags = (req, res, next) => {
   }
 
   if (tag_names) {
-    // only need to do this step if new tags names are submitted as updates
+    // only need to do this step if tags names are submitted with updates
     // check all submitted tags against exiting tags in the database
     checkAndCreateTags(res, tag_names)
       .then(persistedTags => {
@@ -175,12 +176,40 @@ const updateProjectWithTags = (req, res, next) => {
                   "An error occured while trying to update this project"
               });
             }
-            const pool = persistedTags.map(tag => {
+
+            const pool1 = persistedTags.map(tag => {
               // attach all tags to the updated project
               // TODO: check first to see if these tags have already been attached
               return projects.attachProjectTag(id, tag.id);
             });
-            return Promise.all(pool);
+            return Promise.all(pool1);
+
+            // check to see if any existing tags were removed
+            projects
+              .getProjectByIdWithTags(id)
+              .then(([originalProject]) => {
+                console.log("projects.ctrl.js > 182");
+                console.log(originalProject);
+                const originalTags = originalProject.tag_names;
+                console.log("projects.ctrl.js > 185");
+                console.log(originalTags);
+
+                const submittedTags = new Set(tag_names);
+                const tagsToRemove = originalTags.filter(
+                  x => !submittedTags.has(x)
+                );
+                console.log(tagsToRemove);
+                const pool2 = tagsToRemove.map(tag => {
+                  // remove all tag/project relationships for tags that were
+                  // not included in updates object
+                  return projects.removeProjectTag(id, tag.id);
+                });
+                return Promise.all(pool2);
+              })
+              .catch(err => {
+                console.log(`projects.ctrl.js > 199: ${err}`);
+                return utils.handleError(res, err);
+              });
           })
           .then(() => {
             console.log("185");
