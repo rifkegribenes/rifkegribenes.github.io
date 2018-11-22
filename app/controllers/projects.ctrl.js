@@ -30,7 +30,7 @@ const checkAndCreateTags = (res, tag_names) => {
       const unpersistedTags = tag_names.filter(tag => {
         return persistedTags.map(p => p.tag).indexOf(tag) === -1;
       });
-      // create new tags in the db for each of the unpersisted tags
+      // create new tag records in the db for each of the unpersisted tags
       return Promise.all(
         unpersistedTags.map(tag => {
           return tags.createTag(tag);
@@ -50,21 +50,32 @@ const checkAndCreateTags = (res, tag_names) => {
     });
 };
 
-// this doesnt' return anything, just removes the project/tag relationships
+/** Check a list of tag names against tags in existing project
+ *  Remove any tag/project relationships for tags to be deleted.
+ *  @param    {Object}   res              HTTP response object
+ *  @param    {Array}    submittedTags    Array of tag names {String}
+ *  @param    {String}   projectId        Id of existing project to check
+ *  @returns  nothing
+ */
+
 const checkAndRemoveTags = (res, submittedTags, projectId) => {
+  // retrieve existing project by projectId
   return projects
     .getProjectByIdWithTags(projectId)
     .then(([updatedProjectWithTags]) => {
+      // save existing tag names from that project to existingTagNames array
+      // then retrieve full tag object for each tag name
       const existingTagNames = [...updatedProjectWithTags.tag_names];
       tags
         .getTagsByTagList(existingTagNames)
         .then(existingTags => {
-          // check to see if any existing tags were removed
+          // check existing tags against list of submitted tags
+          // to see if any tags should be removed
           const submittedTagsSet = new Set(submittedTags);
           const tagsToRemove = existingTags.filter(
             x => !submittedTagsSet.has(x.tag)
           );
-          // remove project/tag relationships for each of the tags to be removed
+          // remove project/tag relationships for each tag to be removed
           return Promise.all(
             tagsToRemove.map(tag => {
               return projects.removeProjectTag(projectId, tag.id);
@@ -152,6 +163,7 @@ const createProjectWithTags = (req, res, next) => {
         return utils.handleError(res, err);
       });
   } else {
+    // if no tag names submitted, just create the new project and return it
     projects
       .createProject(
         title,
@@ -187,82 +199,66 @@ const updateProjectWithTags = (req, res, next) => {
   const { updates, tag_names } = req.body;
   const { id } = req.params;
 
+  // if no updates object submitted, return error message to client
   if (!updates || !Object.keys(updates).length) {
     return res.status(404).json({ message: "No updates submitted" });
   }
 
-  if (tag_names) {
-    // check all submitted tags against exiting tags in the database
-    checkAndCreateTags(res, tag_names)
-      .then(persistedTags => {
-        // update the project's other fields in the db
-        return projects
-          .updateProject(id, updates)
-          .then(([updatedProject]) => {
-            if (updatedProject.message || !updatedProject) {
-              return res.status(404).json({
-                message:
-                  updatedProject.message ||
-                  "An error occured while trying to update this project"
-              });
-            }
+  // if no tag names submitted with request body,
+  // run an empty array through the tag checker
+  if (!tag_names) {
+    tag_names = [];
+  }
 
-            const pool = persistedTags.map(tag => {
-              // attach all tags to the updated project
-              // TODO: check first if these tags have already been attached
-              return projects.attachProjectTag(id, tag.id);
-            });
-
-            // check to see if any existing tags were removed
-            Promise.all(pool)
-              .then(() => checkAndRemoveTags(res, tag_names, id))
-              .catch(err =>
-                console.log(`projects.ctrl.js > Promise.all(pool): ${err}`)
-              );
-          })
-          .then(() => {
-            // return the updated project (and tags) to the client
-            projects
-              .getProjectByIdWithTags(id)
-              .then(updatedProjectWithTags => {
-                return res.status(200).json(updatedProjectWithTags);
-              })
-              .catch(err => {
-                console.log(
-                  `projects.ctrl.js > getProjectByIdWithTags: ${err}`
-                );
-                return utils.handleError(res, err);
-              });
-          })
-          .catch(err => {
-            console.log(`projects.ctrl.js > updateProject: ${err}`);
-            return utils.handleError(res, err);
-          });
-      })
-      .catch(err => {
-        console.log(`projects.ctrl.js > checkAndCreateTags: ${err}`);
-        return utils.handleError(res, err);
-      });
-  } else {
-    // if no tags submitted with the update request then just
-    // find the requested projet and update requested fields
-    projects.updateProject(id, updates).then(() => {
-      projects
-        .getProjectByIdWithTags(id)
-        .then(project => {
-          if (project.message || !project) {
+  // check all submitted tags against exiting tags in the database
+  checkAndCreateTags(res, tag_names)
+    .then(persistedTags => {
+      // update the project's other fields in the db
+      return projects
+        .updateProject(id, updates)
+        .then(([updatedProject]) => {
+          if (updatedProject.message || !updatedProject) {
             return res.status(404).json({
               message:
-                project.message ||
+                updatedProject.message ||
                 "An error occured while trying to update this project"
             });
-          } else {
-            return res.status(200).json(project);
           }
+
+          const pool = persistedTags.map(tag => {
+            // attach all tags to the updated project
+            // TODO: check first if these tags have already been attached
+            return projects.attachProjectTag(id, tag.id);
+          });
+
+          // check to see if any existing tags were removed
+          Promise.all(pool)
+            .then(() => checkAndRemoveTags(res, tag_names, id))
+            .catch(err =>
+              console.log(`projects.ctrl.js > Promise.all(pool): ${err}`)
+            );
         })
-        .catch(err => res.status(500).json({ message: err.message }));
+        .then(() => {
+          // return the updated project (and tags) to the client
+          projects
+            .getProjectByIdWithTags(id)
+            .then(updatedProjectWithTags => {
+              return res.status(200).json(updatedProjectWithTags);
+            })
+            .catch(err => {
+              console.log(`projects.ctrl.js > getProjectByIdWithTags: ${err}`);
+              return utils.handleError(res, err);
+            });
+        })
+        .catch(err => {
+          console.log(`projects.ctrl.js > updateProject: ${err}`);
+          return utils.handleError(res, err);
+        });
+    })
+    .catch(err => {
+      console.log(`projects.ctrl.js > checkAndCreateTags: ${err}`);
+      return utils.handleError(res, err);
     });
-  }
 };
 
 /** Get all projects
