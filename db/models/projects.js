@@ -226,7 +226,7 @@ const getAllProjectsWithTags = () => {
     )
     .then(reduceResults)
     .catch(err => {
-      console.log(`projects.js > 233: ${err}`);
+      console.log(`models/projects.js > 233: ${err}`);
       return { message: err };
     });
 };

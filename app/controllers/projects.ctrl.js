@@ -52,26 +52,28 @@ const checkAndCreateTags = (res, tag_names) => {
 
 // this doesnt' return anything, just removes the project/tag relationships
 const checkAndRemoveTags = (res, submittedTags, projectId) => {
-  let tagsToRemove = [];
-  return tags
-    .getTagsByTagList(submittedTags)
-    .then(existingTags => {
-      tagsToRemove = existingTags;
-      // check to see if any existing tags were removed
-      const submittedTagsSet = new Set(submittedTags);
-      console.log("submittedTagsSet");
-      console.log(submittedTagsSet);
-      const tagsToRemove = existingTags.filter(
-        x => !submittedTagsSet.has(x.tag)
-      );
-      console.log("tagsToRemove");
-      console.log(tagsToRemove);
-      // remove project/tag relationships for each of the tags to be removed
-      return Promise.all(
-        tagsToRemove.map(tag => {
-          return projects.removeProjectTag(projectId, tag.id);
+  return projects
+    .getProjectByIdWithTags(projectId)
+    .then(([updatedProjectWithTags]) => {
+      const existingTagNames = [...updatedProjectWithTags.tag_names];
+      tags
+        .getTagsByTagList(existingTagNames)
+        .then(existingTags => {
+          // check to see if any existing tags were removed
+          const submittedTagsSet = new Set(submittedTags);
+          const tagsToRemove = existingTags.filter(
+            x => !submittedTagsSet.has(x.tag)
+          );
+          // remove project/tag relationships for each of the tags to be removed
+          return Promise.all(
+            tagsToRemove.map(tag => {
+              return projects.removeProjectTag(projectId, tag.id);
+            })
+          );
         })
-      );
+        .catch(err =>
+          console.log(`projects.ctrl.js > getTagsByTagList: ${err}`)
+        );
     })
     .catch(err => {
       console.log(`projects.ctrl.js > checkAndRemoveTags: ${err}`);
@@ -93,7 +95,6 @@ const checkAndRemoveTags = (res, submittedTags, projectId) => {
  *                                       OR error message
  */
 const createProjectWithTags = (req, res, next) => {
-  console.log("createProjectWithTags");
   const {
     title,
     body,
@@ -139,13 +140,15 @@ const createProjectWithTags = (req, res, next) => {
               .getProjectByIdWithTags(persistedProject.id)
               .then(project => res.status(200).json(project))
               .catch(err => {
-                console.log(`projects.ctrl.js > 73: ${err}`);
+                console.log(
+                  `projects.ctrl.js > getProjectByIdWithTags: ${err}`
+                );
                 return utils.handleError(res, err);
               });
           });
       })
       .catch(err => {
-        console.log(`projects.ctrl.js > 108: ${err}`);
+        console.log(`projects.ctrl.js > checkAndCreateTags: ${err}`);
         return utils.handleError(res, err);
       });
   } else {
@@ -160,7 +163,7 @@ const createProjectWithTags = (req, res, next) => {
       )
       .then(project => res.status(200).json(project))
       .catch(err => {
-        console.log(`projects.ctrl.js > 117: ${err}`);
+        console.log(`projects.ctrl.js > createProject: ${err}`);
         return utils.handleError(res, err);
       });
   }
@@ -204,32 +207,40 @@ const updateProjectWithTags = (req, res, next) => {
               });
             }
 
-            const pool1 = persistedTags.map(tag => {
+            const pool = persistedTags.map(tag => {
               // attach all tags to the updated project
               // TODO: check first if these tags have already been attached
               return projects.attachProjectTag(id, tag.id);
             });
 
             // check to see if any existing tags were removed
-            const pool2 = checkAndRemoveTags(res, tag_names, id);
-            Promise.all(pool1)
-              .then(() => Promise.all(pool2))
-              .catch(err => console.log(`projects.ctrl.js > 196: ${err}`));
+            Promise.all(pool)
+              .then(() => checkAndRemoveTags(res, tag_names, id))
+              .catch(err =>
+                console.log(`projects.ctrl.js > Promise.all(pool): ${err}`)
+              );
           })
           .then(() => {
             // return the updated project (and tags) to the client
-            const updatedProjectWithTags = projects.getProjectByIdWithTags(id);
-            console.log(`projects.ctrl.js > 199: is there json here?`);
-            console.log(updatedProjectWithTags);
-            return res.status(200).json(updatedProjectWithTags);
+            projects
+              .getProjectByIdWithTags(id)
+              .then(updatedProjectWithTags => {
+                return res.status(200).json(updatedProjectWithTags);
+              })
+              .catch(err => {
+                console.log(
+                  `projects.ctrl.js > getProjectByIdWithTags: ${err}`
+                );
+                return utils.handleError(res, err);
+              });
           })
           .catch(err => {
-            console.log(`projects.ctrl.js > 204: ${err}`);
+            console.log(`projects.ctrl.js > updateProject: ${err}`);
             return utils.handleError(res, err);
           });
       })
       .catch(err => {
-        console.log(`projects.ctrl.js > 209: ${err}`);
+        console.log(`projects.ctrl.js > checkAndCreateTags: ${err}`);
         return utils.handleError(res, err);
       });
   } else {
