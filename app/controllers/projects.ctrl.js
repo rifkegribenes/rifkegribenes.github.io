@@ -152,7 +152,7 @@ const createProjectWithTags = (req, res, next) => {
               .then(project => res.status(200).json(project))
               .catch(err => {
                 console.log(
-                  `projects.ctrl.js > getProjectByIdWithTags: ${err}`
+                  `projects.ctrl.js > getProjectByIdWithTags (createProjectWithTags): ${err}`
                 );
                 return utils.handleError(res, err);
               });
@@ -233,22 +233,29 @@ const updateProjectWithTags = (req, res, next) => {
 
           // check to see if any existing tags were removed
           Promise.all(pool)
-            .then(() => checkAndRemoveTags(res, tag_names, id))
+            .then(() => {
+              checkAndRemoveTags(res, tag_names, id)
+                .then(() => {
+                  // return the updated project (and tags) to the client
+                  projects
+                    .getProjectByIdWithTags(id)
+                    .then(updatedProjectWithTags => {
+                      return res.status(200).json(updatedProjectWithTags);
+                    })
+                    .catch(err => {
+                      console.log(
+                        `projects.ctrl.js > getProjectByIdWithTags (checkAndCreateTags): ${err}`
+                      );
+                      return utils.handleError(res, err);
+                    });
+                })
+                .catch(err =>
+                  console.log(`projects.ctrl.js > checkAndRemoveTags: ${err}`)
+                );
+            })
             .catch(err =>
               console.log(`projects.ctrl.js > Promise.all(pool): ${err}`)
             );
-        })
-        .then(() => {
-          // return the updated project (and tags) to the client
-          projects
-            .getProjectByIdWithTags(id)
-            .then(updatedProjectWithTags => {
-              return res.status(200).json(updatedProjectWithTags);
-            })
-            .catch(err => {
-              console.log(`projects.ctrl.js > getProjectByIdWithTags: ${err}`);
-              return utils.handleError(res, err);
-            });
         })
         .catch(err => {
           console.log(`projects.ctrl.js > updateProject: ${err}`);
