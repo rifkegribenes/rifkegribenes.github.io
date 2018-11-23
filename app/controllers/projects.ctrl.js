@@ -196,7 +196,7 @@ const createProjectWithTags = (req, res, next) => {
  *                                       OR error message
  */
 const updateProjectWithTags = (req, res, next) => {
-  const { updates, tag_names } = req.body;
+  let { updates, tag_names } = req.body;
   const { id } = req.params;
 
   // if no updates object submitted, return error message to client
@@ -216,11 +216,11 @@ const updateProjectWithTags = (req, res, next) => {
       // update the project's other fields in the db
       return projects
         .updateProject(id, updates)
-        .then(([updatedProject]) => {
-          if (updatedProject.message || !updatedProject) {
+        .then(updatedProjectArr => {
+          if (!updatedProjectArr || updatedProjectArr.message) {
             return res.status(404).json({
               message:
-                updatedProject.message ||
+                updatedProjectArr.message ||
                 "An error occured while trying to update this project"
             });
           }
@@ -252,6 +252,7 @@ const updateProjectWithTags = (req, res, next) => {
         })
         .catch(err => {
           console.log(`projects.ctrl.js > updateProject: ${err}`);
+          console.dir(err);
           return utils.handleError(res, err);
         });
     })

@@ -63,8 +63,10 @@ app.use("/", staticRoutes);
 
 // launch ======================================================================
 var port = process.env.PORT || 3001;
-app.listen(port, function() {
-  console.log("Node.js listening on port " + port + "...");
-});
+if (!module.parent) {
+  app.listen(port, function() {
+    console.log("Node.js listening on port " + port + "...");
+  });
+}
 
 module.exports = app;

@@ -174,6 +174,8 @@ const updateProject = (id, updates) => {
     .update("updated_at", db.fn.now())
     .returning("*")
     .catch(err => {
+      console.log(`projects.js > 177`);
+      console.dir(err);
       return { message: err };
     });
 };
