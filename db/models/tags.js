@@ -31,7 +31,12 @@ const getTagsByTagList = tagList => {
   return db
     .select(["id", "tag"])
     .from(TABLES.TAGS)
-    .whereIn("tag", tagList);
+    .whereIn("tag", tagList)
+    .catch(err => {
+      console.log(`getTagsByTagList: ${err}`);
+      console.error(err);
+      return { message: err };
+    });
 };
 
 /* ================================ exports ================================ */

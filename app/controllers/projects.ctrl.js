@@ -64,11 +64,18 @@ async function checkAndRemoveTags(res, submittedTags, projectId) {
     const updatedProjectWithTags = await projects.getProjectByIdWithTags(
       projectId
     );
+    console.log(`projects.ctrl.js: updatedProjectWithTags:`);
+    console.log(updatedProjectWithTags);
+    const tagNames = updatedProjectWithTags[0].tag_names;
+    console.log(`projects.ctrl.js: tagNames:`);
+    console.log(tagNames);
 
     // save existing tag names from that project to existingTagNames array
     // then retrieve full tag object for each tag name
-    const existingTagNames = [...updatedProjectWithTags.tag_names];
-    const existingTags = await tags.getTagsByTagList(existingTagNames);
+    const existingTags = await tags.getTagsByTagList(tagNames);
+    console.log(`projects.ctrl.js > checkAndRemoveTags: existingTags`);
+    console.log(existingTags);
+    console.log(typeof existingTags);
 
     // check existing tags against list of submitted tags
     // to see if any tags should be removed
@@ -76,13 +83,16 @@ async function checkAndRemoveTags(res, submittedTags, projectId) {
     const tagsToRemove = existingTags.filter(x => !submittedTagsSet.has(x.tag));
 
     // remove project/tag relationships for each tag to be removed
-    return Promise.all(
-      tagsToRemove.map(tag => {
-        return projects.removeProjectTag(projectId, tag.id);
-      })
-    );
+    const pool = tagsToRemove.map(tag => {
+      return projects.removeProjectTag(projectId, tag.id);
+    });
+    Promise.all(pool).catch(err => {
+      console.log(`projects.ctrl.js > checkAndRemoveTags > pool(): ${err}`);
+      console.error(err);
+    });
   } catch (err) {
     console.log(`projects.ctrl.js > checkAndRemoveTags: ${err}`);
+    console.error(err);
     return utils.handleError(res, err);
   }
 }
