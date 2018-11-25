@@ -117,7 +117,6 @@ const attachProjectTag = (projectId, tagId) => {
  *  @returns  Success message or error message.
  */
 const removeProjectTag = (projectId, tagId) => {
-  console.log(`removing ${tagId} from ${projectId}`);
   return db(TABLES.PROJECTS_TAGS)
     .where({ project_id: projectId, tag_id: tagId })
     .del()
@@ -127,8 +126,6 @@ const removeProjectTag = (projectId, tagId) => {
         .update("updated_at", db.fn.now());
     })
     .catch(err => {
-      console.log(`removeProjectTag: ${err}`);
-      console.error(err);
       return { message: err };
     });
 };
@@ -229,7 +226,6 @@ const getAllProjectsWithTags = () => {
     )
     .then(reduceResults)
     .catch(err => {
-      console.log(`models/projects.js > 233: ${err}`);
       return { message: err };
     });
 };

@@ -30,6 +30,7 @@ const updatedScreenshotUrl = "http://example.com/updated-screenshot.png";
 const updatedLiveUrl = "http://example.com/update";
 const updatedGithubUrl = "http://github.com/rifkegribenes/update";
 const updatedTags = [tagName, updatedTagName];
+const updatedTags2 = ["totallyDifferentTagName"];
 
 let id;
 let id2;
@@ -136,7 +137,7 @@ suite("routes : project", function() {
   });
 
   suite("PUT /api/project/:id", function() {
-    test("updates a project", function(done) {
+    test("updates a project and adds tags", function(done) {
       const updates = {
         title: updatedTitle,
         body: updatedBody,
@@ -146,8 +147,8 @@ suite("routes : project", function() {
       };
       chai
         .request(app)
-        .get(`/api/project/${id}`)
-        .send({ updates, tags: updatedTags })
+        .put(`/api/project/${id}`)
+        .send({ updates, tag_names: updatedTags })
         .end(function(err, res) {
           assert.equal(res.status, 200);
           assert.isNull(err);
@@ -160,6 +161,36 @@ suite("routes : project", function() {
           assert.property(res.body[0], "live_url");
           assert.property(res.body[0], "github_url");
           assert.isArray(res.body[0].tag_names);
+          assert.include(res.body[0].tag_names, updatedTagName);
+          done();
+        });
+    });
+    test("updates a project and removes tags", function(done) {
+      const updates = {
+        title: updatedTitle,
+        body: updatedBody,
+        screenshot_url: updatedScreenshotUrl,
+        live_url: updatedLiveUrl,
+        github_url: updatedGithubUrl
+      };
+      chai
+        .request(app)
+        .put(`/api/project/${id}`)
+        .send({ updates, tag_names: updatedTags2 })
+        .end(function(err, res) {
+          assert.equal(res.status, 200);
+          assert.isNull(err);
+          assert.property(res.body[0], "id");
+          assert.property(res.body[0], "created_at");
+          assert.property(res.body[0], "updated_at");
+          assert.property(res.body[0], "title");
+          assert.property(res.body[0], "body");
+          assert.property(res.body[0], "screenshot_url");
+          assert.property(res.body[0], "live_url");
+          assert.property(res.body[0], "github_url");
+          assert.isArray(res.body[0].tag_names);
+          assert.include(res.body[0].tag_names, "totallyDifferentTagName");
+          assert.notInclude(res.body[0].tag_names, updatedTagName);
           done();
         });
     });
@@ -174,7 +205,7 @@ suite("routes : project", function() {
       chai
         .request(app)
         .put("/api/project/123456789")
-        .send({ updates, tags: updatedTags })
+        .send({ updates, tag_names: updatedTags })
         .end(function(err, res) {
           assert.equal(res.status, 404);
           assert.equal(res.type, "application/json");

@@ -153,7 +153,7 @@ describe("models tests", () => {
         .then(result => assert.equal(result.length, 1));
     });
 
-    it("PUT detaches a tag from a project", () => {
+    it("PUT removes a tag from a project", () => {
       return projects
         .removeProjectTag(projectId, tagId)
         .then(() => {

@@ -33,7 +33,7 @@ const getTagsByTagList = tagList => {
     .from(TABLES.TAGS)
     .whereIn("tag", tagList)
     .catch(err => {
-      console.log(`getTagsByTagList: ${err}`);
+      console.log(`getTagsByTagList:`);
       console.error(err);
       return { message: err };
     });

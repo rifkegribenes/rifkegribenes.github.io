@@ -64,18 +64,12 @@ async function checkAndRemoveTags(res, submittedTags, projectId) {
     const updatedProjectWithTags = await projects.getProjectByIdWithTags(
       projectId
     );
-    console.log(`projects.ctrl.js: updatedProjectWithTags:`);
-    console.log(updatedProjectWithTags);
-    const tagNames = updatedProjectWithTags[0].tag_names;
-    console.log(`projects.ctrl.js: tagNames:`);
-    console.log(tagNames);
 
     // save existing tag names from that project to existingTagNames array
     // then retrieve full tag object for each tag name
-    const existingTags = await tags.getTagsByTagList(tagNames);
-    console.log(`projects.ctrl.js > checkAndRemoveTags: existingTags`);
-    console.log(existingTags);
-    console.log(typeof existingTags);
+    const existingTags = await tags.getTagsByTagList(
+      updatedProjectWithTags[0].tag_names
+    );
 
     // check existing tags against list of submitted tags
     // to see if any tags should be removed
@@ -87,11 +81,11 @@ async function checkAndRemoveTags(res, submittedTags, projectId) {
       return projects.removeProjectTag(projectId, tag.id);
     });
     Promise.all(pool).catch(err => {
-      console.log(`projects.ctrl.js > checkAndRemoveTags > pool(): ${err}`);
+      console.log(`projects.ctrl.js > checkAndRemoveTags > pool()`);
       console.error(err);
     });
   } catch (err) {
-    console.log(`projects.ctrl.js > checkAndRemoveTags: ${err}`);
+    console.log(`projects.ctrl.js > checkAndRemoveTags`);
     console.error(err);
     return utils.handleError(res, err);
   }
@@ -158,9 +152,9 @@ async function createProjectWithTags(req, res, next) {
         .catch(err => console.error(err));
     } catch (err) {
       console.log(
-        `projects.ctrl.js > createProjectWithTags / checkAndCreateTags: ${err}`
+        `projects.ctrl.js > createProjectWithTags / checkAndCreateTags:`
       );
-      console.dir(err);
+      console.error(err);
       return utils.handleError(res, err);
     }
   } else {
@@ -236,8 +230,8 @@ async function updateProjectWithTags(req, res, next) {
     Promise.all(pool);
 
     // remove project/tag relationships from db
-    // for any tags that need to be r4emoved
-    checkAndRemoveTags(res, tag_names, id);
+    // for any tags that need to be removed
+    await checkAndRemoveTags(res, tag_names, id);
 
     // return the updated project (and tags) to the client
     const updatedProjectWithTags = await projects.getProjectByIdWithTags(id);
