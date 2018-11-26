@@ -103,12 +103,10 @@ class AddProject extends React.Component {
         })
         .catch(err => openSnackbar("error", err));
     } else {
-      console.log("update");
       const id = this.props.project.currentProject.id;
       this.props.apiProject
         .updateProject(token, id, projectToUpdate)
         .then(result => {
-          console.log(result.type);
           if (result === "UPDATE_PROJECT_FAILURE" || this.props.project.error) {
             openSnackbar(
               "error",
