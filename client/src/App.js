@@ -19,6 +19,7 @@ import AlertDialog from "./components/AlertDialog";
 import Dashboard from "./containers/Dashboard";
 import Logout from "./containers/Logout";
 import AddProject from "./containers/AddProject";
+import AllProjects from "./containers/AllProjects";
 
 import Notifier, { openSnackbar } from "./containers/Notifier";
 import nodeAnimation from "./utils/nodeAnimation";
@@ -249,7 +250,10 @@ class App extends Component {
               exact
               path="/"
               render={routeProps => (
-                <Hero classes={this.props.classes} {...routeProps} />
+                <React.Fragment>
+                  <Hero classes={this.props.classes} {...routeProps} />
+                  <AllProjects {...routeProps} />
+                </React.Fragment>
               )}
             />
             <Route

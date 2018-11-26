@@ -8,11 +8,10 @@ import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Delete from "@material-ui/icons/Delete";
+import Create from "@material-ui/icons/Create";
 
 import * as apiProjectActions from "../store/actions/apiProjectActions";
-import Image from "../components/Image";
-
-import { BASE_URL } from "../store/actions/apiConfig.js";
+import Project from "../components/Project";
 
 const styles = theme => ({
   root: {
@@ -126,10 +125,10 @@ class ProjectGrid extends React.Component {
                         this.props.history.push(`/edit/${project.id}`)
                       }
                       color="primary"
-                      variant="raised"
+                      variant="contained"
                       aria-label="Edit Project"
                     >
-                      <img src={editIcon} alt="" className={classes.editIcon} />
+                      <Create />
                       Edit
                     </Button>
                   )}
@@ -147,7 +146,7 @@ class ProjectGrid extends React.Component {
                     </Button>
                   )}
                 </div>
-                <Project projectId={project.id} />
+                <Project project={project} />
               </div>
             );
           })}

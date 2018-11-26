@@ -132,7 +132,7 @@ function project(state = INITIAL_STATE, action) {
     case GET_ALL_PROJECTS_SUCCESS:
       return update(state, {
         loading: { $set: false },
-        projects: { $set: action.payload.projects },
+        projects: { $set: action.payload },
         error: { $set: null }
       });
 

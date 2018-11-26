@@ -9,7 +9,6 @@ import withWidth from "@material-ui/core/withWidth";
 
 const Hero = props => {
   const { width, classes } = props;
-  console.log(width);
   return (
     <div className={classes.hero}>
       <div className={classes.heroText}>

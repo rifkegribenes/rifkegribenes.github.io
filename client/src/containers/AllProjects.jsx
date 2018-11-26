@@ -6,7 +6,7 @@ import { bindActionCreators } from "redux";
 
 import * as apiProjectActions from "../store/actions/apiProjectActions";
 
-import ImageGrid from "./ImageGrid";
+import ProjectGrid from "./ProjectGrid";
 import { openSnackbar } from "./Notifier";
 
 class AllProjects extends Component {
@@ -34,7 +34,7 @@ class AllProjects extends Component {
   render() {
     return (
       <div className="projectList">
-        <ImageGrid listType="all" />
+        <ProjectGrid />
       </div>
     );
   }

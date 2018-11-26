@@ -21,7 +21,6 @@ const nodeAnimation = () => {
   //get DPI
   let dpi = window.devicePixelRatio || 1;
   context.scale(dpi, dpi);
-  console.log(dpi);
 
   function fix_dpi() {
     //get CSS height
