@@ -17,7 +17,8 @@ const styles = theme => ({
   root: {
     margin: "0 auto",
     width: "100%",
-    maxWidth: 1920
+    maxWidth: 1920,
+    paddingBottom: 60
   },
   projectButton: {
     position: "absolute",
@@ -25,64 +26,28 @@ const styles = theme => ({
     right: 20,
     visibility: "hidden"
   },
-  actionArea: {
-    borderRadius: 6,
-    zIndex: 1,
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    cursor: "zoom-in",
-    "&:hover": {
-      backgroundColor: "rgba(0,0,0,.05)"
-    },
-    "&:hover $projectButton": {
-      visibility: "visible"
-    },
-    "&:hover $ownerInfo": {
-      visibility: "visible"
+  gridWrapper: {
+    margin: "0 auto",
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    padding: 50,
+    [theme.breakpoints.down("sm")]: {
+      padding: 10
     }
   },
-  ownerInfo: {
-    zIndex: 3,
-    textTransform: "lowercase",
-    visibility: "hidden",
-    position: "absolute",
-    bottom: 25,
-    left: 20,
-    backgroundColor: "white",
-    borderRadius: 6,
-    "&:hover": {
-      cursor: "pointer",
-      backgroundColor: "white"
+  card: {
+    width: "31%",
+    padding: 20,
+    margin: "10px",
+    border: `1px solid ${theme.palette.secondary.main}`,
+    [theme.breakpoints.down("sm")]: {
+      width: "49%"
+    },
+    [theme.breakpoints.down("sm")]: {
+      width: "100%"
     }
-  },
-  userName: {
-    marginLeft: 7,
-    fontWeight: 700,
-    fontSize: "1.2em"
-  },
-  projectIcon: {
-    height: 27,
-    marginLeft: -9,
-    width: "auto"
-  },
-  arrow: {
-    height: 20,
-    width: "auto"
-  },
-  masonry: {
-    margin: "0 auto"
-  },
-  caption: {
-    padding: 10,
-    textAlign: "center",
-    fontWeight: 700,
-    fontSize: "1.2em"
-  },
-  icon: {
-    color: theme.palette.primary.main
   }
 });
 
@@ -110,7 +75,7 @@ class ProjectGrid extends React.Component {
         <div className={classes.gridWrapper}>
           {this.props.project.projects.map(project => {
             return (
-              <div className="card" style={cardStyle} key={project.id}>
+              <div className={classes.card} key={project.id}>
                 <div
                   className={classes.actionArea}
                   tabIndex={0}
