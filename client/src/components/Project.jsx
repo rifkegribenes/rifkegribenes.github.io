@@ -71,7 +71,7 @@ const styles = theme => ({
     color: theme.palette.secondary.main
   },
   tags: {
-    marginTop: 20
+    margin: "20px -5px 10px"
   }
 });
 
