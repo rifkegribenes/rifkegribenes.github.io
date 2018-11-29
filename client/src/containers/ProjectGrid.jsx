@@ -20,11 +20,30 @@ const styles = theme => ({
     maxWidth: 1920,
     paddingBottom: 60
   },
-  projectButton: {
+  buttonEdit: {
     position: "absolute",
-    top: 20,
+    bottom: 20,
     right: 20,
     visibility: "hidden"
+  },
+  actionArea: {
+    borderRadius: 6,
+    zIndex: 1,
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    cursor: "pointer",
+    "&:hover": {
+      backgroundColor: "rgba(0,0,0,.05)"
+    },
+    "&:hover $buttonEdit": {
+      visibility: "visible"
+    },
+    "&:hover $buttonDelete": {
+      visibility: "visible"
+    }
   },
   gridWrapper: {
     margin: "0 auto",
@@ -41,6 +60,7 @@ const styles = theme => ({
     width: "31%",
     padding: 20,
     margin: "10px",
+    position: "relative",
     border: `1px solid ${theme.palette.secondary.main}`,
     [theme.breakpoints.down("sm")]: {
       width: "49%"
@@ -50,13 +70,6 @@ const styles = theme => ({
     }
   }
 });
-
-const cardStyle = {
-  marginBottom: 10,
-  borderRadius: 6,
-  width: 300,
-  position: "relative"
-};
 
 class ProjectGrid extends React.Component {
   render() {
@@ -85,29 +98,15 @@ class ProjectGrid extends React.Component {
                 >
                   {loggedIn && (
                     <Button
-                      className={classes.projectButton}
+                      className={classes.buttonEdit}
                       onClick={() =>
                         this.props.history.push(`/edit/${project.id}`)
                       }
                       color="primary"
-                      variant="contained"
+                      variant="fab"
                       aria-label="Edit Project"
                     >
                       <Create />
-                      Edit
-                    </Button>
-                  )}
-                  {loggedIn && (
-                    <Button
-                      className={classes.projectButton}
-                      onClick={() =>
-                        this.props.handleDeleteDialogOpen(project.id)
-                      }
-                      color="primary"
-                      variant="fab"
-                      aria-label="Delete Project"
-                    >
-                      <Delete />
                     </Button>
                   )}
                 </div>
