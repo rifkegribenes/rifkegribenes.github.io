@@ -7,7 +7,7 @@ import { withStyles } from "@material-ui/core/styles";
 
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import Delete from "@material-ui/icons/Delete";
+// import Delete from "@material-ui/icons/Delete";
 import Create from "@material-ui/icons/Create";
 
 import * as apiProjectActions from "../store/actions/apiProjectActions";
@@ -39,9 +39,6 @@ const styles = theme => ({
       backgroundColor: "rgba(0,0,0,.05)"
     },
     "&:hover $buttonEdit": {
-      visibility: "visible"
-    },
-    "&:hover $buttonDelete": {
       visibility: "visible"
     }
   },

@@ -83,6 +83,9 @@ const styles = theme => ({
       [theme.breakpoints.down("md")]: {
         paddingTop: "56.25%"
       }
+    },
+    "&:hover": {
+      filter: "contrast(100%)"
     }
   }
 });
@@ -97,6 +100,9 @@ const Project = props => {
     // live_url,
     tag_names
   } = project;
+  const githubRaw =
+    "https://raw.githubusercontent.com/rifkegribenes/rifkegribenes.github.io/master/client/src/img/";
+  const imageStyle = { backgroundImage: `url(${githubRaw}${screenshot_url})` };
   const tags = tag_names.map((tag, idx) => (
     <span className={classes.tag} key={`${tag}-${idx}`}>
       <Typography component="span" className={classes.tagText}>
@@ -105,11 +111,8 @@ const Project = props => {
     </span>
   ));
   return (
-    <React.fragment>
-      <div
-        className={classes.cardImage}
-        style={`backgroundImage: ${screenshot_url}`}
-      />
+    <React.Fragment>
+      <div className={classes.cardImage} style={imageStyle} />
       <div className={classes.cardContent}>
         <Typography component="h2" className={classes.title}>
           {title}
@@ -119,7 +122,7 @@ const Project = props => {
         </Typography>
         <div className={classes.tags}>{tags}</div>
       </div>
-    </React.fragment>
+    </React.Fragment>
   );
 };
 
