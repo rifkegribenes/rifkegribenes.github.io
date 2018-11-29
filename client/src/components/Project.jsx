@@ -49,11 +49,6 @@ const styles = theme => ({
     fontWeight: 100,
     marginTop: 10
   },
-  error: {
-    fontWeight: 400,
-    color: theme.palette.error.main,
-    textAlign: "center"
-  },
   spinner: {
     position: "absolute",
     left: "calc(50% - 10px)",
@@ -72,6 +67,23 @@ const styles = theme => ({
   },
   tags: {
     margin: "20px -5px 10px"
+  },
+  cardImage: {
+    backgroundPosition: "center center",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    filter: "contrast(70%)",
+    overflow: "hidden",
+    position: "relative",
+    transition: "filter 0.5s cubic-bezier(0.43, 0.41, 0.22, 0.91)",
+    "&::before": {
+      paddingTop: "66.6%",
+      content: "",
+      display: "block",
+      [theme.breakpoints.down("md")]: {
+        paddingTop: "56.25%"
+      }
+    }
   }
 });
 
@@ -80,7 +92,7 @@ const Project = props => {
   const {
     title,
     body,
-    // screenshot_url,
+    screenshot_url,
     // github_url,
     // live_url,
     tag_names
@@ -93,15 +105,21 @@ const Project = props => {
     </span>
   ));
   return (
-    <div className={classes.project}>
-      <Typography component="h2" className={classes.title}>
-        {title}
-      </Typography>
-      <Typography component="p" className={classes.body}>
-        {body}
-      </Typography>
-      <div className={classes.tags}>{tags}</div>
-    </div>
+    <React.fragment>
+      <div
+        className={classes.cardImage}
+        style={`backgroundImage: ${screenshot_url}`}
+      />
+      <div className={classes.cardContent}>
+        <Typography component="h2" className={classes.title}>
+          {title}
+        </Typography>
+        <Typography component="p" className={classes.body}>
+          {body}
+        </Typography>
+        <div className={classes.tags}>{tags}</div>
+      </div>
+    </React.fragment>
   );
 };
 

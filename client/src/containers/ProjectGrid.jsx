@@ -93,7 +93,9 @@ class ProjectGrid extends React.Component {
                   className={classes.actionArea}
                   tabIndex={0}
                   onClick={() =>
-                    this.props.history.push(`/project/${project.id}`)
+                    loggedIn
+                      ? this.props.history.push(`/edit/${project.id}`)
+                      : this.props.history.push(`/project/${project.id}`)
                   }
                 >
                   {loggedIn && (
