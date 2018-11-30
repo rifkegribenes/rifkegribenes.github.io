@@ -76,9 +76,10 @@ const styles = theme => ({
     overflow: "hidden",
     position: "relative",
     transition: "filter 0.5s cubic-bezier(0.43, 0.41, 0.22, 0.91)",
+    margin: "-20px -20px 20px -20px",
     "&::before": {
+      content: `""`,
       paddingTop: "66.6%",
-      content: "",
       display: "block",
       [theme.breakpoints.down("md")]: {
         paddingTop: "56.25%"

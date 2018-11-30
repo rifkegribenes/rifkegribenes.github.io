@@ -54,7 +54,7 @@ const styles = theme => ({
     }
   },
   card: {
-    width: "31%",
+    width: "30%",
     padding: 20,
     margin: "10px",
     position: "relative",
