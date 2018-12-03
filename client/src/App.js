@@ -22,7 +22,7 @@ import AddProject from "./containers/AddProject";
 import AllProjects from "./containers/AllProjects";
 
 import Notifier, { openSnackbar } from "./containers/Notifier";
-import nodeAnimation from "./utils/nodeAnimation";
+// import nodeAnimation from "./utils/nodeAnimation";
 
 const styles = theme => ({
   root: {
@@ -170,12 +170,12 @@ class App extends Component {
   };
 
   componentDidMount() {
-    if (document.getElementById("canvas") && !this.state.animation) {
-      nodeAnimation();
-      const newState = { ...this.state };
-      newState.animation = true;
-      this.setState(newState);
-    }
+    // if (document.getElementById("canvas") && !this.state.animation) {
+    //   nodeAnimation();
+    //   const newState = { ...this.state };
+    //   newState.animation = true;
+    //   this.setState(newState);
+    // }
 
     if (this.props.location.hash) {
       const hash = this.props.location.hash.slice(2);
@@ -205,14 +205,14 @@ class App extends Component {
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (!this.state.animation && document.getElementById("canvas")) {
-      nodeAnimation();
-      const newState = { ...this.state };
-      newState.animation = true;
-      this.setState(newState);
-    }
-  }
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (!this.state.animation && document.getElementById("canvas")) {
+  //     nodeAnimation();
+  //     const newState = { ...this.state };
+  //     newState.animation = true;
+  //     this.setState(newState);
+  //   }
+  // }
 
   handleDeleteDialogOpen = project => {
     if (project) {
