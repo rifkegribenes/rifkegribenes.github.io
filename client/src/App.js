@@ -260,43 +260,6 @@ class App extends Component {
               path="/admin/:id?/:token?"
               render={routeProps => <Dashboard {...routeProps} />}
             />
-            {/*            <Route
-              path="/mypins"
-              render={routeProps => (
-                <UserPins
-                  removePin={this.removePin}
-                  handleDeleteDialogOpen={this.handleDeleteDialogOpen}
-                  {...routeProps}
-                />
-              )}
-            />
-            <Route
-              path="/userpins/:userId"
-              render={routeProps => (
-                <UserPins
-                  removePin={this.removePin}
-                  handleDeleteDialogOpen={this.handleDeleteDialogOpen}
-                  {...routeProps}
-                />
-              )}
-            />
-            <Route
-              path="/pin/:pinId"
-              render={routeProps => (
-                <SinglePin
-                  removePin={this.removePin}
-                  handleDeleteDialogOpen={this.handleDeleteDialogOpen}
-                  handleDeleteDialogClose={
-                    this.props.apiPin.handleDeleteDialogClose
-                  }
-                  {...routeProps}
-                />
-              )}
-            />
-            <Route
-              path="/all"
-              render={routeProps => <AllPins {...routeProps} />}
-            />*/}
             <Route
               path="/new"
               render={routeProps => (
