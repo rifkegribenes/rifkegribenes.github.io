@@ -6,7 +6,7 @@ import github from "../img/github-lime.svg";
 const Footer = props => (
   <div className={props.classes.footer}>
     <a
-      href="https://github.com/rifkegribenes/p1nterest"
+      href="https://github.com/rifkegribenes/rifkegribenes.github.io"
       rel="noopener noreferrer"
       target="_blank"
       className={props.classes.footerLink}
