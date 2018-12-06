@@ -13,6 +13,7 @@ import * as apiProfileActions from "./store/actions/apiProfileActions";
 
 import NavBar from "./containers/NavBar";
 import Hero from "./components/Hero";
+import Home from "./components/Home";
 import Footer from "./components/Footer";
 import NotFound from "./components/NotFound";
 import AlertDialog from "./components/AlertDialog";
@@ -252,6 +253,7 @@ class App extends Component {
               render={routeProps => (
                 <React.Fragment>
                   <Hero classes={this.props.classes} {...routeProps} />
+                  <Home {...routeProps} />
                   <AllProjects {...routeProps} />
                 </React.Fragment>
               )}
