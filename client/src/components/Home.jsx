@@ -11,7 +11,15 @@ const styles = theme => ({
     padding: 20,
     maxWidth: 1200
   },
-  home: {}
+  home: {},
+  homeText: {
+    margin: 20,
+    padding: "20px 60px",
+    maxWidth: 1200
+  },
+  section: {
+    marginBottom: 40
+  }
 });
 
 const Home = props => {
@@ -19,12 +27,18 @@ const Home = props => {
   return (
     <div className={classes.home}>
       <div className={classes.homeText}>
-        <Typography variant="h2">About</Typography>
-        <Typography variant="body1">Blah blah blah</Typography>
-        <Typography variant="h2">Skills</Typography>
-        <Typography variant="body1">Blah blah blah</Typography>
-        <Typography variant="h2">Contact</Typography>
-        <Typography variant="body1">Blah blah blah</Typography>
+        <div className={classes.section}>
+          <Typography variant="h2">About</Typography>
+          <Typography variant="body1">Blah blah blah</Typography>
+        </div>
+        <div className={classes.section}>
+          <Typography variant="h2">Skills</Typography>
+          <Typography variant="body1">Blah blah blah</Typography>
+        </div>
+        <div className={classes.section}>
+          <Typography variant="h2">Contact</Typography>
+          <Typography variant="body1">Blah blah blah</Typography>
+        </div>
       </div>
     </div>
   );
