@@ -23,18 +23,18 @@ const SERVER_URL =
 
 /* Send email using mailgunTransport (nodemailer)
  *
- * @params    [string]   from      [email address of sender]
+ * @params    [string]   fromEmail [email address of sender]
  * @params    [string]   subject   [subject line]
  * @params    [string]   html      [html version of message]
  * @params    [string]   text      [text of message]
  *
 */
-function sendMail(to, subject, html, text) {
+function sendMail(fromEmail, subject, html, text) {
   return new Promise((resolve, reject) => {
     emailClient.sendMail(
       {
-        from: "rifkegribenes <hello@rifkegribenes.io>",
-        to,
+        fromEmail,
+        to: "rifkegribenes@gmail.com",
         subject,
         html,
         text
@@ -53,4 +53,4 @@ function sendMail(to, subject, html, text) {
 
 /* ============================== EXPORT API =============================== */
 
-module.exports = { makeSignupKey, makeVerificationUrl, sendMail };
+module.exports = { sendMail };
