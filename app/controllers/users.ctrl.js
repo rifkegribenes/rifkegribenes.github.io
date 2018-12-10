@@ -4,8 +4,9 @@
 
 /* ================================= SETUP ================================= */
 
-// import model
+// import model and mail utilities
 const users = require("../../db/models/users");
+const mailUtils = require("../utils/mailUtils");
 
 /* ============================ ROUTE HANDLERS ============================= */
 
@@ -116,6 +117,22 @@ const getUserById = (req, res, next) => {
     .catch(err => res.status(404).json({ message: err.message }));
 };
 
+/** Send an email
+ *  @param    {String}   id   Id of the requested user.
+ *  @returns  {Object}        User object OR error message.
+ */
+const sendEmail = (req, res, next) => {
+  const { name, fromEmail, subject, message } = req.body;
+  const html = `<div>${message}</div>`;
+  mailUtils
+    .sendMail(name, fromEmail, subject, html, message)
+    .then(() => {
+      console.log("email sent (users.ctrl.js > 129)");
+      return res.status(200).json({ message: "Email sent successfully" });
+    })
+    .catch(err => res.status(404).json({ message: err.message }));
+};
+
 /* ================================ EXPORT ================================= */
 
 module.exports = {
@@ -123,5 +140,6 @@ module.exports = {
   updateUser,
   deleteUser,
   getUserById,
-  getUsers
+  getUsers,
+  sendEmail
 };

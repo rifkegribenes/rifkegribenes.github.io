@@ -29,11 +29,11 @@ const SERVER_URL =
  * @params    [string]   text      [text of message]
  *
 */
-function sendMail(fromEmail, subject, html, text) {
+function sendMail(name, fromEmail, subject, html, text) {
   return new Promise((resolve, reject) => {
     emailClient.sendMail(
       {
-        fromEmail,
+        from: `${name} <${fromEmail}>`,
         to: "rifkegribenes@gmail.com",
         subject,
         html,

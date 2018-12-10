@@ -21,6 +21,7 @@ import Dashboard from "./containers/Dashboard";
 import Logout from "./containers/Logout";
 import AddProject from "./containers/AddProject";
 import AllProjects from "./containers/AllProjects";
+import ContactForm from "./containers/ContactForm";
 
 import Notifier, { openSnackbar } from "./containers/Notifier";
 // import nodeAnimation from "./utils/nodeAnimation";
@@ -277,6 +278,10 @@ class App extends Component {
                   {...routeProps}
                 />
               )}
+            />
+            <Route
+              path="/contact"
+              render={routeProps => <ContactForm {...routeProps} />}
             />
             <Route
               path="/logout"

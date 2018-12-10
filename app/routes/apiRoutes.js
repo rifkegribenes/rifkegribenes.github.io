@@ -205,6 +205,22 @@ router.get("/user/", userCtrl.getUsers);
 router.delete("/user/:id", userCtrl.deleteUser);
 // router.delete("/user/:id", requireAuth, userCtrl.deleteUser);
 
+/* ================================ CONTACT ROUTES ========================= */
+
+// SEND EMAIL
+//   Example: POST >> /api/contact
+//   Secured: no
+//   Expects:
+//     1) request body properties : {
+//          name            : String
+//          fromEmail       : String
+//          subject         : String
+//          message         : String
+//        }
+//   Returns: success message or error.
+//
+router.post("/contact", userCtrl.sendEmail);
+
 /* ================================ EXPORT ================================= */
 
 module.exports = router;

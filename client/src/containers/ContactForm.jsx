@@ -35,18 +35,19 @@ const styles = theme => ({
 class ContactForm extends React.Component {
   componentDidMount() {}
 
-  sendMessage = () => {
-    const { name, fromEmail, subject, body } = this.props.contact.form;
-    const message = {
+  sendEmail = () => {
+    const { name, fromEmail, subject, message } = this.props.contact.form;
+    const body = {
       name,
       fromEmail,
       subject,
-      body
+      message
     };
     this.props.apiContact
-      .sendEmail(message)
+      .sendEmail(body)
       .then(result => {
-        if (result === "SEND_EMAIL_FAILURE" || this.props.contact.error) {
+        console.log(result.type);
+        if (result.type === "SEND_EMAIL_FAILURE" || this.props.contact.error) {
           openSnackbar(
             "error",
             this.props.contact.error ||
@@ -76,7 +77,7 @@ class ContactForm extends React.Component {
           <TextField
             name="name"
             id="name"
-            label="Name"
+            label="Your Name"
             type="text"
             variant="outlined"
             required
@@ -87,7 +88,7 @@ class ContactForm extends React.Component {
           <TextField
             name="fromEmail"
             id="fromEmail"
-            label="Email"
+            label="Your Email"
             type="email"
             variant="outlined"
             required
@@ -107,10 +108,11 @@ class ContactForm extends React.Component {
             className={classes.input}
           />
           <TextField
-            name="body"
-            id="body"
+            name="message"
+            id="message"
             label="Message"
             multiline
+            rows="5"
             variant="outlined"
             required
             value={this.props.contact.form.body}
@@ -123,7 +125,7 @@ class ContactForm extends React.Component {
             className={classes.formButton}
             variant="contained"
             onClick={() => this.sendEmail()}
-            loading={this.props.contacg.loading}
+            loading={this.props.contact.loading}
           >
             Send email
           </ButtonWithSpinner>
@@ -157,7 +159,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  apiProject: bindActionCreators(apiContactActions, dispatch)
+  apiContact: bindActionCreators(apiContactActions, dispatch)
 });
 
 export default withStyles(styles)(

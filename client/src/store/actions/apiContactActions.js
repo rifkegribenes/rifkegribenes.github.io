@@ -26,7 +26,7 @@ export function clearForm() {
 *  --  @param {string} name,
 *  --  @param {string} fromEmail,
 *  --  @param {string} subject,
-*  --  @param {string} body
+*  --  @param {string} message
 * This action dispatches additional actions as it executes:
 *   SEND_EMAIL_REQUEST:
 *     Initiates a spinner on the home page.
@@ -64,100 +64,6 @@ export function sendEmail(body) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(body)
-    }
-  };
-}
-
-/*
-* Function: updateProject -- update existing project
-* @param {string} id project id
-* @param {object} body (project object)
-*  --  @param {object} updates
-*  --  -- @param {string} title,
-*  --  -- @param {string} body,
-*  --  -- @param {string} screenshot_url,
-*  --  -- @param {string} github_url,
-*  --  -- @param {string} live_url
-*  --  @param {array}  tag_names {string}
-* This action dispatches additional actions as it executes:
-*   UDPATE_PROJECT_REQUEST:
-*     Initiates a spinner on the home page.
-*   UDPATE_PROJECT_SUCCESS:
-*     If project successfully updated, hides spinner
-*   UDPATE_PROJECT_FAILURE:
-*     If database error, hides spinner, displays error toastr
-*/
-export function updateProject(token, id, body) {
-  return {
-    [RSAA]: {
-      endpoint: `${BASE_URL}/api/project/${id}`,
-      method: "PUT",
-      types: [
-        UPDATE_PROJECT_REQUEST,
-        UPDATE_PROJECT_SUCCESS,
-        {
-          type: UPDATE_PROJECT_FAILURE,
-          payload: (action, state, res) => {
-            return res.json().then(data => {
-              let message = "Sorry, something went wrong :(";
-              if (data) {
-                if (data.message) {
-                  message = data.message;
-                }
-                return { message };
-              } else {
-                return { message };
-              }
-            });
-          }
-        }
-      ],
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(body)
-    }
-  };
-}
-
-/*
-* Function: removeProject -- remove project from database
-* @param {string} id
-* This action dispatches additional actions as it executes:
-*   REMOVE_PROJECT_REQUEST:
-*     Initiates a spinner on the home page.
-*   REMOVE_PROJECT_SUCCESS:
-*     If project successfully removed, hides spinner
-*   REMOVE_PROJECT_FAILURE:
-*     If database error, hides spinner, displays error toastr
-*/
-export function deleteProject(token, id) {
-  return {
-    [RSAA]: {
-      endpoint: `${BASE_URL}/api/project/${id}`,
-      method: "DELETE",
-      types: [
-        DELETE_PROJECT_REQUEST,
-        DELETE_PROJECT_SUCCESS,
-        {
-          type: DELETE_PROJECT_FAILURE,
-          payload: (action, state, res) => {
-            return res.json().then(data => {
-              let message = "Sorry, something went wrong :(";
-              if (data) {
-                if (data.message) {
-                  message = data.message;
-                }
-                return { message };
-              } else {
-                return { message };
-              }
-            });
-          }
-        }
-      ],
-      headers: { Authorization: `Bearer ${token}` }
     }
   };
 }
