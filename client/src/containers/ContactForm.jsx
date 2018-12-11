@@ -88,7 +88,7 @@ class ContactForm extends React.Component {
           <TextField
             name="fromEmail"
             id="fromEmail"
-            label="Your Email"
+            label="Your Email Address"
             type="email"
             variant="outlined"
             required

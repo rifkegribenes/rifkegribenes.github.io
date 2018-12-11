@@ -19,18 +19,6 @@ const Hero = props => {
           {width === "xs" || width === "sm" ? <br /> : " "}
           want to build?
         </Typography>
-        <Typography variant="body1" className={classes.heroBody}>
-          I'm a software engineer
-          {width === "xs" || width === "sm" ? <br /> : " "}
-          and UI/UX designer
-          {width === "xs" || width === "sm" ? <br /> : " "}
-          and I'd love to help you build it!
-        </Typography>
-        {/*        <Avatar
-          alt="Sarah Schneider"
-          className={classes.heroAvatar}
-          src={avatarPic}
-        />*/}
         <Button
           variant="outlined"
           color="secondary"
@@ -45,12 +33,9 @@ const Hero = props => {
           alt="lego bricks"
           id="lego-svg"
           src={legos}
-          class={classes.heroSvg}
+          className={classes.heroSvg}
         />
       </div>
-      {/*      <div className={classes.heroSvgWrap}>
-        <canvas id="canvas" className={classes.heroSvg} />
-      </div>*/}
     </div>
   );
 };

@@ -29,7 +29,11 @@ const Home = props => {
       <div className={classes.homeText}>
         <div className={classes.section}>
           <Typography variant="h2">About</Typography>
-          <Typography variant="body1">Blah blah blah</Typography>
+          <Typography variant="body1" className={classes.heroBody}>
+            I'm a full-stack JavaScript engineer and UI/UX designer with 25
+            years of experience working with labor and social justice
+            organiations. I like solving problems with code.
+          </Typography>
         </div>
         <div className={classes.section}>
           <Typography variant="h2">Skills</Typography>
