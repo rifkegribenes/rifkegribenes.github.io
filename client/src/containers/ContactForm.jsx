@@ -62,9 +62,10 @@ class ContactForm extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { forwardedRef, classes, ...rest } = this.props;
+    // const { classes } = this.props;
     return (
-      <div style={{ padding: "20 20 0 20" }}>
+      <div style={{ padding: "20 20 0 20" }} ref={forwardedRef}>
         <Typography
           variant="h2"
           align="center"

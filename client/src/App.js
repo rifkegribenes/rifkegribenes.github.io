@@ -3,6 +3,7 @@ import { Switch, Route, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import PropTypes from "prop-types";
+import smoothscroll from "smoothscroll-polyfill";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { withStyles } from "@material-ui/core/styles";
@@ -94,10 +95,18 @@ const styles = theme => ({
 });
 
 class App extends Component {
-  state = {
-    deleteDialogOpen: false,
-    animation: false
-  };
+  constructor(props) {
+    super(props);
+    this.ref = React.createRef();
+    this.state = {
+      deleteDialogOpen: false,
+      animation: false
+    };
+  }
+
+  scroll(ref) {
+    ref.current.scrollIntoView({ behavior: "smooth" });
+  }
 
   componentDidMount() {
     // if (document.getElementById("canvas") && !this.state.animation) {
@@ -106,6 +115,7 @@ class App extends Component {
     //   newState.animation = true;
     //   this.setState(newState);
     // }
+    smoothscroll.polyfill();
 
     if (this.props.location.hash) {
       const hash = this.props.location.hash.slice(2);
@@ -181,9 +191,15 @@ class App extends Component {
               path="/"
               render={routeProps => (
                 <React.Fragment>
-                  <Hero classes={this.props.classes} {...routeProps} />
+                  <Hero
+                    classes={this.props.classes}
+                    scroll={this.scroll}
+                    forwardedRef={this.ref}
+                    {...routeProps}
+                  />
                   <Home {...routeProps} />
                   <AllProjects {...routeProps} />
+                  <ContactForm forwardedRef={this.ref} {...routeProps} />
                 </React.Fragment>
               )}
             />

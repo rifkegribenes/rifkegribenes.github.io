@@ -88,7 +88,8 @@ const styles = theme => ({
   }
 });
 
-const Hero = props => {
+const Hero = React.forwardRef((props, ref) => {
+  console.log(ref);
   const { width, classes } = props;
   return (
     <div className={classes.hero}>
@@ -104,7 +105,9 @@ const Hero = props => {
           variant="outlined"
           color="secondary"
           className={classes.heroButton}
-          href="/contact"
+          onClick={() => {
+            props.scroll(ref);
+          }}
         >
           Get started
         </Button>
@@ -119,7 +122,7 @@ const Hero = props => {
       </div>
     </div>
   );
-};
+});
 
 Hero.propTypes = {
   classes: PropTypes.object
