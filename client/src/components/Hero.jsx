@@ -89,8 +89,7 @@ const styles = theme => ({
 });
 
 const Hero = React.forwardRef((props, ref) => {
-  console.log(ref);
-  const { width, classes } = props;
+  const { forwardedRef, width, classes } = props;
   return (
     <div className={classes.hero}>
       <div className={classes.heroText}>
@@ -106,7 +105,7 @@ const Hero = React.forwardRef((props, ref) => {
           color="secondary"
           className={classes.heroButton}
           onClick={() => {
-            props.scroll(ref);
+            props.scroll(forwardedRef);
           }}
         >
           Get started

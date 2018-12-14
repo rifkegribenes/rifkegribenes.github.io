@@ -192,7 +192,6 @@ class App extends Component {
               render={routeProps => (
                 <React.Fragment>
                   <Hero
-                    classes={this.props.classes}
                     scroll={this.scroll}
                     forwardedRef={this.ref}
                     {...routeProps}
