@@ -167,12 +167,13 @@ class App extends Component {
 
   render() {
     const { deleteDialogOpen, currentProject } = this.props.project;
+    const { classes } = this.props;
     return (
       <React.Fragment>
         <CssBaseline />
         <NavBar />
         <Notifier />
-        <main className="main" id="main">
+        <main className={classes.container} id="main">
           {deleteDialogOpen && (
             <AlertDialog
               open={deleteDialogOpen}

@@ -169,39 +169,6 @@ class NavBar extends React.Component {
                 rifkegribenes.io
               </Link>
             </Typography>
-            {loggedIn ? (
-              <div className={classes.admin}>
-                <Avatar
-                  alt={this.props.profile.profile.username}
-                  className={classes.avatar}
-                />
-                <Button
-                  variant="outlined"
-                  color="secondary"
-                  className={classes.loginButton}
-                  href="/logout"
-                >
-                  Logout
-                </Button>
-              </div>
-            ) : (
-              <Button
-                variant="outlined"
-                color="secondary"
-                href={`${BASE_URL}/api/auth/github`}
-                className={classes.loginButton}
-                onClick={() => {
-                  if (this.props.location.pathname !== "/logout") {
-                    window.localStorage.setItem(
-                      "redirect",
-                      this.props.location.pathname
-                    );
-                  }
-                }}
-              >
-                Login
-              </Button>
-            )}
             <IconButton
               className={classes.menuButton}
               color="secondary"

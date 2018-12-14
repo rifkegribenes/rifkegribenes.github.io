@@ -8,13 +8,13 @@ import { withStyles } from "@material-ui/core/styles";
 const styles = theme => ({
   root: {
     margin: 20,
-    padding: 20,
+    // padding: 20,
     maxWidth: 1200
   },
   home: {},
   homeText: {
-    margin: 20,
-    padding: "20px 60px",
+    margin: "20px 0",
+    // padding: "20px 60px",
     maxWidth: 1200
   },
   section: {

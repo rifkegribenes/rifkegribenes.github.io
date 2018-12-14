@@ -76,7 +76,7 @@ class ProjectGrid extends React.Component {
       <div className={classes.root}>
         <Typography
           variant="h2"
-          align="center"
+          align="left"
           gutterBottom
           style={{ paddingTop: 20 }}
         >

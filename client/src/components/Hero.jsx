@@ -43,17 +43,17 @@ const styles = theme => ({
     width: "auto"
   },
   heroText: {
-    padding: 60,
+    // padding: 60,
     backgroundColor: theme.palette.bodyBackground,
     width: "100%",
     maxWidth: 900,
     margin: "0 auto",
     [theme.breakpoints.up("md")]: {
-      minWidth: "50%",
-      padding: "60px 0 60px 60px"
+      minWidth: "50%"
+      // padding: "60px 0 60px 60px"
     },
     [theme.breakpoints.down("sm")]: {
-      padding: 20
+      // padding: 20
     }
   },
   heroHead: {
@@ -108,7 +108,7 @@ const Hero = React.forwardRef((props, ref) => {
             props.scroll(forwardedRef);
           }}
         >
-          Get started
+          Say Hello
         </Button>
       </div>
       <div className={classes.heroSvgWrap}>
