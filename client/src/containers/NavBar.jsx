@@ -13,9 +13,9 @@ import MenuIcon from "@material-ui/icons/Menu";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import Avatar from "@material-ui/core/Avatar";
+// import Avatar from "@material-ui/core/Avatar";
 
-import { BASE_URL } from "../store/actions/apiConfig.js";
+// import { BASE_URL } from "../store/actions/apiConfig.js";
 import { skip } from "../utils";
 import rainbowIcon from "../img/rainbow_icon.svg";
 
@@ -32,11 +32,22 @@ const styles = theme => ({
     backgroundColor: theme.palette.primary.main
   },
   menuButton: {
-    marginLeft: 12
-    // marginRight: 20,
-    // [theme.breakpoints.down("xs")]: {
-    //   marginRight: 0
-    // }
+    display: "none",
+    [theme.breakpoints.down("sm")]: {
+      display: "block",
+      position: "absolute",
+      right: 20
+    }
+  },
+  menuWrap: {
+    [theme.breakpoints.down("sm")]: {
+      display: "none"
+    }
+  },
+  menuLink: {
+    color: theme.palette.secondary.main,
+    textTransform: "capitalize",
+    fontSize: "1em"
   },
   title: {
     flexGrow: 1,
@@ -46,7 +57,7 @@ const styles = theme => ({
     textDecoration: "none",
     paddingLeft: 10,
     fontWeight: 200,
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("md")]: {
       fontSize: "1.1rem"
     },
     [theme.breakpoints.down("xs")]: {
@@ -122,13 +133,16 @@ class NavBar extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { about_ref, contact_ref, projects_ref, classes } = this.props;
+    const refsObj = {
+      about_ref,
+      contact_ref,
+      projects_ref
+    };
     const { anchorEl } = this.state;
     const { loggedIn } = this.props.appState;
     const links = ["about", "projects", "contact"];
-    const linkList = !loggedIn
-      ? links
-      : ["about", "projects", "contact", "new", "logout"];
+    const linkList = !loggedIn ? links : links.concat(["new", "logout"]);
     const ListItemLink = props => {
       const { primary, to, handleClose } = props;
       return (
@@ -143,7 +157,7 @@ class NavBar extends React.Component {
         </MenuItem>
       );
     };
-    const menuLinks = linkList.map((link, index) => (
+    const mobileLinks = linkList.map((link, index) => (
       <ListItemLink
         to={`/${link}`}
         key={index}
@@ -151,6 +165,21 @@ class NavBar extends React.Component {
         handleClose={this.handleClose}
       />
     ));
+    const menuLinks = linkList.map((link, index) => {
+      const linkRef = refsObj[`${link}_ref`];
+      return (
+        <Button
+          key={index}
+          className={classes.menuLink}
+          onClick={() => {
+            console.log(linkRef);
+            this.props.scroll(linkRef);
+          }}
+        >
+          {link}
+        </Button>
+      );
+    });
     return (
       <div className={classes.root}>
         <AppBar position="static" className={classes.appBar}>
@@ -186,8 +215,9 @@ class NavBar extends React.Component {
               onClose={this.handleClose}
               component="nav"
             >
-              {menuLinks}
+              {mobileLinks}
             </Menu>
+            <nav className={classes.menuWrap}>{menuLinks}</nav>
           </Toolbar>
         </AppBar>
       </div>

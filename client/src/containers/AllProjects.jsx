@@ -32,9 +32,10 @@ class AllProjects extends Component {
   }
 
   render() {
+    const { forwardedRef } = this.props;
     return (
       <div className="projectList">
-        <ProjectGrid />
+        <ProjectGrid forwardedRef={forwardedRef} />
       </div>
     );
   }

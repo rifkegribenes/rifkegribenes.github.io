@@ -22,12 +22,12 @@ const styles = theme => ({
   }
 });
 
-const Home = props => {
-  const { classes } = props;
+const Home = React.forwardRef((props, ref) => {
+  const { forwardedRef, classes } = props;
   return (
     <div className={classes.home}>
       <div className={classes.homeText}>
-        <div className={classes.section}>
+        <div className={classes.section} ref={forwardedRef}>
           <Typography variant="h2">About</Typography>
           <Typography variant="body1" className={classes.heroBody}>
             I'm a full-stack JavaScript engineer and UI/UX designer with 25
@@ -39,14 +39,10 @@ const Home = props => {
           <Typography variant="h2">Skills</Typography>
           <Typography variant="body1">Blah blah blah</Typography>
         </div>
-        <div className={classes.section}>
-          <Typography variant="h2">Contact</Typography>
-          <Typography variant="body1">Blah blah blah</Typography>
-        </div>
       </div>
     </div>
   );
-};
+});
 
 Home.propTypes = {
   classes: PropTypes.object

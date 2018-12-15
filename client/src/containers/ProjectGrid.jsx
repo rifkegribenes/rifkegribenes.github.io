@@ -70,10 +70,10 @@ const styles = theme => ({
 
 class ProjectGrid extends React.Component {
   render() {
-    const { classes } = this.props;
+    const { classes, forwardedRef } = this.props;
     const { loggedIn } = this.props.appState;
     return (
-      <div className={classes.root}>
+      <div className={classes.root} ref={forwardedRef}>
         <Typography
           variant="h2"
           align="left"

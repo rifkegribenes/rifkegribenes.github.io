@@ -43,9 +43,9 @@ const styles = theme => ({
     [theme.breakpoints.down("md")]: {
       padding: 20
     },
-    [theme.breakpoints.down("sm")]: {
-      padding: 0
-    },
+    // [theme.breakpoints.down("sm")]: {
+    //   padding: 0
+    // },
     margin: "auto",
     height: "100%",
     minHeight: "80vh",
@@ -97,7 +97,10 @@ const styles = theme => ({
 class App extends Component {
   constructor(props) {
     super(props);
-    this.ref = React.createRef();
+    this.contact_ref = React.createRef();
+    this.about_ref = React.createRef();
+    this.projects_ref = React.createRef();
+    this.skills_ref = React.createRef();
     this.state = {
       deleteDialogOpen: false,
       animation: false
@@ -171,7 +174,13 @@ class App extends Component {
     return (
       <React.Fragment>
         <CssBaseline />
-        <NavBar />
+        <NavBar
+          scroll={this.scroll}
+          contact_ref={this.contact_ref}
+          about_ref={this.about_ref}
+          projects_ref={this.projects_ref}
+          skills_ref={this.skills_ref}
+        />
         <Notifier />
         <main className={classes.container} id="main">
           {deleteDialogOpen && (
@@ -194,12 +203,18 @@ class App extends Component {
                 <React.Fragment>
                   <Hero
                     scroll={this.scroll}
-                    forwardedRef={this.ref}
+                    forwardedRef={this.contact_ref}
                     {...routeProps}
                   />
-                  <Home {...routeProps} />
-                  <AllProjects {...routeProps} />
-                  <ContactForm forwardedRef={this.ref} {...routeProps} />
+                  <Home forwardedRef={this.about_ref} {...routeProps} />
+                  <AllProjects
+                    forwardedRef={this.projects_ref}
+                    {...routeProps}
+                  />
+                  <ContactForm
+                    forwardedRef={this.contact_ref}
+                    {...routeProps}
+                  />
                 </React.Fragment>
               )}
             />
