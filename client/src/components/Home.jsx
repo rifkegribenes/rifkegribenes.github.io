@@ -18,7 +18,8 @@ const styles = theme => ({
     maxWidth: 1200
   },
   section: {
-    marginBottom: 40
+    marginBottom: 40,
+    paddingTop: 100
   }
 });
 

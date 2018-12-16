@@ -13,13 +13,14 @@ const styles = theme => ({
   },
   hero: {
     display: "flex",
+    margin: "60px 0 -60px",
+    minHeight: "70vh",
     [theme.breakpoints.down("md")]: {
       flexWrap: "wrap"
     }
   },
   heroSvgWrap: {
     height: "100%",
-    minHeight: "80vh",
     width: "100%",
     padding: "60px 60px 60px 0"
   },

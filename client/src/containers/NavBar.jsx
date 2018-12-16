@@ -29,7 +29,8 @@ const styles = theme => ({
     flexGrow: 1
   },
   appBar: {
-    backgroundColor: theme.palette.primary.main
+    backgroundColor: theme.palette.primary.main,
+    position: "fixed"
   },
   menuButton: {
     display: "none",
@@ -58,7 +59,8 @@ const styles = theme => ({
     paddingLeft: 10,
     fontWeight: 200,
     [theme.breakpoints.down("md")]: {
-      fontSize: "1.1rem"
+      fontSize: "1.1rem",
+      fontWeight: 400
     },
     [theme.breakpoints.down("xs")]: {
       display: "none"
@@ -142,7 +144,7 @@ class NavBar extends React.Component {
     const { anchorEl } = this.state;
     const { loggedIn } = this.props.appState;
     const links = ["about", "projects", "contact"];
-    const linkList = !loggedIn ? links : links.concat(["new", "logout"]);
+    const adminLinks = ["new", "logout"];
     const ListItemLink = props => {
       const { primary, to, handleClose } = props;
       return (
@@ -157,7 +159,7 @@ class NavBar extends React.Component {
         </MenuItem>
       );
     };
-    const mobileLinks = linkList.map((link, index) => (
+    const mobileLinks = links.map((link, index) => (
       <ListItemLink
         to={`/${link}`}
         key={index}
@@ -165,7 +167,14 @@ class NavBar extends React.Component {
         handleClose={this.handleClose}
       />
     ));
-    const menuLinks = linkList.map((link, index) => {
+    const adminMenuLinks = adminLinks.map((link, index) => {
+      return (
+        <Button key={index} className={classes.menuLink} href={`/${link}`}>
+          {link}
+        </Button>
+      );
+    });
+    const menuLinks = links.map((link, index) => {
       const linkRef = refsObj[`${link}_ref`];
       return (
         <Button
@@ -182,7 +191,7 @@ class NavBar extends React.Component {
     });
     return (
       <div className={classes.root}>
-        <AppBar position="static" className={classes.appBar}>
+        <AppBar position="fixed" className={classes.appBar}>
           <Toolbar>
             <Button
               color="primary"
@@ -217,7 +226,14 @@ class NavBar extends React.Component {
             >
               {mobileLinks}
             </Menu>
-            <nav className={classes.menuWrap}>{menuLinks}</nav>
+            {loggedIn ? (
+              <nav className={classes.menuWrap}>
+                {menuLinks}
+                {adminMenuLinks}
+              </nav>
+            ) : (
+              <nav className={classes.menuWrap}>{menuLinks}</nav>
+            )}
           </Toolbar>
         </AppBar>
       </div>

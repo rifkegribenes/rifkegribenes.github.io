@@ -15,7 +15,7 @@ import ButtonWithSpinner from "../components/ButtonWithSpinner";
 const styles = theme => ({
   root: {},
   container: {
-    paddingBottom: 140
+    padding: "80px 0 140px 0"
   },
   form: {
     maxWidth: 600,
@@ -67,11 +67,7 @@ class ContactForm extends React.Component {
   render() {
     const { forwardedRef, classes } = this.props;
     return (
-      <div
-        className={classes.container}
-        style={{ padding: "20 20 60 20" }}
-        ref={forwardedRef}
-      >
+      <div className={classes.container} ref={forwardedRef}>
         <Typography
           variant="h2"
           align="left"

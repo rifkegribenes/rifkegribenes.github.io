@@ -20,6 +20,11 @@ const styles = theme => ({
     maxWidth: 1920,
     paddingBottom: 60
   },
+  section: {
+    position: "relative",
+    padding: "400px 0 0",
+    backgroundClip: "padding-box"
+  },
   buttonEdit: {
     position: "absolute",
     bottom: 20,
@@ -73,7 +78,7 @@ class ProjectGrid extends React.Component {
     const { classes, forwardedRef } = this.props;
     const { loggedIn } = this.props.appState;
     return (
-      <div className={classes.root} ref={forwardedRef}>
+      <div className={classes.section} ref={forwardedRef}>
         <Typography
           variant="h2"
           align="left"
