@@ -182,7 +182,13 @@ class NavBar extends React.Component {
           className={classes.menuLink}
           onClick={() => {
             console.log(linkRef);
-            this.props.scroll(linkRef);
+            if (this.props.location.pathname === "/") {
+              console.log("homepage: scroll");
+              this.props.scroll(linkRef);
+            } else {
+              console.log("other page: redirect");
+              this.props.history.push(`/${link}`);
+            }
           }}
         >
           {link}
