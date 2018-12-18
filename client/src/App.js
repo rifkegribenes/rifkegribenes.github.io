@@ -120,11 +120,6 @@ class App extends Component {
     // }
     smoothscroll.polyfill();
 
-    if (this.props.location.hash) {
-      const hash = this.props.location.hash.slice(2);
-      const url = `/${hash.split("=")[1]}`;
-      this.props.history.push(url);
-    }
     // If not logged in, check local storage for authToken
     // if it doesn't exist, it returns the string "undefined"
     if (!this.props.appState.loggedIn) {
@@ -147,15 +142,6 @@ class App extends Component {
       // console.log("logged in");
     }
   }
-
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (!this.state.animation && document.getElementById("canvas")) {
-  //     nodeAnimation();
-  //     const newState = { ...this.state };
-  //     newState.animation = true;
-  //     this.setState(newState);
-  //   }
-  // }
 
   handleDeleteDialogOpen = project => {
     if (project) {
@@ -206,7 +192,15 @@ class App extends Component {
                     forwardedRef={this.contact_ref}
                     {...routeProps}
                   />
-                  <Home forwardedRef={this.about_ref} {...routeProps} />
+                  <Home
+                    forwardedRef={this.about_ref}
+                    contact_ref={this.contact_ref}
+                    about_ref={this.about_ref}
+                    projects_ref={this.projects_ref}
+                    skills_ref={this.skills_ref}
+                    scroll={this.scroll}
+                    {...routeProps}
+                  />
                   <AllProjects
                     forwardedRef={this.projects_ref}
                     {...routeProps}

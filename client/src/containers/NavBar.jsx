@@ -187,7 +187,9 @@ class NavBar extends React.Component {
               this.props.scroll(linkRef);
             } else {
               console.log("other page: redirect");
-              this.props.history.push(`/${link}`);
+              this.props.history.push(`/#${link}`);
+
+              // this.props.history.push(`/${link}`);
             }
           }}
         >
