@@ -21,9 +21,7 @@ const styles = theme => ({
     paddingBottom: 60
   },
   section: {
-    position: "relative",
-    padding: "400px 0 0",
-    backgroundClip: "padding-box"
+    padding: "60px 0 0 0"
   },
   buttonEdit: {
     position: "absolute",
