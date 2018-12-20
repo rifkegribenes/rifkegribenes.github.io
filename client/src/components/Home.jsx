@@ -17,6 +17,12 @@ const styles = theme => ({
     // padding: "20px 60px",
     maxWidth: 1200
   },
+  homeBody: {
+    fontSize: "2em"
+  },
+  homeHead: {
+    color: theme.palette.secondary.main
+  },
   section: {
     marginBottom: 40,
     paddingTop: 100
@@ -65,16 +71,23 @@ class Home extends React.Component {
       <div className={classes.home}>
         <div className={classes.homeText}>
           <div className={classes.section} ref={forwardedRef}>
-            <Typography variant="h2">About</Typography>
-            <Typography variant="body1" className={classes.heroBody}>
-              I'm a full-stack JavaScript engineer and UI/UX designer with 25
-              years of experience working with labor and social justice
-              organiations. I like solving problems with code.
+            <Typography variant="h2" className={classes.homeHead}>
+              About
+            </Typography>
+            <Typography variant="body1" className={classes.homeBody}>
+              I'm a full-stack JavaScript engineer and UI/UX designer with 18
+              years of experience building beautiful, interactive web
+              applications. I'm passionate about developing technology for
+              organizers and activists. I like solving problems with code.
             </Typography>
           </div>
-          <div className={classes.section}>
-            <Typography variant="h2">Skills</Typography>
-            <Typography variant="body1">Blah blah blah</Typography>
+          <div>
+            <Typography variant="h2" className={classes.homeHead}>
+              Skills
+            </Typography>
+            <Typography variant="body1" className={classes.homeBody}>
+              Blah blah blah
+            </Typography>
           </div>
         </div>
       </div>
