@@ -23,6 +23,9 @@ const styles = theme => ({
   section: {
     padding: "60px 0 0 0"
   },
+  head: {
+    color: theme.palette.secondary.main
+  },
   buttonEdit: {
     position: "absolute",
     bottom: 20,
@@ -51,7 +54,7 @@ const styles = theme => ({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
-    padding: 50,
+    padding: "50px 0",
     [theme.breakpoints.down("sm")]: {
       padding: 10
     }
@@ -81,6 +84,7 @@ class ProjectGrid extends React.Component {
           variant="h2"
           align="left"
           gutterBottom
+          className={classes.head}
           style={{ paddingTop: 20 }}
         >
           Projects

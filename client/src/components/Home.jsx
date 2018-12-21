@@ -18,14 +18,32 @@ const styles = theme => ({
     maxWidth: 1200
   },
   homeBody: {
+    marginTop: 20,
     fontSize: "2em"
   },
   homeHead: {
     color: theme.palette.secondary.main
   },
   section: {
-    marginBottom: 40,
+    marginBottom: 60,
     paddingTop: 100
+  },
+  tag: {
+    padding: "7px 19px 8px;",
+    margin: 10,
+    border: `1px solid ${theme.palette.secondary.main}`,
+    // textTransform: "capitalize",
+    fontWeight: 100
+  },
+  tagText: {
+    // display: "inline-block",
+    color: theme.palette.secondary.main,
+    fontSize: "1.2em"
+  },
+  tags: {
+    margin: "20px -5px 10px",
+    display: "flex",
+    flexWrap: "wrap"
   }
 });
 
@@ -67,6 +85,35 @@ class Home extends React.Component {
         }
       }
     }
+    const tag_names = [
+      "React",
+      "Redux",
+      "Node",
+      "Express",
+      "MongoDB",
+      "PostgreSQL",
+      "Knex",
+      "Socket.io",
+      "Mocha",
+      "Chai",
+      "es6",
+      "Python",
+      "Flask",
+      "Material UI",
+      "Bootstrap",
+      "jQuery",
+      "Sass",
+      "Less",
+      "Stylus",
+      "Vue"
+    ];
+    const tags = tag_names.map((tag, idx) => (
+      <span className={classes.tag} key={`${tag}-${idx}`}>
+        <Typography component="div" className={classes.tagText}>
+          {tag}
+        </Typography>
+      </span>
+    ));
     return (
       <div className={classes.home}>
         <div className={classes.homeText}>
@@ -78,16 +125,16 @@ class Home extends React.Component {
               I'm a full-stack JavaScript engineer and UI/UX designer with 18
               years of experience building beautiful, interactive web
               applications. I'm passionate about developing technology for
-              organizers and activists. I like solving problems with code.
+              organizers and activists, and I've been working with labor unions
+              and social justice organizations since 1991. I like solving
+              problems with code.
             </Typography>
           </div>
           <div>
             <Typography variant="h2" className={classes.homeHead}>
               Skills
             </Typography>
-            <Typography variant="body1" className={classes.homeBody}>
-              Blah blah blah
-            </Typography>
+            <div className={classes.tags}>{tags}</div>
           </div>
         </div>
       </div>

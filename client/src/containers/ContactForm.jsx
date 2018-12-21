@@ -17,6 +17,9 @@ const styles = theme => ({
   container: {
     padding: "80px 0 140px 0"
   },
+  head: {
+    color: theme.palette.secondary.main
+  },
   form: {
     maxWidth: 600,
     margin: "auto"
@@ -72,6 +75,7 @@ class ContactForm extends React.Component {
           variant="h2"
           align="left"
           gutterBottom
+          className={classes.head}
           style={{ paddingTop: 20 }}
         >
           Say Hello
