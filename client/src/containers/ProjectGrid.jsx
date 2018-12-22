@@ -60,13 +60,13 @@ const styles = theme => ({
     }
   },
   card: {
-    width: "30%",
+    width: "31%",
     padding: 20,
     margin: "10px",
     position: "relative",
     border: `1px solid ${theme.palette.secondary.main}`,
-    [theme.breakpoints.down("sm")]: {
-      width: "49%"
+    [theme.breakpoints.down("md")]: {
+      width: "47%"
     },
     [theme.breakpoints.down("sm")]: {
       width: "100%"

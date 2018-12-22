@@ -66,7 +66,9 @@ const styles = theme => ({
     color: theme.palette.secondary.main
   },
   tags: {
-    margin: "20px -5px 10px"
+    margin: "20px -5px 10px",
+    display: "flex",
+    flexWrap: "wrap"
   },
   cardImage: {
     backgroundPosition: "center center",
@@ -105,11 +107,11 @@ const Project = props => {
     "https://raw.githubusercontent.com/rifkegribenes/rifkegribenes.github.io/master/client/src/img/";
   const imageStyle = { backgroundImage: `url(${githubRaw}${screenshot_url})` };
   const tags = tag_names.map((tag, idx) => (
-    <span className={classes.tag} key={`${tag}-${idx}`}>
+    <div className={classes.tag} key={`${tag}-${idx}`}>
       <Typography component="span" className={classes.tagText}>
         {tag}
       </Typography>
-    </span>
+    </div>
   ));
   return (
     <React.Fragment>
