@@ -125,12 +125,12 @@ class Home extends React.Component {
               About
             </Typography>
             <Typography variant="body1" className={classes.homeBody}>
-              I'm a full-stack JavaScript engineer and UI/UX designer with 18
-              years of experience building beautiful, interactive web
-              applications. I'm passionate about developing technology for
-              organizers and activists, and I've been working with labor unions
-              and social justice organizations since 1991. I like solving
-              problems with code.
+              I'm a full-stack engineer and UI/UX designer with 18 years of
+              experience building beautiful, interactive, fully-tested web
+              applications in the JavaScript ecosystem. I'm passionate about
+              developing technology for organizers and activists, and I've been
+              working with labor unions and social justice organizations since
+              1991. I like solving problems with code.
             </Typography>
           </div>
           <div>
