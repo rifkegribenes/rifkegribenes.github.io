@@ -108,7 +108,8 @@ class Home extends React.Component {
       "Sass",
       "Less",
       "Stylus",
-      "Vue"
+      "Vue",
+      "D3"
     ];
     const tags = tag_names.map((tag, idx) => (
       <span className={classes.tag} key={`${tag}-${idx}`}>
