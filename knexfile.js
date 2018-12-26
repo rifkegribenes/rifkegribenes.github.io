@@ -25,7 +25,7 @@ module.exports = {
       database: process.env.TEST_DATABASE_NAME
     },
     migrations: {
-      directory: "./db/migrations/testing"
+      directory: "./db/migrations"
     },
     seeds: {
       directory: "./db/seeds/testing"
@@ -35,7 +35,7 @@ module.exports = {
     client: "pg",
     connection: process.env.DATABASE_URL,
     migrations: {
-      directory: "./db/migrations/production"
+      directory: "./db/migrations"
     },
     seeds: {
       directory: "./db/seeds/production"

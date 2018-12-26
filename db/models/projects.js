@@ -128,7 +128,8 @@ const attachProjectTag = (projectId, tagId) => {
  *  then update the project's updated_at
  *  @param    {String}   project_id Project id for join table.
  *  @param    {String}   tag_id     Tag id for join table.
- *  @returns  Success message or error message.
+ *  @returns  {Array}               Array of 1 updated row object
+ *                                  OR object with error message
  */
 const removeProjectTag = (projectId, tagId) => {
   return db(TABLES.PROJECTS_TAGS)

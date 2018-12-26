@@ -71,19 +71,33 @@ async function checkAndRemoveTags(res, submittedTags, projectId) {
       updatedProjectWithTags[0].tag_names
     );
 
+    console.log("projects.ctrl.js > 74");
+    console.log(existingTags);
+
     // check existing tags against list of submitted tags
     // to see if any tags should be removed
     const submittedTagsSet = new Set(submittedTags);
     const tagsToRemove = existingTags.filter(x => !submittedTagsSet.has(x.tag));
 
+    console.log("projects.ctrl.js > 82");
+    console.log(tagsToRemove);
+
     // remove project/tag relationships for each tag to be removed
     const pool = tagsToRemove.map(tag => {
+      console.log("updatedProjectAfterRemoveTags:");
+      console.log(projects.removeProjectTag(projectId, tag.id));
       return projects.removeProjectTag(projectId, tag.id);
     });
-    Promise.all(pool).catch(err => {
-      console.log(`projects.ctrl.js > checkAndRemoveTags > pool()`);
-      console.error(err);
-    });
+    Promise.all(pool)
+      .then(updatedProject => {
+        console.log("projects.ctrl.js > 91");
+        console.log(updatedProject);
+        console.log(updatedProject[0]);
+      })
+      .catch(err => {
+        console.log(`projects.ctrl.js > checkAndRemoveTags > pool()`);
+        console.error(err);
+      });
   } catch (err) {
     console.log(`projects.ctrl.js > checkAndRemoveTags`);
     console.error(err);
@@ -176,6 +190,8 @@ async function createProjectWithTags(req, res, next) {
         sort_order,
         []
       );
+      // console.log(`projects.ctrl.js > 179:`);
+      // console.log(project);
       res.status(200).json(project);
     } catch (err) {
       console.log(
@@ -262,7 +278,7 @@ const getProjects = (req, res, next) => {
     return projects
       .getAllProjectsWithTags()
       .then(allProjects => {
-        console.log(allProjects);
+        // console.log(allProjects);
         const projects = allProjects.filter(project => project.featured);
         res.status(200).json(projects);
       })
@@ -272,8 +288,8 @@ const getProjects = (req, res, next) => {
       .getAllProjectsWithTags()
       .then(allProjects => {
         const projects = allProjects.filter(project => !project.featured);
-        console.log("filtered for unfeatured:");
-        console.log(projects);
+        // console.log("filtered for unfeatured:");
+        // console.log(projects);
         res.status(200).json(projects);
       })
       .catch(err => res.status(500).json({ message: err.message }));

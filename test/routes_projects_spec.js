@@ -18,6 +18,7 @@ const tag_names = [tagName];
 const tag_names2 = [tagName2];
 const title = `new project ${utils.randomText()}`;
 const title2 = `new project2 ${utils.randomText()}`;
+const title3 = `new project3 ${utils.randomText()}`;
 const body = "new project body text";
 const screenshot_url = "http://example.com/screenshot.png";
 const live_url = "http://example.com";
@@ -45,7 +46,16 @@ suite("routes : project", function() {
       chai
         .request(app)
         .post("/api/project/")
-        .send({ title, body, screenshot_url, live_url, github_url, tag_names })
+        .send({
+          title,
+          body,
+          screenshot_url,
+          live_url,
+          github_url,
+          tag_names,
+          featured: false,
+          sort_order: 1
+        })
         .end(function(err, res) {
           id = res.body[0].id;
           assert.equal(res.status, 200);
@@ -59,6 +69,51 @@ suite("routes : project", function() {
           assert.property(res.body[0], "live_url");
           assert.property(res.body[0], "github_url");
           assert.property(res.body[0], "tag_names");
+          assert.property(res.body[0], "featured");
+          assert.property(res.body[0], "sort_order");
+          assert.isArray(res.body[0].tag_names);
+          assert.equal(res.body[0].tag_names.length, 1);
+          assert.isNull(err);
+          done();
+        });
+    });
+
+    test("creates and returns featured project", function(done) {
+      chai
+        .request(app)
+        .post("/api/project/")
+        .send({
+          title: title3,
+          body,
+          screenshot_url,
+          live_url,
+          github_url,
+          tag_names,
+          featured: true,
+          sort_order: 1
+        })
+        .end(function(err, res) {
+          if (err) {
+            console.log(`77: ${err}`);
+          }
+          console.log(res.body);
+          id = res.body[0].id;
+          assert.equal(res.status, 200);
+          assert.equal(res.type, "application/json");
+          assert.property(res.body[0], "id");
+          assert.property(res.body[0], "created_at");
+          assert.property(res.body[0], "updated_at");
+          assert.property(res.body[0], "title");
+          assert.property(res.body[0], "body");
+          assert.property(res.body[0], "screenshot_url");
+          assert.property(res.body[0], "live_url");
+          assert.property(res.body[0], "github_url");
+          assert.property(res.body[0], "tag_names");
+          assert.property(res.body[0], "featured");
+          assert.property(res.body[0], "sort_order");
+          assert.isArray(res.body[0].tag_names);
+          assert.equal(res.body[0].tag_names.length, 1);
+          assert.equal(res.body[0].featured, true);
           assert.isNull(err);
           done();
         });
@@ -96,7 +151,63 @@ suite("routes : project", function() {
           assert.property(res.body[0], "live_url");
           assert.property(res.body[0], "github_url");
           assert.property(res.body[0], "tag_names");
+          assert.property(res.body[0], "featured");
+          assert.property(res.body[0], "sort_order");
           assert.isArray(res.body[0].tag_names);
+          done();
+        });
+    });
+  });
+
+  suite("GET /api/project?s=featured", function() {
+    test("gets featured projects", function(done) {
+      chai
+        .request(app)
+        .get("/api/project?s=featured")
+        .end(function(err, res) {
+          assert.equal(res.status, 200);
+          assert.isNull(err);
+          assert.isArray(res.body);
+          assert.property(res.body[0], "id");
+          assert.property(res.body[0], "created_at");
+          assert.property(res.body[0], "updated_at");
+          assert.property(res.body[0], "title");
+          assert.property(res.body[0], "body");
+          assert.property(res.body[0], "screenshot_url");
+          assert.property(res.body[0], "live_url");
+          assert.property(res.body[0], "github_url");
+          assert.property(res.body[0], "tag_names");
+          assert.property(res.body[0], "featured");
+          assert.property(res.body[0], "sort_order");
+          assert.isArray(res.body[0].tag_names);
+          assert.equal(res.body[0].featured, true);
+          done();
+        });
+    });
+  });
+
+  suite("GET /api/project?s=more", function() {
+    test("gets unfeatured ('more') projects", function(done) {
+      chai
+        .request(app)
+        .get("/api/project?s=more")
+        .end(function(err, res) {
+          assert.equal(res.status, 200);
+          assert.isNull(err);
+          assert.isArray(res.body);
+          assert.property(res.body[0], "id");
+          assert.property(res.body[0], "created_at");
+          assert.property(res.body[0], "updated_at");
+          assert.property(res.body[0], "title");
+          assert.property(res.body[0], "body");
+          assert.property(res.body[0], "screenshot_url");
+          assert.property(res.body[0], "live_url");
+          assert.property(res.body[0], "github_url");
+          assert.property(res.body[0], "tag_names");
+          assert.property(res.body[0], "featured");
+          assert.property(res.body[0], "sort_order");
+          assert.isArray(res.body[0].tag_names);
+          assert.equal(res.body[0].featured, false);
           done();
         });
     });
@@ -178,6 +289,8 @@ suite("routes : project", function() {
         .put(`/api/project/${id}`)
         .send({ updates, tag_names: updatedTags2 })
         .end(function(err, res) {
+          // console.log(res.body[0]);
+          // console.log(res.body[0].tag_names);
           assert.equal(res.status, 200);
           assert.isNull(err);
           assert.property(res.body[0], "id");
@@ -190,6 +303,8 @@ suite("routes : project", function() {
           assert.property(res.body[0], "github_url");
           assert.isArray(res.body[0].tag_names);
           assert.include(res.body[0].tag_names, "totallyDifferentTagName");
+          console.log(`routes_projects_spec.js > 286`);
+          console.log(res.body[0].tag_names);
           assert.notInclude(res.body[0].tag_names, updatedTagName);
           done();
         });

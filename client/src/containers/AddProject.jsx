@@ -229,6 +229,8 @@ class AddProject extends React.Component {
             label="Feature this project?"
           />
           <TextField
+            InputLabelProps={{ shrink: true }}
+            InputProps={{ inputProps: { min: 0 } }}
             name="sort_order"
             id="sort_order"
             label="Sort Order"

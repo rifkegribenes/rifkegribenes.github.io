@@ -70,11 +70,19 @@ function project(state = INITIAL_STATE, action) {
 
     case HANDLE_INPUT:
     case HANDLE_SWITCH:
-      return update(state, {
-        form: {
-          [action.payload.name]: { $set: action.payload.value }
-        }
-      });
+      if (action.payload.name === "sort_order") {
+        return update(state, {
+          form: {
+            [action.payload.name]: { $set: parseInt(action.payload.value) }
+          }
+        });
+      } else {
+        return update(state, {
+          form: {
+            [action.payload.name]: { $set: action.payload.value }
+          }
+        });
+      }
 
     case HANDLE_DELETE_OPEN:
       return update(state, {
