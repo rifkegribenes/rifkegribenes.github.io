@@ -79,7 +79,7 @@ export function setEditProject(project) {
 export function getFeaturedProjects() {
   return {
     [RSAA]: {
-      endpoint: `${BASE_URL}/api/project?featured`,
+      endpoint: `${BASE_URL}/api/project?s=featured`,
       method: "GET",
       types: [
         GET_FEATURED_PROJECTS_REQUEST,
@@ -118,7 +118,7 @@ export function getFeaturedProjects() {
 export function getMoreProjects() {
   return {
     [RSAA]: {
-      endpoint: `${BASE_URL}/api/project?more`,
+      endpoint: `${BASE_URL}/api/project?s=more`,
       method: "GET",
       types: [
         GET_MORE_PROJECTS_REQUEST,

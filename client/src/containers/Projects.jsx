@@ -12,10 +12,12 @@ import { openSnackbar } from "./Notifier";
 
 class Projects extends Component {
   componentDidMount() {
-    if (this.props.type === "featured") {
+    console.log(this.props.data);
+    if (this.props.data === "featured") {
       this.props.apiProject
         .getFeaturedProjects()
         .then(result => {
+          console.log(result.payload);
           if (
             result.type === "GET_FEATURED_PROJECTS_FAILURE" ||
             this.props.project.error
@@ -31,7 +33,7 @@ class Projects extends Component {
           console.log(err);
           openSnackbar("error", err);
         });
-    } else if (this.props.type === "more") {
+    } else if (this.props.data === "more") {
       this.props.apiProject
         .getMoreProjects()
         .then(result => {
@@ -55,9 +57,17 @@ class Projects extends Component {
 
   render() {
     const { forwardedRef } = this.props;
+    const more = this.props.type === "more";
     return (
       <div className="projectList">
-        <ProjectGrid forwardedRef={forwardedRef} />
+        <ProjectGrid
+          forwardedRef={forwardedRef}
+          data={
+            more
+              ? this.props.project.moreProjects
+              : this.props.project.featuredProjects
+          }
+        />
         <Button
           variant="outlined"
           color="secondary"

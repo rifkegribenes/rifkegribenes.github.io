@@ -76,7 +76,7 @@ const styles = theme => ({
 
 class ProjectGrid extends React.Component {
   render() {
-    const { classes, forwardedRef } = this.props;
+    const { classes, forwardedRef, data } = this.props;
     const { loggedIn } = this.props.appState;
     return (
       <div className={classes.section} ref={forwardedRef}>
@@ -90,7 +90,7 @@ class ProjectGrid extends React.Component {
           Projects
         </Typography>
         <div className={classes.gridWrapper}>
-          {this.props.project.projects.map(project => {
+          {data.map(project => {
             return (
               <div className={classes.card} key={project.id}>
                 <div

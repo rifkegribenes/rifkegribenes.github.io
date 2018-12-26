@@ -252,17 +252,39 @@ async function updateProjectWithTags(req, res, next) {
   }
 }
 
-/** Get all projects
+/** Get projects
+ *  @query {String} s   enum("featured", "more")
  *  @returns  {Array}   Array of project objects w/their nested tags
  *  OR error messsage
  */
 const getProjects = (req, res, next) => {
-  return projects
-    .getAllProjectsWithTags()
-    .then(projects => {
-      res.status(200).json(projects);
-    })
-    .catch(err => res.status(500).json({ message: err.message }));
+  if (req.query.s === "featured") {
+    console.log("featured");
+    return projects
+      .getAllProjectsWithTags()
+      .then(allProjects => {
+        console.log(allProjects);
+        const projects = allProjects.filter(project => project.featured);
+        console.log(projects);
+        res.status(200).json(projects);
+      })
+      .catch(err => res.status(500).json({ message: err.message }));
+  } else if (req.query.s === "more") {
+    return projects
+      .getAllProjectsWithTags()
+      .then(allProjects => {
+        const projects = allProjects.filter(project => !project.featured);
+        res.status(200).json(projects);
+      })
+      .catch(err => res.status(500).json({ message: err.message }));
+  } else {
+    return projects
+      .getAllProjectsWithTags()
+      .then(projects => {
+        res.status(200).json(projects);
+      })
+      .catch(err => res.status(500).json({ message: err.message }));
+  }
 };
 
 /** Get one project

@@ -47,6 +47,8 @@ const reduceResults = results => {
         github_url: project.github_url,
         created_at: project.created_at,
         updated_at: project.updated_at,
+        featured: project.featured,
+        sort_order: project.sort_order,
         tag_names: getProjectTags(results, project.id)
       });
     }
@@ -66,10 +68,20 @@ const reduceResults = results => {
  *  @param    {String}   screenshot_url New project screenshot_url.
  *  @param    {String}   live_url       New project live_url.
  *  @param    {String}   github_url     New project github_url.
+ *  @param    {Boolean}  featured       Featured project?
+ *  @param    {Integer}  sort_order     Display sort order.
  *  @returns  {Array}    Array of 1 newly-created Project object
  *                        OR object with error message
  */
-const createProject = (title, body, screenshot_url, live_url, github_url) => {
+const createProject = (
+  title,
+  body,
+  screenshot_url,
+  live_url,
+  github_url,
+  featured,
+  sort_order
+) => {
   return db
     .insert({
       id: uuid.v4(),
@@ -77,7 +89,9 @@ const createProject = (title, body, screenshot_url, live_url, github_url) => {
       body,
       screenshot_url,
       live_url,
-      github_url
+      github_url,
+      featured,
+      sort_order
     })
     .into(TABLES.PROJECTS)
     .returning("*")
@@ -164,6 +178,8 @@ const getProjectByIdWithTags = id => {
  ****  @param    {String}   screenshot_url Updated project screenshot_url.
  ****  @param    {String}   live_url       Updated project live_url.
  ****  @param    {String}   github_url     Updated project github_url.
+ ****  @param    {Boolean}  featured       Updated project featured.
+ ****  @param    {Integer}  sort_order     Updated project sort_order.
  *  @returns  {Object}        Project plus nested array of tags
  *                            OR object with error message
  */
