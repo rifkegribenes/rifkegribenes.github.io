@@ -21,7 +21,7 @@ import AlertDialog from "./components/AlertDialog";
 import Dashboard from "./containers/Dashboard";
 import Logout from "./containers/Logout";
 import AddProject from "./containers/AddProject";
-import AllProjects from "./containers/AllProjects";
+import Projects from "./containers/Projects";
 import ContactForm from "./containers/ContactForm";
 
 import Notifier, { openSnackbar } from "./containers/Notifier";
@@ -103,13 +103,20 @@ class App extends Component {
     this.skills_ref = React.createRef();
     this.state = {
       deleteDialogOpen: false,
-      animation: false
+      animation: false,
+      more: false
     };
   }
 
   scroll(ref) {
     ref.current.scrollIntoView({ block: "start", behavior: "smooth" });
   }
+
+  toggleMore = () => {
+    const newState = { ...this.state };
+    newState.more = !this.state.more;
+    this.setState(newState);
+  };
 
   componentDidMount() {
     // if (document.getElementById("canvas") && !this.state.animation) {
@@ -201,10 +208,14 @@ class App extends Component {
                     scroll={this.scroll}
                     {...routeProps}
                   />
-                  <AllProjects
+                  <Projects
+                    data="featured"
                     forwardedRef={this.projects_ref}
+                    toggleMore={this.toggleMore}
+                    more={this.state.more}
                     {...routeProps}
                   />
+                  {this.state.more && <Projects data="more" {...routeProps} />}
                   <ContactForm
                     forwardedRef={this.contact_ref}
                     {...routeProps}

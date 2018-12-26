@@ -2,9 +2,12 @@ import update from "immutability-helper";
 
 import { LOGOUT } from "../actions";
 import {
-  GET_ALL_PROJECTS_REQUEST,
-  GET_ALL_PROJECTS_SUCCESS,
-  GET_ALL_PROJECTS_FAILURE,
+  GET_FEATURED_PROJECTS_REQUEST,
+  GET_FEATURED_PROJECTS_SUCCESS,
+  GET_FEATURED_PROJECTS_FAILURE,
+  GET_MORE_PROJECTS_REQUEST,
+  GET_MORE_PROJECTS_SUCCESS,
+  GET_MORE_PROJECTS_FAILURE,
   GET_PROJECT_BY_ID_REQUEST,
   GET_PROJECT_BY_ID_SUCCESS,
   GET_PROJECT_BY_ID_FAILURE,
@@ -27,7 +30,8 @@ import {
 
 const INITIAL_STATE = {
   loading: false,
-  projects: [],
+  featuredProjects: [],
+  moreProjects: [],
   deleteDialogOpen: false,
   currentProject: {
     id: "",
@@ -131,7 +135,8 @@ function project(state = INITIAL_STATE, action) {
         }
       });
 
-    case GET_ALL_PROJECTS_REQUEST:
+    case GET_FEATURED_PROJECTS_REQUEST:
+    case GET_MORE_PROJECTS_REQUEST:
     case GET_PROJECT_BY_ID_REQUEST:
     case ADD_PROJECT_REQUEST:
     case UPDATE_PROJECT_REQUEST:
@@ -141,10 +146,17 @@ function project(state = INITIAL_STATE, action) {
         error: { $set: null }
       });
 
-    case GET_ALL_PROJECTS_SUCCESS:
+    case GET_FEATURED_PROJECTS_SUCCESS:
       return update(state, {
         loading: { $set: false },
-        projects: { $set: action.payload },
+        featuredProjects: { $set: action.payload },
+        error: { $set: null }
+      });
+
+    case GET_MORE_PROJECTS_SUCCESS:
+      return update(state, {
+        loading: { $set: false },
+        moreProjects: { $set: action.payload },
         error: { $set: null }
       });
 
@@ -159,7 +171,8 @@ function project(state = INITIAL_STATE, action) {
         error: { $set: null }
       });
 
-    case GET_ALL_PROJECTS_FAILURE:
+    case GET_FEATURED_PROJECTS_FAILURE:
+    case GET_MORE_PROJECTS_FAILURE:
     case GET_PROJECT_BY_ID_FAILURE:
     case ADD_PROJECT_FAILURE:
     case UPDATE_PROJECT_FAILURE:

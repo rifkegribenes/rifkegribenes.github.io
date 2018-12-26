@@ -1,9 +1,12 @@
 import { RSAA } from "redux-api-middleware";
 import BASE_URL from "./apiConfig.js";
 
-export const GET_ALL_PROJECTS_REQUEST = "GET_ALL_PROJECTS_REQUEST";
-export const GET_ALL_PROJECTS_SUCCESS = "GET_ALL_PROJECTS_SUCCESS";
-export const GET_ALL_PROJECTS_FAILURE = "GET_ALL_PROJECTS_FAILURE";
+export const GET_FEATURED_PROJECTS_REQUEST = "GET_FEATURED_PROJECTS_REQUEST";
+export const GET_FEATURED_PROJECTS_SUCCESS = "GET_FEATURED_PROJECTS_SUCCESS";
+export const GET_FEATURED_PROJECTS_FAILURE = "GET_FEATURED_PROJECTS_FAILURE";
+export const GET_MORE_PROJECTS_REQUEST = "GET_MORE_PROJECTS_REQUEST";
+export const GET_MORE_PROJECTS_SUCCESS = "GET_MORE_PROJECTS_SUCCESS";
+export const GET_MORE_PROJECTS_FAILURE = "GET_MORE_PROJECTS_FAILURE";
 export const GET_PROJECT_BY_ID_REQUEST = "GET_PROJECT_BY_ID_REQUEST";
 export const GET_PROJECT_BY_ID_SUCCESS = "GET_PROJECT_BY_ID_SUCCESS";
 export const GET_PROJECT_BY_ID_FAILURE = "GET_PROJECT_BY_ID_FAILURE";
@@ -64,25 +67,64 @@ export function setEditProject(project) {
 }
 
 /*
-* Function: getAllProjects -- return all projects
+* Function: getFeaturedProjects -- return featured projects
 * This action dispatches additional actions as it executes:
-*   GET_ALL_PROJECTS_REQUEST:
+*   GET_FEATURED_PROJECTS_REQUEST:
 *     Initiates spinner
-*   GET_ALL_PROJECTS_SUCCESS:
+*   GET_FEATURED_PROJECTS_SUCCESS:
 *     If projects array successfully retrieved, hides spinner
-*   GET_ALL_PROJECTS_FAILURE:
+*   GET_FEATURED_PROJECTS_FAILURE:
 *     If database error, hides spinner, displays error toastr
 */
-export function getAllProjects() {
+export function getFeaturedProjects() {
   return {
     [RSAA]: {
-      endpoint: `${BASE_URL}/api/project/`,
+      endpoint: `${BASE_URL}/api/project?featured`,
       method: "GET",
       types: [
-        GET_ALL_PROJECTS_REQUEST,
-        GET_ALL_PROJECTS_SUCCESS,
+        GET_FEATURED_PROJECTS_REQUEST,
+        GET_FEATURED_PROJECTS_SUCCESS,
         {
-          type: GET_ALL_PROJECTS_FAILURE,
+          type: GET_FEATURED_PROJECTS_FAILURE,
+          payload: (action, state, res) => {
+            return res.json().then(data => {
+              let message = "Sorry, something went wrong :(";
+              if (data) {
+                if (data.message) {
+                  message = data.message;
+                }
+                return { message };
+              } else {
+                return { message };
+              }
+            });
+          }
+        }
+      ]
+    }
+  };
+}
+
+/*
+* Function: getMoreProjects -- return unfeatured projects
+* This action dispatches additional actions as it executes:
+*   GET_MORE_PROJECTS_REQUEST:
+*     Initiates spinner
+*   GET_MORE_PROJECTS_SUCCESS:
+*     If projects array successfully retrieved, hides spinner
+*   GET_MORE_PROJECTS_FAILURE:
+*     If database error, hides spinner, displays error toastr
+*/
+export function getMoreProjects() {
+  return {
+    [RSAA]: {
+      endpoint: `${BASE_URL}/api/project?more`,
+      method: "GET",
+      types: [
+        GET_MORE_PROJECTS_REQUEST,
+        GET_MORE_PROJECTS_SUCCESS,
+        {
+          type: GET_MORE_PROJECTS_FAILURE,
           payload: (action, state, res) => {
             return res.json().then(data => {
               let message = "Sorry, something went wrong :(";

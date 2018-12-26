@@ -5,6 +5,7 @@ import { bindActionCreators } from "redux";
 
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import Typography from "@material-ui/core/Typography";
 
@@ -208,20 +209,24 @@ class AddProject extends React.Component {
             onChange={this.props.apiProject.handleInput}
             className={classes.input}
           />
-          <Switch
-            name="featured"
-            id="featured"
-            label="Feature this project?"
-            checked={this.props.project.form.featured}
-            required
-            value={this.props.project.form.featured}
-            onChange={() =>
-              this.props.apiProject.handleSwitch(
-                "featured",
-                !this.props.project.form.featured
-              )
+          <FormControlLabel
+            control={
+              <Switch
+                name="featured"
+                id="featured"
+                checked={this.props.project.form.featured}
+                required
+                value={this.props.project.form.featured}
+                onChange={() =>
+                  this.props.apiProject.handleSwitch(
+                    "featured",
+                    !this.props.project.form.featured
+                  )
+                }
+                className={classes.switch}
+              />
             }
-            className={classes.switch}
+            label="Feature this project?"
           />
           <TextField
             name="sort_order"
