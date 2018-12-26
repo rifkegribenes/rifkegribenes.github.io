@@ -163,8 +163,6 @@ function project(state = INITIAL_STATE, action) {
     case GET_PROJECT_BY_ID_SUCCESS:
     case ADD_PROJECT_SUCCESS:
     case UPDATE_PROJECT_SUCCESS:
-      console.log(action.type);
-      console.log(action.payload);
       return update(state, {
         loading: { $set: false },
         currentProject: { $set: action.payload[0] },

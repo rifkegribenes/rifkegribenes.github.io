@@ -259,13 +259,11 @@ async function updateProjectWithTags(req, res, next) {
  */
 const getProjects = (req, res, next) => {
   if (req.query.s === "featured") {
-    console.log("featured");
     return projects
       .getAllProjectsWithTags()
       .then(allProjects => {
         console.log(allProjects);
         const projects = allProjects.filter(project => project.featured);
-        console.log(projects);
         res.status(200).json(projects);
       })
       .catch(err => res.status(500).json({ message: err.message }));
@@ -274,6 +272,8 @@ const getProjects = (req, res, next) => {
       .getAllProjectsWithTags()
       .then(allProjects => {
         const projects = allProjects.filter(project => !project.featured);
+        console.log("filtered for unfeatured:");
+        console.log(projects);
         res.status(200).json(projects);
       })
       .catch(err => res.status(500).json({ message: err.message }));

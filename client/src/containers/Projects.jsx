@@ -12,12 +12,10 @@ import { openSnackbar } from "./Notifier";
 
 class Projects extends Component {
   componentDidMount() {
-    console.log(this.props.data);
     if (this.props.data === "featured") {
       this.props.apiProject
         .getFeaturedProjects()
         .then(result => {
-          console.log(result.payload);
           if (
             result.type === "GET_FEATURED_PROJECTS_FAILURE" ||
             this.props.project.error
@@ -34,9 +32,11 @@ class Projects extends Component {
           openSnackbar("error", err);
         });
     } else if (this.props.data === "more") {
+      console.log(this.props.data);
       this.props.apiProject
         .getMoreProjects()
         .then(result => {
+          console.log(result.payload);
           if (
             result.type === "GET_MORE_PROJECTS_FAILURE" ||
             this.props.project.error
@@ -57,26 +57,29 @@ class Projects extends Component {
 
   render() {
     const { forwardedRef } = this.props;
-    const more = this.props.type === "more";
+    const more = this.props.data === "more";
     return (
       <div className="projectList">
         <ProjectGrid
           forwardedRef={forwardedRef}
+          type={this.props.data}
           data={
             more
               ? this.props.project.moreProjects
               : this.props.project.featuredProjects
           }
         />
-        <Button
-          variant="outlined"
-          color="secondary"
-          onClick={() => {
-            this.props.toggleMore();
-          }}
-        >
-          {!this.props.more ? "More Projects" : "Featured Projects"}
-        </Button>
+        {!more && (
+          <Button
+            variant="outlined"
+            color="secondary"
+            onClick={() => {
+              this.props.toggleMore();
+            }}
+          >
+            More Projects
+          </Button>
+        )}
       </div>
     );
   }
