@@ -17,6 +17,7 @@ export const UPDATE_PROJECT_REQUEST = "UPDATE_PROJECT_REQUEST";
 export const UPDATE_PROJECT_SUCCESS = "UPDATE_PROJECT_SUCCESS";
 export const UPDATE_PROJECT_FAILURE = "UPDATE_PROJECT_FAILURE";
 export const HANDLE_INPUT = "HANDLE_INPUT";
+export const HANDLE_SWITCH = "HANDLE_SWITCH";
 export const HANDLE_DELETE_OPEN = "HANDLE_DELETE_OPEN";
 export const HANDLE_DELETE_CLOSE = "HANDLE_DELETE_CLOSE";
 export const CLEAR_FORM = "CLEAR_FORM";
@@ -25,6 +26,13 @@ export const SET_EDIT_PROJECT = "SET_EDIT_PROJECT";
 export function handleInput({ target: { name, value } }) {
   return {
     type: HANDLE_INPUT,
+    payload: { name, value }
+  };
+}
+
+export function handleSwitch(name, value) {
+  return {
+    type: HANDLE_SWITCH,
     payload: { name, value }
   };
 }

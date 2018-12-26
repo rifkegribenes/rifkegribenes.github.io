@@ -18,6 +18,7 @@ import {
   DELETE_PROJECT_SUCCESS,
   DELETE_PROJECT_FAILURE,
   HANDLE_INPUT,
+  HANDLE_SWITCH,
   HANDLE_DELETE_OPEN,
   HANDLE_DELETE_CLOSE,
   CLEAR_FORM,
@@ -37,6 +38,8 @@ const INITIAL_STATE = {
     live_url: "",
     created_at: "",
     updated_at: "",
+    featured: false,
+    sort_order: 0,
     tag_names: []
   },
   form: {
@@ -45,6 +48,8 @@ const INITIAL_STATE = {
     screenshot_url: "",
     github_url: "",
     live_url: "",
+    featured: false,
+    sort_order: 0,
     tags: "",
     tag: "",
     dialogOpen: false
@@ -60,6 +65,7 @@ function project(state = INITIAL_STATE, action) {
       return INITIAL_STATE;
 
     case HANDLE_INPUT:
+    case HANDLE_SWITCH:
       return update(state, {
         form: {
           [action.payload.name]: { $set: action.payload.value }
@@ -85,6 +91,8 @@ function project(state = INITIAL_STATE, action) {
           live_url: { $set: "" },
           created_at: { $set: "" },
           updated_at: { $set: "" },
+          featured: { $set: false },
+          sort_order: { $set: 0 },
           tag_names: { $set: [] }
         },
         loading: { $set: false },
@@ -99,6 +107,8 @@ function project(state = INITIAL_STATE, action) {
           screenshot_url: { $set: action.payload.screenshot_url },
           github_url: { $set: action.payload.github_url },
           live_url: { $set: action.payload.live_url },
+          featured: { $set: action.payload.featured },
+          sort_order: { $set: action.payload.sort_order },
           tags: { $set: action.payload.tag_names.join(", ") }, // convert array to comma-separated string
           tag: { $set: "" },
           dialogOpen: { $set: false }
@@ -113,6 +123,8 @@ function project(state = INITIAL_STATE, action) {
           screenshot_url: { $set: "" },
           github_url: { $set: "" },
           live_url: { $set: "" },
+          featured: { $set: false },
+          sort_order: { $set: 0 },
           tags: { $set: "" },
           tag: { $set: "" },
           dialogOpen: { $set: false }

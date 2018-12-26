@@ -5,6 +5,7 @@ import { bindActionCreators } from "redux";
 
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
+import Switch from "@material-ui/core/Switch";
 import Typography from "@material-ui/core/Typography";
 
 import * as apiProjectActions from "../store/actions/apiProjectActions";
@@ -63,6 +64,8 @@ class AddProject extends React.Component {
       screenshot_url,
       github_url,
       live_url,
+      featured,
+      sort_order,
       tags
     } = this.props.project.form;
     const tag_names_raw = tags.split(","); // convert string to array
@@ -73,6 +76,8 @@ class AddProject extends React.Component {
       screenshot_url,
       github_url,
       live_url,
+      featured,
+      sort_order,
       tag_names
     };
     const projectToUpdate = {
@@ -81,7 +86,9 @@ class AddProject extends React.Component {
         body,
         screenshot_url,
         github_url,
-        live_url
+        live_url,
+        featured,
+        sort_order
       },
       tag_names
     };
@@ -201,6 +208,32 @@ class AddProject extends React.Component {
             onChange={this.props.apiProject.handleInput}
             className={classes.input}
           />
+          <Switch
+            name="featured"
+            id="featured"
+            label="Feature this project?"
+            checked={this.props.project.form.featured}
+            required
+            value={this.props.project.form.featured}
+            onChange={() =>
+              this.props.apiProject.handleSwitch(
+                "featured",
+                !this.props.project.form.featured
+              )
+            }
+            className={classes.switch}
+          />
+          <TextField
+            name="sort_order"
+            id="sort_order"
+            label="Sort Order"
+            type="number"
+            variant="outlined"
+            required
+            value={this.props.project.form.sort_order}
+            onChange={this.props.apiProject.handleInput}
+            className={classes.input}
+          />
           <ButtonWithSpinner
             type="button"
             color="secondary"
@@ -226,6 +259,8 @@ AddProject.propTypes = {
       screenshot_url: PropTypes.string,
       github_url: PropTypes.string,
       live_url: PropTypes.string,
+      featured: PropTypes.bool,
+      sort_order: PropTypes.number,
       tags: PropTypes.string
     }),
     loading: PropTypes.bool,
@@ -235,6 +270,8 @@ AddProject.propTypes = {
       screenshot_url: PropTypes.string,
       github_url: PropTypes.string,
       live_url: PropTypes.string,
+      featured: PropTypes.bool,
+      sort_order: PropTypes.number,
       tag_names: PropTypes.arrayOf(PropTypes.string)
     })
   }).isRequired,

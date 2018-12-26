@@ -100,6 +100,8 @@ async function checkAndRemoveTags(res, submittedTags, projectId) {
  *  @param    {String}   screenshot_url  URL of screenshot image.
  *  @param    {String}   live_url        URL to live project.
  *  @param    {String}   github_url      URL of github repo.
+ *  @param    {Boolean}  featured        Boolean: featured project?
+ *  @param    {Integer}  sort_order      Sort order for projects display grid
  *  @param    {Array}    tag_names       Array of tags {String}
  *  @returns  {Object}                   New project object w/nested tags
  *                                       OR error message
@@ -111,7 +113,9 @@ async function createProjectWithTags(req, res, next) {
     screenshot_url,
     live_url,
     github_url,
-    tag_names
+    tag_names,
+    featured,
+    sort_order
   } = req.body;
   if (!title || typeof title !== "string") {
     return res.status(500).json({ message: "Project title is required" });
@@ -130,6 +134,8 @@ async function createProjectWithTags(req, res, next) {
         screenshot_url,
         live_url,
         github_url,
+        featured,
+        sort_order,
         existingTags
       );
 
@@ -166,6 +172,8 @@ async function createProjectWithTags(req, res, next) {
         screenshot_url,
         live_url,
         github_url,
+        featured,
+        sort_order,
         []
       );
       res.status(200).json(project);
@@ -188,6 +196,8 @@ async function createProjectWithTags(req, res, next) {
  ****  @param    {String}   screenshot_url   Updated screenshot URL.
  ****  @param    {String}   live_url         Updated live URL.
  ****  @param    {String}   github_url       Updated github URL.
+ ****  @param    {Boolean}  featured         Featured project?
+ ****  @param    {Integer}  sort_order       Display sort order
  *  @param    {Array}    tag_names        Updated array of tags {String}
  *  @returns  {Object}                   Updated project object w/nested tags
  *                                       OR error message
