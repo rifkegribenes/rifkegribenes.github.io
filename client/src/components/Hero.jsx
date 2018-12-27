@@ -3,7 +3,10 @@ import PropTypes from "prop-types";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import withWidth from "@material-ui/core/withWidth";
-import legos from "../img/isometric_legos_animated.svg";
+import Rainbow from "./Rainbow";
+// import rainbow from "../img/neonrainbow_l2r.svg";
+// import rainbow_noglow from "../img/neonrainbow_noglow-01_animated.svg";
+// import legos from "../img/isometric_legos_animated.svg";
 import { withStyles } from "@material-ui/core/styles";
 
 const styles = theme => ({
@@ -22,7 +25,8 @@ const styles = theme => ({
   heroSvgWrap: {
     height: "100%",
     width: "100%",
-    padding: "60px 60px 60px 0"
+    padding: "60px 60px 60px 0",
+    position: "relative"
   },
   heroCanvasWrap: {
     position: "relative"
@@ -41,7 +45,12 @@ const styles = theme => ({
   },
   heroSvg: {
     maxHeight: "80vh",
-    width: "auto"
+    width: "auto",
+    position: "absolute",
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0
   },
   heroText: {
     // padding: 60,
@@ -113,12 +122,7 @@ const Hero = React.forwardRef((props, ref) => {
         </Button>
       </div>
       <div className={classes.heroSvgWrap}>
-        <img
-          alt="lego bricks"
-          id="lego-svg"
-          src={legos}
-          className={classes.heroSvg}
-        />
+        <Rainbow />
       </div>
     </div>
   );
