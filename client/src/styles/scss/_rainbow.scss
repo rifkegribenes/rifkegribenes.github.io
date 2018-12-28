@@ -71,9 +71,10 @@ $i: 1;
     overflow: hidden;
     border-radius: 100%;
     box-shadow: 0 0 8px 8px nth($value, 1), 0 0 16px 16px nth($value, 2);
+    transition: box-shadow (($i - 1) * 200ms) ease-in-out;
     // clip-path: polygon(0 0, $r*2+$g 0, $r*2+$g $r+$g, 0 $r+$g, 0 0);
-    animation: glow-#{$key} 1s linear;
-    animation-delay: ($i - 1) * 100ms;
+    // animation: glow-#{$key} 3s linear;
+    // animation-delay: ($i - 1) * 200ms;
   }
 
   .Rainbow-stripe--#{$key}-light {
