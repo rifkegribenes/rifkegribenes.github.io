@@ -12,102 +12,97 @@ $colors: (
   red: (#ff0000, #ff7c84)
 );
 
-$o: 6rem; // empty space in center of rainbow
-$t: 1rem; // stripe width main color
-$tl: .3rem; // stripe width accent color
-$s: .5rem; // space between wider sripes
-$w: ($o + $t*7 + $s*7) * 2; // width: 33rem;
-$h: $w/2; // height: 16.5rem;
-$g: 2rem; // glow offset
+@mixin styling($content-width) {
 
-.Rainbow {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: block;
-  overflow: hidden;
-  margin: auto;
-  width: $w + ($g * 2);
-  height: $h;
-}
+  $u: $content-width / 37; // base unit used to calculate all other values
+  $o: 6 * $u; // empty space in center of rainbow
+  $t: 1 * $u; // stripe width main color
+  $tl: .3 * $u; // stripe width accent color
+  $s: .5 * $u; // space between wider sripes
+  $w: ($o + $t*7 + $s*7) * 2; // width: 33 * $u;
+  $h: $w/2; // height: 16.5 * $u;
+  $g: 2 * $u; // glow offset
 
-.Rainbow-stripe {
-  position: absolute;
-  right: $g;
-  left: $g;
-  display: block;
-  margin: 0 auto;
-  border-radius: 100%;
-  transform: rotate(-180deg);
-  animation: rainbow 1000ms cubic-bezier(0.86, 0, 0.07, 1) forwards;
-}
-
-$i: 1;
-
-@each $key, $value in $colors {
-  $r: (($t + $s) * $i) + $o; // radius of main stripe (red: 10.5 + 6 = 16.5rem)
-  $rl: (($t + $s) * $i) - .4rem + $o; // radius of accent stripe (red-light: 16.1rem)
-
-  .Rainbow-stripe--#{$key} {
-    top: $h - $r + $g; // red: 0rem
-    width: $r*2;
-    height: $r*2;
-    box-shadow: inset 0 0 0 $t nth($value, 1);
-    clip-path: polygon(0 0, $r*2 0, $r*2 $r, 0 $r, 0 0);
-    animation-delay: ($i - 1) * 100ms;
+  .Rainbow {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+    overflow: hidden;
+    margin: auto;
+    width: $w + ($g * 2);
+    height: $h;
   }
 
-  .Background-glow--#{$key} {
+  .Rainbow-stripe {
     position: absolute;
-    right: 0;
-    left: 0;
-    top: $h - $r + $g;
-    width: $r * 2;
-    height: $r * 2;
+    right: $g;
+    left: $g;
     display: block;
     margin: 0 auto;
-    overflow: hidden;
     border-radius: 100%;
-    box-shadow: 0 0 8px 8px nth($value, 1), 0 0 16px 16px nth($value, 2);
-    transition: box-shadow (($i - 1) * 200ms) ease-in-out;
-    // clip-path: polygon(0 0, $r*2+$g 0, $r*2+$g $r+$g, 0 $r+$g, 0 0);
-    // animation: glow-#{$key} 3s linear;
-    // animation-delay: ($i - 1) * 200ms;
+    transform: rotate(-180deg);
+    animation: rainbow 1000ms cubic-bezier(0.86, 0, 0.07, 1) forwards;
   }
 
-  .Rainbow-stripe--#{$key}-light {
-    top: $h - $rl + $g; // red-light: -4rem;
-    width: $rl*2;
-    height: $rl*2;
-    box-shadow: inset 0 0 0 $tl nth($value, 2);
-    clip-path: polygon(0 0, $rl*2 0, $rl*2 $rl, 0 $rl, 0 0);
-    animation-delay: ($i - 1) * 100ms;
-    z-index: 2;
-  }
+  $i: 1;
 
-  @keyframes(glow-#{$key}) {
-    0% {box-shadow: inset 0 0 0 $t nth($value, 1), 0 0 .125rem .125rem nth($value, 1), 0 0 .25rem .25rem nth($value, 2);}
-    8% {box-shadow: inset 0 0 0 $t nth($value, 1), 0 0 .1625rem .1625rem nth($value, 1), 0 0 .375rem .375rem nth($value, 2);}
-    16% {box-shadow: inset 0 0 0 $t nth($value, 1), 0 0 .25rem .25rem nth($value, 1), 0 0 .5rem .5rem nth($value, 2);}
-    25% {box-shadow: inset 0 0 0 $t nth($value, 1), 0 0 .3125rem .3125rem nth($value, 1), 0 0 .625rem .625rem nth($value, 2);}
-    33% {box-shadow: inset 0 0 0 $t nth($value, 1), 0 0 .375rem .375rem nth($value, 1), 0 0 .75rem .75rem nth($value, 2);}
-    41% {box-shadow: inset 0 0 0 $t nth($value, 1), 0 0 .4375rem .4375rem nth($value, 1), 0 0 14px 14px nth($value, 2);}
-    50% {box-shadow: inset 0 0 0 $t nth($value, 1), 0 0 .5rem .5rem nth($value, 1), 0 0 1rem 1rem nth($value, 2);}
-    58% {box-shadow: inset 0 0 0 $t nth($value, 1), 0 0 .5rem .5rem nth($value, 1), 0 0 .875rem .875rem nth($value, 2);}
-    66% {box-shadow: inset 0 0 0 $t nth($value, 1), 0 0 .5rem .5rem nth($value, 1), 0 0 .75rem .75rem nth($value, 2);}
-    75% {box-shadow: inset 0 0 0 $t nth($value, 1), 0 0 .4375rem .4375rem nth($value, 1), 0 0 .625rem .625rem nth($value, 2);}
-    83% {box-shadow: inset 0 0 0 $t nth($value, 1), 0 0 .4375rem .4375rem nth($value, 1), 0 0 .5rem .5rem nth($value, 2);}
-    91% {box-shadow: inset 0 0 0 $t nth($value, 1), 0 0 .375rem .375rem nth($value, 1), 0 0 .375rem .375rem nth($value, 2);}
-    100% {box-shadow: inset 0 0 0 $t nth($value, 1), 0 0 .375rem .375rem nth($value, 1), 0 0 .25rem .25rem nth($value, 2);}
-  }
+  @each $key, $value in $colors {
+    $r: (($t + $s) * $i) + $o; // radius of main stripe (red: 10.5 + 6 = 16.5 * $u)
+    $rl: (($t + $s) * $i) - .4 * $u + $o; // radius of accent stripe (red-light: 16.1 * $u)
 
-  .glow--#{$key} {
-    animation: glow-#{$key} 1s linear infinite;
-  }
+    .Rainbow-stripe--#{$key} {
+      top: $h - $r + $g; // red: 0 * $u
+      width: $r*2;
+      height: $r*2;
+      box-shadow: inset 0 0 0 $t nth($value, 1);
+      clip-path: polygon(0 0, $r*2 0, $r*2 $r, 0 $r, 0 0);
+      animation-delay: ($i - 1) * 100ms;
+    }
 
-  $i: $i + 1;
+    .Background-glow--#{$key} {
+      position: absolute;
+      right: 0;
+      left: 0;
+      top: $h - $r + $g;
+      width: $r * 2;
+      height: $r * 2;
+      display: block;
+      margin: 0 auto;
+      overflow: hidden;
+      border-radius: 100%;
+      box-shadow: 0 0 8px 8px nth($value, 1), 0 0 16px 16px nth($value, 2);
+      transition: box-shadow (($i - 1) * 200ms) ease-in-out;
+    }
+
+    .Rainbow-stripe--#{$key}-light {
+      top: $h - $rl + $g; // red-light: -4 * $u;
+      width: $rl*2;
+      height: $rl*2;
+      box-shadow: inset 0 0 0 $tl nth($value, 2);
+      clip-path: polygon(0 0, $rl*2 0, $rl*2 $rl, 0 $rl, 0 0);
+      animation-delay: ($i - 1) * 100ms;
+      z-index: 2;
+    }
+
+    $i: $i + 1;
+  }
+}
+
+@media screen and (max-width: 599px) {
+    @include styling($content-width: 87.5vw);
+}
+@media screen and (min-width: 600px) {
+    @include styling($content-width: 80vw);
+}
+@media screen and (min-width: 750px) {
+    @include styling($content-width: 600px);
+}
+
+@media screen and (min-height: 750px) {
+    // @include styling($content-width: 600px);
 }
 
 @keyframes rainbow {

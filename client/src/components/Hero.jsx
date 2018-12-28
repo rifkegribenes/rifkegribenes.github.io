@@ -16,61 +16,39 @@ const styles = theme => ({
   },
   hero: {
     display: "flex",
+    flexDirection: "column",
     margin: "60px 0 -60px",
-    minHeight: "70vh",
-    [theme.breakpoints.down("md")]: {
-      flexWrap: "wrap"
-    }
+    minHeight: "calc(100vh - 146px)"
   },
   heroSvgWrap: {
-    // height: "100%",
+    minHeight: 200,
     width: "100%",
-    // margin: "60px 60px 60px 0",
-    position: "relative"
-  },
-  heroCanvasWrap: {
-    position: "relative"
-  },
-  heroCanvas: {
-    display: "block",
-    position: "absolute",
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
-    width: "100%",
-    height: "100%",
-    margin: "0 auto",
-    padding: "73px 0 63px 0"
-  },
-  heroSvg: {
-    maxHeight: "80vh",
-    width: "auto",
-    position: "absolute",
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0
+    margin: "20px 0 60px 0",
+    position: "relative",
+    [theme.breakpoints.down("md")]: {
+      marginBottom: 40,
+      minHeight: "42vw"
+    },
+    [theme.breakpoints.down("sm")]: {
+      marginBottom: 40,
+      minHeight: "28vw"
+    }
   },
   heroText: {
-    // padding: 60,
     backgroundColor: theme.palette.bodyBackground,
     width: "100%",
     maxWidth: 900,
     margin: "0 auto",
     [theme.breakpoints.up("md")]: {
       minWidth: "50%"
-      // padding: "60px 0 60px 60px"
-    },
-    [theme.breakpoints.down("sm")]: {
-      // padding: 20
     }
   },
   heroHead: {
-    fontSize: "6.75em",
+    fontSize: "4.6em",
+    textAlign: "center",
     backgroundColor: theme.palette.bodyBackground,
-    [theme.breakpoints.down("lg")]: {
-      fontSize: "4.75em"
+    [theme.breakpoints.down("md")]: {
+      fontSize: "4em"
     },
     [theme.breakpoints.down("sm")]: {
       fontSize: "3em"
@@ -93,36 +71,41 @@ const styles = theme => ({
     height: 100,
     border: `1px solid ${theme.palette.secondary.main}`
   },
+  heroButtonWrap: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "center"
+  },
   heroButton: {
     marginTop: 50
   }
 });
 
 const Hero = React.forwardRef((props, ref) => {
-  const { forwardedRef, width, classes } = props;
+  const { forwardedRef, classes } = props;
   return (
     <div className={classes.hero}>
+      <div className={classes.heroSvgWrap}>
+        <Rainbow />
+      </div>
       <div className={classes.heroText}>
         <Typography variant="h2" className={classes.heroHead}>
           Hello!
           <br />
-          What do you
-          {width === "xs" || width === "sm" ? <br /> : " "}
-          want to build?
+          What do you want to build?
         </Typography>
-        <Button
-          variant="outlined"
-          color="secondary"
-          className={classes.heroButton}
-          onClick={() => {
-            props.scroll(forwardedRef);
-          }}
-        >
-          Say Hello
-        </Button>
-      </div>
-      <div className={classes.heroSvgWrap}>
-        <Rainbow />
+        <div className={classes.heroButtonWrap}>
+          <Button
+            variant="outlined"
+            color="secondary"
+            className={classes.heroButton}
+            onClick={() => {
+              props.scroll(forwardedRef);
+            }}
+          >
+            Get in touch
+          </Button>
+        </div>
       </div>
     </div>
   );
