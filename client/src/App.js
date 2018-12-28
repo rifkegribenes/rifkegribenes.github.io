@@ -127,6 +127,25 @@ class App extends Component {
     // }
     smoothscroll.polyfill();
 
+    // add glow classes to rainbow stripes
+    setTimeout(() => {
+      const colors = [
+        "red",
+        "orange",
+        "yellow",
+        "green",
+        "blue",
+        "purple",
+        "magenta"
+      ];
+      colors.map(color => {
+        document
+          .getElementById(color)
+          .classList.add(`Background-glow--${color}`);
+        return null;
+      });
+    }, 1500);
+
     // If not logged in, check local storage for authToken
     // if it doesn't exist, it returns the string "undefined"
     if (!this.props.appState.loggedIn) {

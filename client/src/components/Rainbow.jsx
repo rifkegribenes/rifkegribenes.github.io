@@ -20,6 +20,13 @@ const Rainbow = props => (
     <span className="Rainbow-stripe Rainbow-stripe--yellow-light" />
     <span className="Rainbow-stripe Rainbow-stripe--orange-light" />
     <span className="Rainbow-stripe Rainbow-stripe--red-light" />
+    <span id="magenta" />
+    <span id="purple" />
+    <span id="blue" />
+    <span id="green" />
+    <span id="yellow" />
+    <span id="orange" />
+    <span id="red" />
   </div>
 );
 
