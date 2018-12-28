@@ -2,26 +2,22 @@
 // https://codepen.io/callmenick/pen/ZWMOEE
 
 
-$colours: (
-  violet: #9b59b6,
-  indigo: #8e44ad,
-  blue: #3498db,
-  green: #2ecc71,
-  yellow: #f1c40f,
-  orange: #e67e22,
-  red: #e74c3c
+$colors: (
+  magenta: (#ff00ff, #faaefc),
+  purple: (#9500ff, #d994fd),
+  blue: (#35a9f5, #aff5fd),
+  green: (#8cc63f, #c5fbaa),
+  yellow: (#fcee21, #fcffb0),
+  orange: (#ff931e, #f4d978),
+  red: (#ff0000, #ff7c84)
 );
 
-$o: 6rem;
-$t: 1rem;
-$w: ($o + $t*7) * 2;
-$h: $w/2;
-
-body {
-  width: 100vw;
-  height: 100vh;
-  background-color: #34495e;
-}
+$o: 6rem; // empty space in center of rainbow
+$t: 1rem; // stripe width main color
+$tl: .3rem; // stripe width accent color
+$s: .5rem; // space between wider sripes
+$w: ($o + $t*7 + $s*7) * 2; // width: 33rem;
+$h: $w/2; // height: 16.5rem;
 
 .Rainbow {
   position: absolute;
@@ -49,15 +45,25 @@ body {
 
 $i: 1;
 
-@each $key, $value in $colours {
-  $r: $t*$i + $o;
+@each $key, $value in $colors {
+  $r: (($t + $s) * $i) + $o; // radius of main stripe (red: 10.5 + 6 = 16.5rem)
+  $rl: (($t + $s) * $i) - .4rem + $o; // radius of accent stripe (red-light: 12.7rem)
 
   .Rainbow-stripe--#{$key} {
-    top: $h - $r;
+    top: $h - $r; // red: 0rem
     width: $r*2;
     height: $r*2;
-    box-shadow: inset 0 0 0 $t $value;
+    box-shadow: inset 0 0 0 $t nth($value, 1);
     clip-path: polygon(0 0, $r*2 0, $r*2 $r, 0 $r, 0 0);
+    animation-delay: ($i - 1) * 100ms;
+  }
+
+  .Rainbow-stripe--#{$key}-light {
+    top: $h - $rl; // red-light: -3rem;
+    width: $rl*2;
+    height: $rl*2;
+    box-shadow: inset 0 0 0 $tl nth($value, 2);
+    clip-path: polygon(0 0, $rl*2 0, $rl*2 $rl, 0 $rl, 0 0);
     animation-delay: ($i - 1) * 100ms;
   }
 
