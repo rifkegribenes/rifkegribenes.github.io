@@ -4,9 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import withWidth from "@material-ui/core/withWidth";
 import Rainbow from "./Rainbow";
-// import rainbow from "../img/neonrainbow_l2r.svg";
-// import rainbow_noglow from "../img/neonrainbow_noglow-01_animated.svg";
-// import legos from "../img/isometric_legos_animated.svg";
+import legos from "../img/isometric_legos_animated.svg";
 import { withStyles } from "@material-ui/core/styles";
 
 const styles = theme => ({
@@ -20,7 +18,7 @@ const styles = theme => ({
     margin: "60px 0 -60px",
     minHeight: "calc(100vh - 146px)"
   },
-  heroSvgWrap: {
+  heroRainbowWrap: {
     minHeight: 200,
     width: "100%",
     margin: "20px 0 60px 0",
@@ -33,6 +31,19 @@ const styles = theme => ({
       marginBottom: 40,
       minHeight: "28vw"
     }
+  },
+  heroSvgWrap: {
+    maxWidth: 620,
+    maxWidth: "30vh",
+    display: "flex",
+    justifyContent: "center",
+    margin: "0 auto",
+    minHeight: "30vh"
+  },
+  legos: {
+    width: "100%",
+    maxWidth: 600,
+    height: "auto"
   },
   heroText: {
     backgroundColor: theme.palette.bodyBackground,
@@ -75,9 +86,6 @@ const styles = theme => ({
     width: "100%",
     display: "flex",
     justifyContent: "center"
-  },
-  heroButton: {
-    marginTop: 50
   }
 });
 
@@ -85,7 +93,7 @@ const Hero = React.forwardRef((props, ref) => {
   const { forwardedRef, classes } = props;
   return (
     <div className={classes.hero}>
-      <div className={classes.heroSvgWrap}>
+      <div className={classes.heroRainbowWrap}>
         <Rainbow />
       </div>
       <div className={classes.heroText}>
@@ -94,18 +102,23 @@ const Hero = React.forwardRef((props, ref) => {
           <br />
           What do you want to build?
         </Typography>
-        <div className={classes.heroButtonWrap}>
-          <Button
-            variant="outlined"
-            color="secondary"
-            className={classes.heroButton}
-            onClick={() => {
-              props.scroll(forwardedRef);
-            }}
-          >
-            Get in touch
-          </Button>
+      </div>
+      <div className="long-screen">
+        <div className={classes.heroSvgWrap}>
+          <img src={legos} alt="legos" className={classes.legos} />
         </div>
+      </div>
+      <div className={classes.heroButtonWrap}>
+        <Button
+          variant="outlined"
+          color="secondary"
+          className="heroButton"
+          onClick={() => {
+            props.scroll(forwardedRef);
+          }}
+        >
+          Get in touch
+        </Button>
       </div>
     </div>
   );
