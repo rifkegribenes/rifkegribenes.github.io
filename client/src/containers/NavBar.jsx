@@ -13,11 +13,9 @@ import MenuIcon from "@material-ui/icons/Menu";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItemText from "@material-ui/core/ListItemText";
-// import Avatar from "@material-ui/core/Avatar";
 
-// import { BASE_URL } from "../store/actions/apiConfig.js";
 import { skip } from "../utils";
-import rainbowIcon from "../img/rainbow_icon.svg";
+import rainbowIcon from "../img/neonrainbow_sm-60h.png";
 
 const styles = theme => ({
   root: {
@@ -111,9 +109,12 @@ const styles = theme => ({
     color: theme.palette.secondary.main
   },
   logo: {
-    height: 40,
+    height: 60,
     width: "auto",
-    marginRight: 10
+    marginRight: 10,
+    [theme.breakpoints.down("sm")]: {
+      height: 40
+    }
   }
 });
 
