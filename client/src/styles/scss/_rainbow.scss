@@ -23,6 +23,12 @@ $colors: (
   $h: $w/2; // height: 16.5 * $u;
   $g: 2 * $u; // glow offset
 
+  .dblWrap {
+    margin: auto;
+    width: $w + ($g * 2);
+    height: $h;
+  }
+
   .Rainbow {
     position: absolute;
     top: 0;
@@ -36,6 +42,42 @@ $colors: (
     height: $h;
   }
 
+  .Glow-containers {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+    margin: auto;
+    width: $w + ($g * 2);
+    height: $h;
+  }
+
+  .Raster-rainbow-start {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+    opacity: 0;
+    margin: auto;
+    width: $w + ($g * 2);
+    height: $h + $g;
+    animation: emerge .8s linear forwards;
+    animation-delay: 2000s;
+  }
+
+  // .hide {
+  //   animation: hide .8s linear forwards;
+  //   animation-delay: 2000s;
+  // }
+
+  .raster-img {
+    max-width: 100%;
+  }
+
   .Rainbow-stripe {
     position: absolute;
     right: $g;
@@ -45,6 +87,27 @@ $colors: (
     border-radius: 100%;
     transform: rotate(-180deg);
     animation: rainbow 1000ms cubic-bezier(0.86, 0, 0.07, 1) forwards;
+  }
+
+  .Glow-container {
+    position: absolute;
+    right: $g;
+    left: $g;
+    display: block;
+    margin: 0 auto;
+    border-radius: 100%;
+    transform: rotate(-70deg);
+    animation: glow-end 1000ms cubic-bezier(0.86, 0, 0.07, 1) forwards;
+  }
+
+  .Glow-container--start {
+    position: absolute;
+    right: $g;
+    left: $g;
+    display: block;
+    margin: 0 auto;
+    border-radius: 100%;
+    transform: rotate(-80deg);
   }
 
   $i: 1;
@@ -60,6 +123,40 @@ $colors: (
       box-shadow: inset 0 0 0 $t nth($value, 1);
       clip-path: polygon(0 0, $r*2 0, $r*2 $r, 0 $r, 0 0);
       animation-delay: ($i - 1) * 100ms;
+    }
+
+    .Glow-container--#{$key} {
+      top: $h - $r + $g; // red: 0 * $u
+      width: $r*2;
+      height: $r*2;
+      animation-delay: ($i - 1) * 100ms;
+    }
+
+    .Glow-start--#{$key} {
+      background: nth($value, 1);
+      height: $t * 1.02;
+      left: 51%;
+      position: absolute;
+      top: 0;
+      transform-origin: 0% 0%;
+      width: $t * 1.02;
+      border-radius: $t;
+      z-index: -1;
+      animation: none !important;
+    }
+
+    .Glow-end--#{$key} {
+      animation-delay: ($i - 1) * 100ms;
+      background: nth($value, 1);
+      height: $t * 1.02;
+      left: 51%;
+      position: absolute;
+      top: 0;
+      transform-origin: 0% 0%;
+      width: $t * 1.02;
+      // box-shadow: 0px 0px 12px 5px nth($value, 2);
+      border-radius: $t;
+      z-index: -1;
     }
 
     .Background-glow--#{$key} {
@@ -141,5 +238,38 @@ $colors: (
   }
   100% {
     transform: rotate(0);
+  }
+}
+
+@keyframes glow-end {
+  0% {
+    transform: rotate(-70deg);
+  }
+  100% {
+    transform: rotate(70deg);
+  }
+}
+
+@keyframes emerge {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: .5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes hide {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: .5;
+  }
+  100% {
+    opacity: 0;
   }
 }
