@@ -96,8 +96,6 @@ $colors: (
     display: block;
     margin: 0 auto;
     border-radius: 100%;
-    transform: rotate(-70deg);
-    animation: glow-end 1000ms cubic-bezier(0.86, 0, 0.07, 1) forwards;
   }
 
   .Glow-container--start {
@@ -107,7 +105,7 @@ $colors: (
     display: block;
     margin: 0 auto;
     border-radius: 100%;
-    transform: rotate(-80deg);
+    transform: rotate(-80deg) !important;
   }
 
   $i: 1;
@@ -115,6 +113,25 @@ $colors: (
   @each $key, $value in $colors {
     $r: (($t + $s) * $i) + $o; // radius of main stripe (red: 10.5 + 6 = 16.5 * $u)
     $rl: (($t + $s) * $i) - .4 * $u + $o; // radius of accent stripe (red-light: 16.1 * $u)
+    $rotate: -70;
+
+    @if $i == 7 {
+      $rotate: -80.5;
+    } @else if $i == 6 {
+      $rotate: -79.5;
+    } @else if $i == 5 {
+      $rotate: -78.5;
+    } @else if $i == 4 {
+      $rotate: -77;
+    } @else if $i == 3 {
+      $rotate: -75.5;
+    } @else if $i == 2 {
+      $rotate: -73.5;
+    } @else {
+      $rotate: -70;
+    }
+
+    $endrotate: $rotate * -1;
 
     .Rainbow-stripe--#{$key} {
       top: $h - $r + $g; // red: 0 * $u
@@ -130,6 +147,8 @@ $colors: (
       width: $r*2;
       height: $r*2;
       animation-delay: ($i - 1) * 100ms;
+      transform: rotate(#{$rotate}deg);
+      animation: glow-end--#{$key} 1000ms cubic-bezier(0.86, 0, 0.07, 1) forwards;
     }
 
     .Glow-start--#{$key} {
@@ -183,6 +202,15 @@ $colors: (
       animation-delay: ($i - 1) * 100ms;
       z-index: 2;
     }
+
+    @keyframes glow-end--#{$key} {
+      0% {
+        transform: rotate(#{$rotate}deg);
+      }
+      100% {
+        transform: rotate(#{$endrotate}deg);
+      }
+}
 
     $i: $i + 1;
   }
