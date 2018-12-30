@@ -105,7 +105,7 @@ $colors: (
     display: block;
     margin: 0 auto;
     border-radius: 100%;
-    transform: rotate(-80deg) !important;
+    transform: rotate(-80deg);
   }
 
   $i: 1;
@@ -113,25 +113,41 @@ $colors: (
   @each $key, $value in $colors {
     $r: (($t + $s) * $i) + $o; // radius of main stripe (red: 10.5 + 6 = 16.5 * $u)
     $rl: (($t + $s) * $i) - .4 * $u + $o; // radius of accent stripe (red-light: 16.1 * $u)
-    $rotate: -70;
+    $rotate: -80;
 
     @if $i == 7 {
-      $rotate: -80.5;
+      $rotate: -86;
     } @else if $i == 6 {
-      $rotate: -79.5;
+      $rotate: -85.5;
     } @else if $i == 5 {
-      $rotate: -78.5;
+      $rotate: -85;
     } @else if $i == 4 {
-      $rotate: -77;
+      $rotate: -84;
     } @else if $i == 3 {
-      $rotate: -75.5;
+      $rotate: -83;
     } @else if $i == 2 {
-      $rotate: -73.5;
+      $rotate: -82;
     } @else {
-      $rotate: -70;
+      $rotate: -79.5;
     }
 
-    $endrotate: $rotate * -1;
+    $endrotate: 70;
+
+    @if $i == 7 {
+      $endrotate: 80;
+    } @else if $i == 6 {
+      $endrotate: 79;
+    } @else if $i == 5 {
+      $endrotate: 78;
+    } @else if $i == 4 {
+      $endrotate: 77;
+    } @else if $i == 3 {
+      $endrotate: 75;
+    } @else if $i == 2 {
+      $endrotate: 73;
+    } @else {
+      $endrotate: 69;
+    }
 
     .Rainbow-stripe--#{$key} {
       top: $h - $r + $g; // red: 0 * $u
@@ -149,6 +165,15 @@ $colors: (
       animation-delay: ($i - 1) * 100ms;
       transform: rotate(#{$rotate}deg);
       animation: glow-end--#{$key} 1000ms cubic-bezier(0.86, 0, 0.07, 1) forwards;
+    }
+
+    .Glow-container-start--#{$key} {
+      top: $h - $r + $g; // red: 0 * $u
+      width: $r*2;
+      height: $r*2;
+      animation-delay: ($i - 1) * 100ms;
+      transform: rotate(#{$rotate}deg);
+      animation: none !important
     }
 
     .Glow-start--#{$key} {
