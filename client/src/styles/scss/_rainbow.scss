@@ -54,30 +54,6 @@ $colors: (
     height: $h;
   }
 
-  .Raster-rainbow-start {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    display: block;
-    opacity: 0;
-    margin: auto;
-    width: $w + ($g * 2);
-    height: $h + $g;
-    animation: emerge .8s linear forwards;
-    animation-delay: 2000s;
-  }
-
-  // .hide {
-  //   animation: hide .8s linear forwards;
-  //   animation-delay: 2000s;
-  // }
-
-  .raster-img {
-    max-width: 100%;
-  }
-
   .Rainbow-stripe {
     position: absolute;
     right: $g;
@@ -112,8 +88,8 @@ $colors: (
 
   @each $key, $value in $colors {
     $r: (($t + $s) * $i) + $o; // radius of main stripe (red: 10.5 + 6 = 16.5 * $u)
-    $rl: (($t + $s) * $i) - .4 * $u + $o; // radius of accent stripe (red-light: 16.1 * $u)
-    $rotate: -80;
+    $rl: (($t + $s) * $i) - (.4 * $u) + $o; // radius of accent stripe (red-light: 16.1 * $u)
+    $rotate: -79.5;
 
     @if $i == 7 {
       $rotate: -86;
@@ -131,7 +107,7 @@ $colors: (
       $rotate: -79.5;
     }
 
-    $endrotate: 70;
+    $endrotate: 69;
 
     @if $i == 7 {
       $endrotate: 80;
@@ -201,10 +177,10 @@ $colors: (
       border-radius: $t;
       z-index: -1;
       animation: none !important;
+      transition: box-shadow (($i - 1) * 200ms) ease-in-out;
     }
 
     .Glow-end--#{$key} {
-      // animation-delay: ($i - 1) * 100ms;
       background: nth($value, 1);
       height: $t * 1.02;
       left: 51%;
@@ -212,14 +188,17 @@ $colors: (
       top: 0;
       transform-origin: 0% 0%;
       width: $t * 1.02;
-      // box-shadow: 0px 0px 12px 5px nth($value, 2);
       border-radius: $t;
       z-index: -1;
+      transition: box-shadow (($i - 1) * 200ms) ease-in-out;
     }
 
     .Background-glow-sm--#{$key} {
-      box-shadow: 0 0 $t / 2 $t / 2 nth($value, 1), 0 0 $t $t nth($value, 2);
+      box-shadow: 0 0 $t / 3 $t / 3 nth($value, 1), 0 0 $t / 2 $t / 2 nth($value, 2);
       transition: box-shadow (($i - 1) * 200ms) ease-in-out;
+      top: $t / -2;
+      width: $t;
+      height: $t;
     }
 
     .Rainbow-stripe--#{$key}-light {
@@ -230,6 +209,10 @@ $colors: (
       clip-path: polygon(0 0, $rl*2 0, $rl*2 $rl*1.1, 0 $rl*1.1, 0 0);
       animation-delay: ($i - 1) * 100ms;
       z-index: 2;
+    }
+
+    .transition--#{$key} {
+      transition: box-shadow (($i - 1) * 200ms) ease-in-out;
     }
 
     @keyframes glow-end--#{$key} {
@@ -319,7 +302,7 @@ $colors: (
   }
 }
 
-@keyframes hide {
+@keyframes glow {
   0% {
     opacity: 1;
   }

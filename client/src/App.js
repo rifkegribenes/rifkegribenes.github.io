@@ -129,16 +129,27 @@ class App extends Component {
           .classList.add(`Background-glow--${color}`);
         return null;
       });
-    }, 1500);
-
-    // add glow classes to rainbow stripes
-    setTimeout(() => {
       const glowArray = Array.from(document.getElementsByClassName("glow"));
       glowArray.map(el => {
         el.classList.add(`Background-glow-sm--${glowColorName(el)}`);
         return null;
       });
     }, 1500);
+
+    // remove glow classes
+    setTimeout(() => {
+      colors.map(color => {
+        document
+          .getElementById(color)
+          .classList.remove(`Background-glow--${color}`);
+        return null;
+      });
+      const glowArray = Array.from(document.getElementsByClassName("glow"));
+      glowArray.map(el => {
+        el.classList.remove(`Background-glow-sm--${glowColorName(el)}`);
+        return null;
+      });
+    }, 2500);
 
     // If not logged in, check local storage for authToken
     // if it doesn't exist, it returns the string "undefined"

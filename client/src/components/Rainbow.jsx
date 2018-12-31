@@ -50,7 +50,7 @@ const Rainbow = props => (
         <span className="Glow-end Glow-end--red glow" />
       </span>
     </div>
-    <div className="Rainbow hide" id="target-node">
+    <div className="Rainbow" id="target-node">
       <span className="Rainbow-stripe Rainbow-stripe--magenta" />
       <span className="Rainbow-stripe Rainbow-stripe--purple" />
       <span className="Rainbow-stripe Rainbow-stripe--blue" />
@@ -58,7 +58,7 @@ const Rainbow = props => (
       <span className="Rainbow-stripe Rainbow-stripe--yellow" />
       <span className="Rainbow-stripe Rainbow-stripe--orange" />
       <span className="Rainbow-stripe Rainbow-stripe--red" />
-      */}
+
       <span className="Rainbow-stripe Rainbow-stripe--magenta-light" />
       <span className="Rainbow-stripe Rainbow-stripe--purple-light" />
       <span className="Rainbow-stripe Rainbow-stripe--blue-light" />
@@ -66,13 +66,13 @@ const Rainbow = props => (
       <span className="Rainbow-stripe Rainbow-stripe--yellow-light" />
       <span className="Rainbow-stripe Rainbow-stripe--orange-light" />
       <span className="Rainbow-stripe Rainbow-stripe--red-light" />
-      <span id="magenta" className="hide" />
-      <span id="purple" className="hide" />
-      <span id="blue" className="hide" />
-      <span id="green" className="hide" />
-      <span id="yellow" className="hide" />
-      <span id="orange" className="hide" />
-      <span id="red" className="hide" />
+      <span id="magenta" className="transition--magenta" />
+      <span id="purple" className="transition--purple" />
+      <span id="blue" className="transition--blue" />
+      <span id="green" className="transition--green" />
+      <span id="yellow" className="transition--yellow" />
+      <span id="orange" className="transition--orange" />
+      <span id="red" className="transition--red" />
     </div>
   </div>
 );
