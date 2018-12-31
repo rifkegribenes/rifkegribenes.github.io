@@ -1,12 +1,6 @@
 // inspired by a codepen example by Nick Salloum:
 // https://codepen.io/callmenick/pen/ZWMOEE
 
-.rainbow-wrap {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
 #svg {
   width: 100%;
   max-width: 600px;
@@ -25,19 +19,31 @@ $colors: (
 
 @mixin styling($content-width) {
 
+  .rainbow-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    min-height: $content-width / 2;
+  }
+
   $t: $content-width / 37; // base unit used to calculate all other values
   $i: 1;
+
+  .glow {
+    filter: drop-shadow(0 0 $t / 2 #ff0000);
+    transition: filter (($i - 1) * 200ms) ease-in-out;
+  }
 
   @each $key, $value in $colors {
 
     .transition--#{$key} {
-      box-shadow: 0 0 $t / 2 $t / 2 nth($value, 1), 0 0 $t $t nth($value, 2);
-      transition: box-shadow ((7 - ($i - 1)) * 200ms) ease-in-out;
+      filter: drop-shadow(0 0 $t / 2 $t / 2 nth($value, 1), 0 0 $t $t nth($value, 2));
+      transition: filter ((7 - ($i - 1)) * 200ms) ease-in-out;
     }
 
     .glow--#{$key} {
-      box-shadow: 0 0 $t / 2 $t / 2 nth($value, 1), 0 0 $t $t nth($value, 2);
-      transition: box-shadow (($i - 1) * 200ms) ease-in-out;
+      filter: drop-shadow(0 0 $t / 2 $t / 2 nth($value, 1), 0 0 $t $t nth($value, 2));
+      transition: filter (($i - 1) * 200ms) ease-in-out;
     }
 
     $i: $i + 1;

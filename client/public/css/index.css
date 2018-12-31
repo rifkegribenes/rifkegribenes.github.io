@@ -1,188 +1,349 @@
-.rainbow-wrap {
-  width: 100%;
-  display: -webkit-box;
-  display: flex;
-  -webkit-box-pack: center;
-          justify-content: center; }
-
 #svg {
   width: 100%;
   max-width: 600px;
   margin: auto; }
 
 @media screen and (max-width: 599px) {
+  .rainbow-wrap {
+    width: 100%;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-pack: center;
+            justify-content: center;
+    min-height: 43.75vw; }
+  .glow {
+    -webkit-filter: drop-shadow(0 0 1.18243vw #ff0000);
+            filter: drop-shadow(0 0 1.18243vw #ff0000);
+    -webkit-transition: -webkit-filter 0ms ease-in-out;
+    transition: -webkit-filter 0ms ease-in-out;
+    transition: filter 0ms ease-in-out;
+    transition: filter 0ms ease-in-out, -webkit-filter 0ms ease-in-out; }
   .transition--pink {
-    box-shadow: 0 0 1.18243vw 1.18243vw #ff00ff, 0 0 2.36486vw 2.36486vw #faaefc;
-    -webkit-transition: box-shadow 1400ms ease-in-out;
-    transition: box-shadow 1400ms ease-in-out; }
+    -webkit-filter: drop-shadow(0 0 1.18243vw 1.18243vw #ff00ff, 0 0 2.36486vw 2.36486vw #faaefc);
+            filter: drop-shadow(0 0 1.18243vw 1.18243vw #ff00ff, 0 0 2.36486vw 2.36486vw #faaefc);
+    -webkit-transition: -webkit-filter 1400ms ease-in-out;
+    transition: -webkit-filter 1400ms ease-in-out;
+    transition: filter 1400ms ease-in-out;
+    transition: filter 1400ms ease-in-out, -webkit-filter 1400ms ease-in-out; }
   .glow--pink {
-    box-shadow: 0 0 1.18243vw 1.18243vw #ff00ff, 0 0 2.36486vw 2.36486vw #faaefc;
-    -webkit-transition: box-shadow 0ms ease-in-out;
-    transition: box-shadow 0ms ease-in-out; }
+    -webkit-filter: drop-shadow(0 0 1.18243vw 1.18243vw #ff00ff, 0 0 2.36486vw 2.36486vw #faaefc);
+            filter: drop-shadow(0 0 1.18243vw 1.18243vw #ff00ff, 0 0 2.36486vw 2.36486vw #faaefc);
+    -webkit-transition: -webkit-filter 0ms ease-in-out;
+    transition: -webkit-filter 0ms ease-in-out;
+    transition: filter 0ms ease-in-out;
+    transition: filter 0ms ease-in-out, -webkit-filter 0ms ease-in-out; }
   .transition--purple {
-    box-shadow: 0 0 1.18243vw 1.18243vw #9500ff, 0 0 2.36486vw 2.36486vw #d994fd;
-    -webkit-transition: box-shadow 1200ms ease-in-out;
-    transition: box-shadow 1200ms ease-in-out; }
+    -webkit-filter: drop-shadow(0 0 1.18243vw 1.18243vw #9500ff, 0 0 2.36486vw 2.36486vw #d994fd);
+            filter: drop-shadow(0 0 1.18243vw 1.18243vw #9500ff, 0 0 2.36486vw 2.36486vw #d994fd);
+    -webkit-transition: -webkit-filter 1200ms ease-in-out;
+    transition: -webkit-filter 1200ms ease-in-out;
+    transition: filter 1200ms ease-in-out;
+    transition: filter 1200ms ease-in-out, -webkit-filter 1200ms ease-in-out; }
   .glow--purple {
-    box-shadow: 0 0 1.18243vw 1.18243vw #9500ff, 0 0 2.36486vw 2.36486vw #d994fd;
-    -webkit-transition: box-shadow 200ms ease-in-out;
-    transition: box-shadow 200ms ease-in-out; }
+    -webkit-filter: drop-shadow(0 0 1.18243vw 1.18243vw #9500ff, 0 0 2.36486vw 2.36486vw #d994fd);
+            filter: drop-shadow(0 0 1.18243vw 1.18243vw #9500ff, 0 0 2.36486vw 2.36486vw #d994fd);
+    -webkit-transition: -webkit-filter 200ms ease-in-out;
+    transition: -webkit-filter 200ms ease-in-out;
+    transition: filter 200ms ease-in-out;
+    transition: filter 200ms ease-in-out, -webkit-filter 200ms ease-in-out; }
   .transition--blue {
-    box-shadow: 0 0 1.18243vw 1.18243vw #35a9f5, 0 0 2.36486vw 2.36486vw #aff5fd;
-    -webkit-transition: box-shadow 1000ms ease-in-out;
-    transition: box-shadow 1000ms ease-in-out; }
+    -webkit-filter: drop-shadow(0 0 1.18243vw 1.18243vw #35a9f5, 0 0 2.36486vw 2.36486vw #aff5fd);
+            filter: drop-shadow(0 0 1.18243vw 1.18243vw #35a9f5, 0 0 2.36486vw 2.36486vw #aff5fd);
+    -webkit-transition: -webkit-filter 1000ms ease-in-out;
+    transition: -webkit-filter 1000ms ease-in-out;
+    transition: filter 1000ms ease-in-out;
+    transition: filter 1000ms ease-in-out, -webkit-filter 1000ms ease-in-out; }
   .glow--blue {
-    box-shadow: 0 0 1.18243vw 1.18243vw #35a9f5, 0 0 2.36486vw 2.36486vw #aff5fd;
-    -webkit-transition: box-shadow 400ms ease-in-out;
-    transition: box-shadow 400ms ease-in-out; }
+    -webkit-filter: drop-shadow(0 0 1.18243vw 1.18243vw #35a9f5, 0 0 2.36486vw 2.36486vw #aff5fd);
+            filter: drop-shadow(0 0 1.18243vw 1.18243vw #35a9f5, 0 0 2.36486vw 2.36486vw #aff5fd);
+    -webkit-transition: -webkit-filter 400ms ease-in-out;
+    transition: -webkit-filter 400ms ease-in-out;
+    transition: filter 400ms ease-in-out;
+    transition: filter 400ms ease-in-out, -webkit-filter 400ms ease-in-out; }
   .transition--green {
-    box-shadow: 0 0 1.18243vw 1.18243vw #8cc63f, 0 0 2.36486vw 2.36486vw #c5fbaa;
-    -webkit-transition: box-shadow 800ms ease-in-out;
-    transition: box-shadow 800ms ease-in-out; }
+    -webkit-filter: drop-shadow(0 0 1.18243vw 1.18243vw #8cc63f, 0 0 2.36486vw 2.36486vw #c5fbaa);
+            filter: drop-shadow(0 0 1.18243vw 1.18243vw #8cc63f, 0 0 2.36486vw 2.36486vw #c5fbaa);
+    -webkit-transition: -webkit-filter 800ms ease-in-out;
+    transition: -webkit-filter 800ms ease-in-out;
+    transition: filter 800ms ease-in-out;
+    transition: filter 800ms ease-in-out, -webkit-filter 800ms ease-in-out; }
   .glow--green {
-    box-shadow: 0 0 1.18243vw 1.18243vw #8cc63f, 0 0 2.36486vw 2.36486vw #c5fbaa;
-    -webkit-transition: box-shadow 600ms ease-in-out;
-    transition: box-shadow 600ms ease-in-out; }
+    -webkit-filter: drop-shadow(0 0 1.18243vw 1.18243vw #8cc63f, 0 0 2.36486vw 2.36486vw #c5fbaa);
+            filter: drop-shadow(0 0 1.18243vw 1.18243vw #8cc63f, 0 0 2.36486vw 2.36486vw #c5fbaa);
+    -webkit-transition: -webkit-filter 600ms ease-in-out;
+    transition: -webkit-filter 600ms ease-in-out;
+    transition: filter 600ms ease-in-out;
+    transition: filter 600ms ease-in-out, -webkit-filter 600ms ease-in-out; }
   .transition--yellow {
-    box-shadow: 0 0 1.18243vw 1.18243vw #fcee21, 0 0 2.36486vw 2.36486vw #fcffb0;
-    -webkit-transition: box-shadow 600ms ease-in-out;
-    transition: box-shadow 600ms ease-in-out; }
+    -webkit-filter: drop-shadow(0 0 1.18243vw 1.18243vw #fcee21, 0 0 2.36486vw 2.36486vw #fcffb0);
+            filter: drop-shadow(0 0 1.18243vw 1.18243vw #fcee21, 0 0 2.36486vw 2.36486vw #fcffb0);
+    -webkit-transition: -webkit-filter 600ms ease-in-out;
+    transition: -webkit-filter 600ms ease-in-out;
+    transition: filter 600ms ease-in-out;
+    transition: filter 600ms ease-in-out, -webkit-filter 600ms ease-in-out; }
   .glow--yellow {
-    box-shadow: 0 0 1.18243vw 1.18243vw #fcee21, 0 0 2.36486vw 2.36486vw #fcffb0;
-    -webkit-transition: box-shadow 800ms ease-in-out;
-    transition: box-shadow 800ms ease-in-out; }
+    -webkit-filter: drop-shadow(0 0 1.18243vw 1.18243vw #fcee21, 0 0 2.36486vw 2.36486vw #fcffb0);
+            filter: drop-shadow(0 0 1.18243vw 1.18243vw #fcee21, 0 0 2.36486vw 2.36486vw #fcffb0);
+    -webkit-transition: -webkit-filter 800ms ease-in-out;
+    transition: -webkit-filter 800ms ease-in-out;
+    transition: filter 800ms ease-in-out;
+    transition: filter 800ms ease-in-out, -webkit-filter 800ms ease-in-out; }
   .transition--orange {
-    box-shadow: 0 0 1.18243vw 1.18243vw #ff931e, 0 0 2.36486vw 2.36486vw #f4d978;
-    -webkit-transition: box-shadow 400ms ease-in-out;
-    transition: box-shadow 400ms ease-in-out; }
+    -webkit-filter: drop-shadow(0 0 1.18243vw 1.18243vw #ff931e, 0 0 2.36486vw 2.36486vw #f4d978);
+            filter: drop-shadow(0 0 1.18243vw 1.18243vw #ff931e, 0 0 2.36486vw 2.36486vw #f4d978);
+    -webkit-transition: -webkit-filter 400ms ease-in-out;
+    transition: -webkit-filter 400ms ease-in-out;
+    transition: filter 400ms ease-in-out;
+    transition: filter 400ms ease-in-out, -webkit-filter 400ms ease-in-out; }
   .glow--orange {
-    box-shadow: 0 0 1.18243vw 1.18243vw #ff931e, 0 0 2.36486vw 2.36486vw #f4d978;
-    -webkit-transition: box-shadow 1000ms ease-in-out;
-    transition: box-shadow 1000ms ease-in-out; }
+    -webkit-filter: drop-shadow(0 0 1.18243vw 1.18243vw #ff931e, 0 0 2.36486vw 2.36486vw #f4d978);
+            filter: drop-shadow(0 0 1.18243vw 1.18243vw #ff931e, 0 0 2.36486vw 2.36486vw #f4d978);
+    -webkit-transition: -webkit-filter 1000ms ease-in-out;
+    transition: -webkit-filter 1000ms ease-in-out;
+    transition: filter 1000ms ease-in-out;
+    transition: filter 1000ms ease-in-out, -webkit-filter 1000ms ease-in-out; }
   .transition--red {
-    box-shadow: 0 0 1.18243vw 1.18243vw #ff0000, 0 0 2.36486vw 2.36486vw #ff7c84;
-    -webkit-transition: box-shadow 200ms ease-in-out;
-    transition: box-shadow 200ms ease-in-out; }
+    -webkit-filter: drop-shadow(0 0 1.18243vw 1.18243vw #ff0000, 0 0 2.36486vw 2.36486vw #ff7c84);
+            filter: drop-shadow(0 0 1.18243vw 1.18243vw #ff0000, 0 0 2.36486vw 2.36486vw #ff7c84);
+    -webkit-transition: -webkit-filter 200ms ease-in-out;
+    transition: -webkit-filter 200ms ease-in-out;
+    transition: filter 200ms ease-in-out;
+    transition: filter 200ms ease-in-out, -webkit-filter 200ms ease-in-out; }
   .glow--red {
-    box-shadow: 0 0 1.18243vw 1.18243vw #ff0000, 0 0 2.36486vw 2.36486vw #ff7c84;
-    -webkit-transition: box-shadow 1200ms ease-in-out;
-    transition: box-shadow 1200ms ease-in-out; } }
+    -webkit-filter: drop-shadow(0 0 1.18243vw 1.18243vw #ff0000, 0 0 2.36486vw 2.36486vw #ff7c84);
+            filter: drop-shadow(0 0 1.18243vw 1.18243vw #ff0000, 0 0 2.36486vw 2.36486vw #ff7c84);
+    -webkit-transition: -webkit-filter 1200ms ease-in-out;
+    transition: -webkit-filter 1200ms ease-in-out;
+    transition: filter 1200ms ease-in-out;
+    transition: filter 1200ms ease-in-out, -webkit-filter 1200ms ease-in-out; } }
 
 @media screen and (min-width: 600px) {
+  .rainbow-wrap {
+    width: 100%;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-pack: center;
+            justify-content: center;
+    min-height: 40vw; }
+  .glow {
+    -webkit-filter: drop-shadow(0 0 1.08108vw #ff0000);
+            filter: drop-shadow(0 0 1.08108vw #ff0000);
+    -webkit-transition: -webkit-filter 0ms ease-in-out;
+    transition: -webkit-filter 0ms ease-in-out;
+    transition: filter 0ms ease-in-out;
+    transition: filter 0ms ease-in-out, -webkit-filter 0ms ease-in-out; }
   .transition--pink {
-    box-shadow: 0 0 1.08108vw 1.08108vw #ff00ff, 0 0 2.16216vw 2.16216vw #faaefc;
-    -webkit-transition: box-shadow 1400ms ease-in-out;
-    transition: box-shadow 1400ms ease-in-out; }
+    -webkit-filter: drop-shadow(0 0 1.08108vw 1.08108vw #ff00ff, 0 0 2.16216vw 2.16216vw #faaefc);
+            filter: drop-shadow(0 0 1.08108vw 1.08108vw #ff00ff, 0 0 2.16216vw 2.16216vw #faaefc);
+    -webkit-transition: -webkit-filter 1400ms ease-in-out;
+    transition: -webkit-filter 1400ms ease-in-out;
+    transition: filter 1400ms ease-in-out;
+    transition: filter 1400ms ease-in-out, -webkit-filter 1400ms ease-in-out; }
   .glow--pink {
-    box-shadow: 0 0 1.08108vw 1.08108vw #ff00ff, 0 0 2.16216vw 2.16216vw #faaefc;
-    -webkit-transition: box-shadow 0ms ease-in-out;
-    transition: box-shadow 0ms ease-in-out; }
+    -webkit-filter: drop-shadow(0 0 1.08108vw 1.08108vw #ff00ff, 0 0 2.16216vw 2.16216vw #faaefc);
+            filter: drop-shadow(0 0 1.08108vw 1.08108vw #ff00ff, 0 0 2.16216vw 2.16216vw #faaefc);
+    -webkit-transition: -webkit-filter 0ms ease-in-out;
+    transition: -webkit-filter 0ms ease-in-out;
+    transition: filter 0ms ease-in-out;
+    transition: filter 0ms ease-in-out, -webkit-filter 0ms ease-in-out; }
   .transition--purple {
-    box-shadow: 0 0 1.08108vw 1.08108vw #9500ff, 0 0 2.16216vw 2.16216vw #d994fd;
-    -webkit-transition: box-shadow 1200ms ease-in-out;
-    transition: box-shadow 1200ms ease-in-out; }
+    -webkit-filter: drop-shadow(0 0 1.08108vw 1.08108vw #9500ff, 0 0 2.16216vw 2.16216vw #d994fd);
+            filter: drop-shadow(0 0 1.08108vw 1.08108vw #9500ff, 0 0 2.16216vw 2.16216vw #d994fd);
+    -webkit-transition: -webkit-filter 1200ms ease-in-out;
+    transition: -webkit-filter 1200ms ease-in-out;
+    transition: filter 1200ms ease-in-out;
+    transition: filter 1200ms ease-in-out, -webkit-filter 1200ms ease-in-out; }
   .glow--purple {
-    box-shadow: 0 0 1.08108vw 1.08108vw #9500ff, 0 0 2.16216vw 2.16216vw #d994fd;
-    -webkit-transition: box-shadow 200ms ease-in-out;
-    transition: box-shadow 200ms ease-in-out; }
+    -webkit-filter: drop-shadow(0 0 1.08108vw 1.08108vw #9500ff, 0 0 2.16216vw 2.16216vw #d994fd);
+            filter: drop-shadow(0 0 1.08108vw 1.08108vw #9500ff, 0 0 2.16216vw 2.16216vw #d994fd);
+    -webkit-transition: -webkit-filter 200ms ease-in-out;
+    transition: -webkit-filter 200ms ease-in-out;
+    transition: filter 200ms ease-in-out;
+    transition: filter 200ms ease-in-out, -webkit-filter 200ms ease-in-out; }
   .transition--blue {
-    box-shadow: 0 0 1.08108vw 1.08108vw #35a9f5, 0 0 2.16216vw 2.16216vw #aff5fd;
-    -webkit-transition: box-shadow 1000ms ease-in-out;
-    transition: box-shadow 1000ms ease-in-out; }
+    -webkit-filter: drop-shadow(0 0 1.08108vw 1.08108vw #35a9f5, 0 0 2.16216vw 2.16216vw #aff5fd);
+            filter: drop-shadow(0 0 1.08108vw 1.08108vw #35a9f5, 0 0 2.16216vw 2.16216vw #aff5fd);
+    -webkit-transition: -webkit-filter 1000ms ease-in-out;
+    transition: -webkit-filter 1000ms ease-in-out;
+    transition: filter 1000ms ease-in-out;
+    transition: filter 1000ms ease-in-out, -webkit-filter 1000ms ease-in-out; }
   .glow--blue {
-    box-shadow: 0 0 1.08108vw 1.08108vw #35a9f5, 0 0 2.16216vw 2.16216vw #aff5fd;
-    -webkit-transition: box-shadow 400ms ease-in-out;
-    transition: box-shadow 400ms ease-in-out; }
+    -webkit-filter: drop-shadow(0 0 1.08108vw 1.08108vw #35a9f5, 0 0 2.16216vw 2.16216vw #aff5fd);
+            filter: drop-shadow(0 0 1.08108vw 1.08108vw #35a9f5, 0 0 2.16216vw 2.16216vw #aff5fd);
+    -webkit-transition: -webkit-filter 400ms ease-in-out;
+    transition: -webkit-filter 400ms ease-in-out;
+    transition: filter 400ms ease-in-out;
+    transition: filter 400ms ease-in-out, -webkit-filter 400ms ease-in-out; }
   .transition--green {
-    box-shadow: 0 0 1.08108vw 1.08108vw #8cc63f, 0 0 2.16216vw 2.16216vw #c5fbaa;
-    -webkit-transition: box-shadow 800ms ease-in-out;
-    transition: box-shadow 800ms ease-in-out; }
+    -webkit-filter: drop-shadow(0 0 1.08108vw 1.08108vw #8cc63f, 0 0 2.16216vw 2.16216vw #c5fbaa);
+            filter: drop-shadow(0 0 1.08108vw 1.08108vw #8cc63f, 0 0 2.16216vw 2.16216vw #c5fbaa);
+    -webkit-transition: -webkit-filter 800ms ease-in-out;
+    transition: -webkit-filter 800ms ease-in-out;
+    transition: filter 800ms ease-in-out;
+    transition: filter 800ms ease-in-out, -webkit-filter 800ms ease-in-out; }
   .glow--green {
-    box-shadow: 0 0 1.08108vw 1.08108vw #8cc63f, 0 0 2.16216vw 2.16216vw #c5fbaa;
-    -webkit-transition: box-shadow 600ms ease-in-out;
-    transition: box-shadow 600ms ease-in-out; }
+    -webkit-filter: drop-shadow(0 0 1.08108vw 1.08108vw #8cc63f, 0 0 2.16216vw 2.16216vw #c5fbaa);
+            filter: drop-shadow(0 0 1.08108vw 1.08108vw #8cc63f, 0 0 2.16216vw 2.16216vw #c5fbaa);
+    -webkit-transition: -webkit-filter 600ms ease-in-out;
+    transition: -webkit-filter 600ms ease-in-out;
+    transition: filter 600ms ease-in-out;
+    transition: filter 600ms ease-in-out, -webkit-filter 600ms ease-in-out; }
   .transition--yellow {
-    box-shadow: 0 0 1.08108vw 1.08108vw #fcee21, 0 0 2.16216vw 2.16216vw #fcffb0;
-    -webkit-transition: box-shadow 600ms ease-in-out;
-    transition: box-shadow 600ms ease-in-out; }
+    -webkit-filter: drop-shadow(0 0 1.08108vw 1.08108vw #fcee21, 0 0 2.16216vw 2.16216vw #fcffb0);
+            filter: drop-shadow(0 0 1.08108vw 1.08108vw #fcee21, 0 0 2.16216vw 2.16216vw #fcffb0);
+    -webkit-transition: -webkit-filter 600ms ease-in-out;
+    transition: -webkit-filter 600ms ease-in-out;
+    transition: filter 600ms ease-in-out;
+    transition: filter 600ms ease-in-out, -webkit-filter 600ms ease-in-out; }
   .glow--yellow {
-    box-shadow: 0 0 1.08108vw 1.08108vw #fcee21, 0 0 2.16216vw 2.16216vw #fcffb0;
-    -webkit-transition: box-shadow 800ms ease-in-out;
-    transition: box-shadow 800ms ease-in-out; }
+    -webkit-filter: drop-shadow(0 0 1.08108vw 1.08108vw #fcee21, 0 0 2.16216vw 2.16216vw #fcffb0);
+            filter: drop-shadow(0 0 1.08108vw 1.08108vw #fcee21, 0 0 2.16216vw 2.16216vw #fcffb0);
+    -webkit-transition: -webkit-filter 800ms ease-in-out;
+    transition: -webkit-filter 800ms ease-in-out;
+    transition: filter 800ms ease-in-out;
+    transition: filter 800ms ease-in-out, -webkit-filter 800ms ease-in-out; }
   .transition--orange {
-    box-shadow: 0 0 1.08108vw 1.08108vw #ff931e, 0 0 2.16216vw 2.16216vw #f4d978;
-    -webkit-transition: box-shadow 400ms ease-in-out;
-    transition: box-shadow 400ms ease-in-out; }
+    -webkit-filter: drop-shadow(0 0 1.08108vw 1.08108vw #ff931e, 0 0 2.16216vw 2.16216vw #f4d978);
+            filter: drop-shadow(0 0 1.08108vw 1.08108vw #ff931e, 0 0 2.16216vw 2.16216vw #f4d978);
+    -webkit-transition: -webkit-filter 400ms ease-in-out;
+    transition: -webkit-filter 400ms ease-in-out;
+    transition: filter 400ms ease-in-out;
+    transition: filter 400ms ease-in-out, -webkit-filter 400ms ease-in-out; }
   .glow--orange {
-    box-shadow: 0 0 1.08108vw 1.08108vw #ff931e, 0 0 2.16216vw 2.16216vw #f4d978;
-    -webkit-transition: box-shadow 1000ms ease-in-out;
-    transition: box-shadow 1000ms ease-in-out; }
+    -webkit-filter: drop-shadow(0 0 1.08108vw 1.08108vw #ff931e, 0 0 2.16216vw 2.16216vw #f4d978);
+            filter: drop-shadow(0 0 1.08108vw 1.08108vw #ff931e, 0 0 2.16216vw 2.16216vw #f4d978);
+    -webkit-transition: -webkit-filter 1000ms ease-in-out;
+    transition: -webkit-filter 1000ms ease-in-out;
+    transition: filter 1000ms ease-in-out;
+    transition: filter 1000ms ease-in-out, -webkit-filter 1000ms ease-in-out; }
   .transition--red {
-    box-shadow: 0 0 1.08108vw 1.08108vw #ff0000, 0 0 2.16216vw 2.16216vw #ff7c84;
-    -webkit-transition: box-shadow 200ms ease-in-out;
-    transition: box-shadow 200ms ease-in-out; }
+    -webkit-filter: drop-shadow(0 0 1.08108vw 1.08108vw #ff0000, 0 0 2.16216vw 2.16216vw #ff7c84);
+            filter: drop-shadow(0 0 1.08108vw 1.08108vw #ff0000, 0 0 2.16216vw 2.16216vw #ff7c84);
+    -webkit-transition: -webkit-filter 200ms ease-in-out;
+    transition: -webkit-filter 200ms ease-in-out;
+    transition: filter 200ms ease-in-out;
+    transition: filter 200ms ease-in-out, -webkit-filter 200ms ease-in-out; }
   .glow--red {
-    box-shadow: 0 0 1.08108vw 1.08108vw #ff0000, 0 0 2.16216vw 2.16216vw #ff7c84;
-    -webkit-transition: box-shadow 1200ms ease-in-out;
-    transition: box-shadow 1200ms ease-in-out; } }
+    -webkit-filter: drop-shadow(0 0 1.08108vw 1.08108vw #ff0000, 0 0 2.16216vw 2.16216vw #ff7c84);
+            filter: drop-shadow(0 0 1.08108vw 1.08108vw #ff0000, 0 0 2.16216vw 2.16216vw #ff7c84);
+    -webkit-transition: -webkit-filter 1200ms ease-in-out;
+    transition: -webkit-filter 1200ms ease-in-out;
+    transition: filter 1200ms ease-in-out;
+    transition: filter 1200ms ease-in-out, -webkit-filter 1200ms ease-in-out; } }
 
 @media screen and (min-width: 750px) {
+  .rainbow-wrap {
+    width: 100%;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-pack: center;
+            justify-content: center;
+    min-height: 300px; }
+  .glow {
+    -webkit-filter: drop-shadow(0 0 8.10811px #ff0000);
+            filter: drop-shadow(0 0 8.10811px #ff0000);
+    -webkit-transition: -webkit-filter 0ms ease-in-out;
+    transition: -webkit-filter 0ms ease-in-out;
+    transition: filter 0ms ease-in-out;
+    transition: filter 0ms ease-in-out, -webkit-filter 0ms ease-in-out; }
   .transition--pink {
-    box-shadow: 0 0 8.10811px 8.10811px #ff00ff, 0 0 16.21622px 16.21622px #faaefc;
-    -webkit-transition: box-shadow 1400ms ease-in-out;
-    transition: box-shadow 1400ms ease-in-out; }
+    -webkit-filter: drop-shadow(0 0 8.10811px 8.10811px #ff00ff, 0 0 16.21622px 16.21622px #faaefc);
+            filter: drop-shadow(0 0 8.10811px 8.10811px #ff00ff, 0 0 16.21622px 16.21622px #faaefc);
+    -webkit-transition: -webkit-filter 1400ms ease-in-out;
+    transition: -webkit-filter 1400ms ease-in-out;
+    transition: filter 1400ms ease-in-out;
+    transition: filter 1400ms ease-in-out, -webkit-filter 1400ms ease-in-out; }
   .glow--pink {
-    box-shadow: 0 0 8.10811px 8.10811px #ff00ff, 0 0 16.21622px 16.21622px #faaefc;
-    -webkit-transition: box-shadow 0ms ease-in-out;
-    transition: box-shadow 0ms ease-in-out; }
+    -webkit-filter: drop-shadow(0 0 8.10811px 8.10811px #ff00ff, 0 0 16.21622px 16.21622px #faaefc);
+            filter: drop-shadow(0 0 8.10811px 8.10811px #ff00ff, 0 0 16.21622px 16.21622px #faaefc);
+    -webkit-transition: -webkit-filter 0ms ease-in-out;
+    transition: -webkit-filter 0ms ease-in-out;
+    transition: filter 0ms ease-in-out;
+    transition: filter 0ms ease-in-out, -webkit-filter 0ms ease-in-out; }
   .transition--purple {
-    box-shadow: 0 0 8.10811px 8.10811px #9500ff, 0 0 16.21622px 16.21622px #d994fd;
-    -webkit-transition: box-shadow 1200ms ease-in-out;
-    transition: box-shadow 1200ms ease-in-out; }
+    -webkit-filter: drop-shadow(0 0 8.10811px 8.10811px #9500ff, 0 0 16.21622px 16.21622px #d994fd);
+            filter: drop-shadow(0 0 8.10811px 8.10811px #9500ff, 0 0 16.21622px 16.21622px #d994fd);
+    -webkit-transition: -webkit-filter 1200ms ease-in-out;
+    transition: -webkit-filter 1200ms ease-in-out;
+    transition: filter 1200ms ease-in-out;
+    transition: filter 1200ms ease-in-out, -webkit-filter 1200ms ease-in-out; }
   .glow--purple {
-    box-shadow: 0 0 8.10811px 8.10811px #9500ff, 0 0 16.21622px 16.21622px #d994fd;
-    -webkit-transition: box-shadow 200ms ease-in-out;
-    transition: box-shadow 200ms ease-in-out; }
+    -webkit-filter: drop-shadow(0 0 8.10811px 8.10811px #9500ff, 0 0 16.21622px 16.21622px #d994fd);
+            filter: drop-shadow(0 0 8.10811px 8.10811px #9500ff, 0 0 16.21622px 16.21622px #d994fd);
+    -webkit-transition: -webkit-filter 200ms ease-in-out;
+    transition: -webkit-filter 200ms ease-in-out;
+    transition: filter 200ms ease-in-out;
+    transition: filter 200ms ease-in-out, -webkit-filter 200ms ease-in-out; }
   .transition--blue {
-    box-shadow: 0 0 8.10811px 8.10811px #35a9f5, 0 0 16.21622px 16.21622px #aff5fd;
-    -webkit-transition: box-shadow 1000ms ease-in-out;
-    transition: box-shadow 1000ms ease-in-out; }
+    -webkit-filter: drop-shadow(0 0 8.10811px 8.10811px #35a9f5, 0 0 16.21622px 16.21622px #aff5fd);
+            filter: drop-shadow(0 0 8.10811px 8.10811px #35a9f5, 0 0 16.21622px 16.21622px #aff5fd);
+    -webkit-transition: -webkit-filter 1000ms ease-in-out;
+    transition: -webkit-filter 1000ms ease-in-out;
+    transition: filter 1000ms ease-in-out;
+    transition: filter 1000ms ease-in-out, -webkit-filter 1000ms ease-in-out; }
   .glow--blue {
-    box-shadow: 0 0 8.10811px 8.10811px #35a9f5, 0 0 16.21622px 16.21622px #aff5fd;
-    -webkit-transition: box-shadow 400ms ease-in-out;
-    transition: box-shadow 400ms ease-in-out; }
+    -webkit-filter: drop-shadow(0 0 8.10811px 8.10811px #35a9f5, 0 0 16.21622px 16.21622px #aff5fd);
+            filter: drop-shadow(0 0 8.10811px 8.10811px #35a9f5, 0 0 16.21622px 16.21622px #aff5fd);
+    -webkit-transition: -webkit-filter 400ms ease-in-out;
+    transition: -webkit-filter 400ms ease-in-out;
+    transition: filter 400ms ease-in-out;
+    transition: filter 400ms ease-in-out, -webkit-filter 400ms ease-in-out; }
   .transition--green {
-    box-shadow: 0 0 8.10811px 8.10811px #8cc63f, 0 0 16.21622px 16.21622px #c5fbaa;
-    -webkit-transition: box-shadow 800ms ease-in-out;
-    transition: box-shadow 800ms ease-in-out; }
+    -webkit-filter: drop-shadow(0 0 8.10811px 8.10811px #8cc63f, 0 0 16.21622px 16.21622px #c5fbaa);
+            filter: drop-shadow(0 0 8.10811px 8.10811px #8cc63f, 0 0 16.21622px 16.21622px #c5fbaa);
+    -webkit-transition: -webkit-filter 800ms ease-in-out;
+    transition: -webkit-filter 800ms ease-in-out;
+    transition: filter 800ms ease-in-out;
+    transition: filter 800ms ease-in-out, -webkit-filter 800ms ease-in-out; }
   .glow--green {
-    box-shadow: 0 0 8.10811px 8.10811px #8cc63f, 0 0 16.21622px 16.21622px #c5fbaa;
-    -webkit-transition: box-shadow 600ms ease-in-out;
-    transition: box-shadow 600ms ease-in-out; }
+    -webkit-filter: drop-shadow(0 0 8.10811px 8.10811px #8cc63f, 0 0 16.21622px 16.21622px #c5fbaa);
+            filter: drop-shadow(0 0 8.10811px 8.10811px #8cc63f, 0 0 16.21622px 16.21622px #c5fbaa);
+    -webkit-transition: -webkit-filter 600ms ease-in-out;
+    transition: -webkit-filter 600ms ease-in-out;
+    transition: filter 600ms ease-in-out;
+    transition: filter 600ms ease-in-out, -webkit-filter 600ms ease-in-out; }
   .transition--yellow {
-    box-shadow: 0 0 8.10811px 8.10811px #fcee21, 0 0 16.21622px 16.21622px #fcffb0;
-    -webkit-transition: box-shadow 600ms ease-in-out;
-    transition: box-shadow 600ms ease-in-out; }
+    -webkit-filter: drop-shadow(0 0 8.10811px 8.10811px #fcee21, 0 0 16.21622px 16.21622px #fcffb0);
+            filter: drop-shadow(0 0 8.10811px 8.10811px #fcee21, 0 0 16.21622px 16.21622px #fcffb0);
+    -webkit-transition: -webkit-filter 600ms ease-in-out;
+    transition: -webkit-filter 600ms ease-in-out;
+    transition: filter 600ms ease-in-out;
+    transition: filter 600ms ease-in-out, -webkit-filter 600ms ease-in-out; }
   .glow--yellow {
-    box-shadow: 0 0 8.10811px 8.10811px #fcee21, 0 0 16.21622px 16.21622px #fcffb0;
-    -webkit-transition: box-shadow 800ms ease-in-out;
-    transition: box-shadow 800ms ease-in-out; }
+    -webkit-filter: drop-shadow(0 0 8.10811px 8.10811px #fcee21, 0 0 16.21622px 16.21622px #fcffb0);
+            filter: drop-shadow(0 0 8.10811px 8.10811px #fcee21, 0 0 16.21622px 16.21622px #fcffb0);
+    -webkit-transition: -webkit-filter 800ms ease-in-out;
+    transition: -webkit-filter 800ms ease-in-out;
+    transition: filter 800ms ease-in-out;
+    transition: filter 800ms ease-in-out, -webkit-filter 800ms ease-in-out; }
   .transition--orange {
-    box-shadow: 0 0 8.10811px 8.10811px #ff931e, 0 0 16.21622px 16.21622px #f4d978;
-    -webkit-transition: box-shadow 400ms ease-in-out;
-    transition: box-shadow 400ms ease-in-out; }
+    -webkit-filter: drop-shadow(0 0 8.10811px 8.10811px #ff931e, 0 0 16.21622px 16.21622px #f4d978);
+            filter: drop-shadow(0 0 8.10811px 8.10811px #ff931e, 0 0 16.21622px 16.21622px #f4d978);
+    -webkit-transition: -webkit-filter 400ms ease-in-out;
+    transition: -webkit-filter 400ms ease-in-out;
+    transition: filter 400ms ease-in-out;
+    transition: filter 400ms ease-in-out, -webkit-filter 400ms ease-in-out; }
   .glow--orange {
-    box-shadow: 0 0 8.10811px 8.10811px #ff931e, 0 0 16.21622px 16.21622px #f4d978;
-    -webkit-transition: box-shadow 1000ms ease-in-out;
-    transition: box-shadow 1000ms ease-in-out; }
+    -webkit-filter: drop-shadow(0 0 8.10811px 8.10811px #ff931e, 0 0 16.21622px 16.21622px #f4d978);
+            filter: drop-shadow(0 0 8.10811px 8.10811px #ff931e, 0 0 16.21622px 16.21622px #f4d978);
+    -webkit-transition: -webkit-filter 1000ms ease-in-out;
+    transition: -webkit-filter 1000ms ease-in-out;
+    transition: filter 1000ms ease-in-out;
+    transition: filter 1000ms ease-in-out, -webkit-filter 1000ms ease-in-out; }
   .transition--red {
-    box-shadow: 0 0 8.10811px 8.10811px #ff0000, 0 0 16.21622px 16.21622px #ff7c84;
-    -webkit-transition: box-shadow 200ms ease-in-out;
-    transition: box-shadow 200ms ease-in-out; }
+    -webkit-filter: drop-shadow(0 0 8.10811px 8.10811px #ff0000, 0 0 16.21622px 16.21622px #ff7c84);
+            filter: drop-shadow(0 0 8.10811px 8.10811px #ff0000, 0 0 16.21622px 16.21622px #ff7c84);
+    -webkit-transition: -webkit-filter 200ms ease-in-out;
+    transition: -webkit-filter 200ms ease-in-out;
+    transition: filter 200ms ease-in-out;
+    transition: filter 200ms ease-in-out, -webkit-filter 200ms ease-in-out; }
   .glow--red {
-    box-shadow: 0 0 8.10811px 8.10811px #ff0000, 0 0 16.21622px 16.21622px #ff7c84;
-    -webkit-transition: box-shadow 1200ms ease-in-out;
-    transition: box-shadow 1200ms ease-in-out; } }
+    -webkit-filter: drop-shadow(0 0 8.10811px 8.10811px #ff0000, 0 0 16.21622px 16.21622px #ff7c84);
+            filter: drop-shadow(0 0 8.10811px 8.10811px #ff0000, 0 0 16.21622px 16.21622px #ff7c84);
+    -webkit-transition: -webkit-filter 1200ms ease-in-out;
+    transition: -webkit-filter 1200ms ease-in-out;
+    transition: filter 1200ms ease-in-out;
+    transition: filter 1200ms ease-in-out, -webkit-filter 1200ms ease-in-out; } }
 
 .long-screen {
   display: none; }
@@ -315,4 +476,4 @@
     stroke-opacity: 1; }
   100% {
     stroke-opacity: 0; } }
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9zdHlsZXMvc2Nzcy9fcmFpbmJvdy5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUdBO0VBQ0UsWUFBVztFQUNYLHFCQUFhO0VBQWIsY0FBYTtFQUNiLHlCQUF1QjtVQUF2Qix3QkFBdUIsRUFDeEI7O0FBRUQ7RUFDRSxZQUFXO0VBQ1gsaUJBQWdCO0VBQ2hCLGFBQVksRUFDYjs7QUFvQ0Q7RUFqQkk7SUFDRSw2RUFqQm1CO0lBa0JuQixrREFBMkQ7SUFBM0QsMENBQTJELEVBQzVEO0VBRUQ7SUFDRSw2RUF0Qm1CO0lBdUJuQiwrQ0FBcUQ7SUFBckQsdUNBQXFELEVBQ3REO0VBUkQ7SUFDRSw2RUFoQnFCO0lBaUJyQixrREFBMkQ7SUFBM0QsMENBQTJELEVBQzVEO0VBRUQ7SUFDRSw2RUFyQnFCO0lBc0JyQixpREFBcUQ7SUFBckQseUNBQXFELEVBQ3REO0VBUkQ7SUFDRSw2RUFmbUI7SUFnQm5CLGtEQUEyRDtJQUEzRCwwQ0FBMkQsRUFDNUQ7RUFFRDtJQUNFLDZFQXBCbUI7SUFxQm5CLGlEQUFxRDtJQUFyRCx5Q0FBcUQsRUFDdEQ7RUFSRDtJQUNFLDZFQWRvQjtJQWVwQixpREFBMkQ7SUFBM0QseUNBQTJELEVBQzVEO0VBRUQ7SUFDRSw2RUFuQm9CO0lBb0JwQixpREFBcUQ7SUFBckQseUNBQXFELEVBQ3REO0VBUkQ7SUFDRSw2RUFicUI7SUFjckIsaURBQTJEO0lBQTNELHlDQUEyRCxFQUM1RDtFQUVEO0lBQ0UsNkVBbEJxQjtJQW1CckIsaURBQXFEO0lBQXJELHlDQUFxRCxFQUN0RDtFQVJEO0lBQ0UsNkVBWnFCO0lBYXJCLGlEQUEyRDtJQUEzRCx5Q0FBMkQsRUFDNUQ7RUFFRDtJQUNFLDZFQWpCcUI7SUFrQnJCLGtEQUFxRDtJQUFyRCwwQ0FBcUQsRUFDdEQ7RUFSRDtJQUNFLDZFQVhrQjtJQVlsQixpREFBMkQ7SUFBM0QseUNBQTJELEVBQzVEO0VBRUQ7SUFDRSw2RUFoQmtCO0lBaUJsQixrREFBcUQ7SUFBckQsMENB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 */
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9zdHlsZXMvc2Nzcy9fcmFpbmJvdy5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUdBO0VBQ0UsWUFBVztFQUNYLGlCQUFnQjtFQUNoQixhQUFZLEVBQ2I7O0FBZ0REO0VBbENFO0lBQ0UsWUFBVztJQUNYLHFCQUFhO0lBQWIsY0FBYTtJQUNiLHlCQUF1QjtZQUF2Qix3QkFBdUI7SUFDdkIsb0JBQThCLEVBQy9CO0VBS0Q7SUFDRSxtREFBdUM7WUFBdkMsMkNBQXVDO0lBQ3ZDLG1EQUFpRDtJQUFqRCwyQ0FBaUQ7SUFBakQsbUNBQWlEO0lBQWpELG1FQUFpRCxFQUNsRDtFQUlDO0lBQ0UsOEZBQStFO1lBQS9FLHNGQUErRTtJQUMvRSxzREFBdUQ7SUFBdkQsOENBQXVEO0lBQXZELHNDQUF1RDtJQUF2RCx5RUFBdUQsRUFDeEQ7RUFFRDtJQUNFLDhGQUErRTtZQUEvRSxzRkFBK0U7SUFDL0UsbURBQWlEO0lBQWpELDJDQUFpRDtJQUFqRCxtQ0FBaUQ7SUFBakQsbUVBQWlELEVBQ2xEO0VBUkQ7SUFDRSw4RkFBK0U7WUFBL0Usc0ZBQStFO0lBQy9FLHNEQUF1RDtJQUF2RCw4Q0FBdUQ7SUFBdkQsc0NBQXVEO0lBQXZELHlFQUF1RCxFQUN4RDtFQUVEO0lBQ0UsOEZBQStFO1lBQS9FLHNGQUErRTtJQUMvRSxxREFBaUQ7SUFBakQsNkNBQWlEO0lBQWpELHFDQUFpRDtJQUFqRCx1RUFBaUQsRUFDbEQ7RUFSRDtJQUNFLDhGQUErRTtZQUEvRSxzRkFBK0U7SUFDL0Usc0RBQXVEO0lBQXZELDhDQUF1RDtJQUF2RCxzQ0FBdUQ7SUFBdkQseUVBQXVELEVBQ3hEO0VBRUQ7SUFDRSw4RkFBK0U7WUFBL0Usc0ZBQStFO0lBQy9FLHFEQUFpRDtJQUFqRCw2Q0FBaUQ7SUFBakQscUNBQWlEO0lBQWpELHVFQUFpRCxFQUNsRDtFQVJEO0lBQ0UsOEZBQStFO1lBQS9FLHNGQUErRTtJQUMvRSxxREFBdUQ7SUFBdkQsNkNBQXVEO0lBQXZELHFDQUF1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 */

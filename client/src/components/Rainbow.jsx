@@ -14,14 +14,18 @@ const Rainbow = props => (
     >
       <title>neonrainbow_noglow</title>
       <defs>
-        <filter id="glow">
-          <fegaussianblur class="blur" result="coloredBlur" stddeviation="4" />
-          <femerge>
-            <femergenode in="coloredBlur" />
-            <femergenode in="coloredBlur" />
-            <femergenode in="coloredBlur" />
-            <femergenode in="SourceGraphic" />
-          </femerge>
+        <filter id="svgglow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur
+            className="blur"
+            result="coloredBlur"
+            stdDeviation="4"
+          />
+          <feMerge>
+            <feMergeNode in="coloredBlur" />
+            <feMergeNode in="coloredBlur" />
+            <feMergeNode in="coloredBlur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
         </filter>
       </defs>
       <g id="red-wrap">
@@ -35,9 +39,11 @@ const Rainbow = props => (
             stroke: "red",
             strokeLinecap: "round",
             strokeMiterlimit: 10,
-            strokeWidth: 24
+            strokeWidth: 24,
+            filter: "url(#svgglow)"
           }}
           className="RCwMnecV_0 glow transition--red"
+          filter="url(#svgglow)"
         />
         <path
           id="red_lite"
@@ -65,7 +71,8 @@ const Rainbow = props => (
             stroke: "#ff931e",
             strokeLinecap: "round",
             strokeMiterlimit: 10,
-            strokeWidth: 24
+            strokeWidth: 24,
+            filter: "url(#svgglow)"
           }}
           className="RCwMnecV_2 glow transition--orange"
         />
@@ -96,7 +103,8 @@ const Rainbow = props => (
             stroke: "#fcee21",
             strokeLinecap: "round",
             strokeMiterlimit: 10,
-            strokeWidth: 24
+            strokeWidth: 24,
+            filter: "url(#svgglow)"
           }}
           className="RCwMnecV_4 glow transition--yellow"
         />
@@ -126,7 +134,8 @@ const Rainbow = props => (
             stroke: "#8cc63f",
             strokeLinecap: "round",
             strokeMiterlimit: 10,
-            strokeWidth: 24
+            strokeWidth: 24,
+            filter: "url(#svgglow)"
           }}
           className="RCwMnecV_6 glow transition--green"
         />
@@ -157,7 +166,8 @@ const Rainbow = props => (
             stroke: "#3fa9f5",
             strokeLinecap: "round",
             strokeMiterlimit: 10,
-            strokeWidth: 24
+            strokeWidth: 24,
+            filter: "url(#svgglow)"
           }}
           className="RCwMnecV_8 glow transition--blue"
         />
@@ -188,7 +198,8 @@ const Rainbow = props => (
             stroke: "#9500ff",
             strokeLinecap: "round",
             strokeMiterlimit: 10,
-            strokeWidth: 24
+            strokeWidth: 24,
+            filter: "url(#svgglow)"
           }}
           className="RCwMnecV_10 glow transition--purple"
         />
@@ -219,7 +230,8 @@ const Rainbow = props => (
             stroke: "#f0f",
             strokeLinecap: "round",
             strokeMiterlimit: 10,
-            strokeWidth: 24
+            strokeWidth: 24,
+            filter: "url(#svgglow)"
           }}
           className="RCwMnecV_12 glow transition--pink"
         />
