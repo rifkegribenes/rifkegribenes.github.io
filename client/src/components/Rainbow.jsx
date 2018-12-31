@@ -9,16 +9,22 @@ const Rainbow = props => (
   <div className="rainbow-wrap">
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 805.76 414.88"
+      viewBox="0 0 926.62 477.11"
       id="svg"
+      style={{ overflow: "visible" }}
     >
       <title>neonrainbow_noglow</title>
       <defs>
-        <filter id="svgglow" x="-50%" y="-50%" width="200%" height="200%">
+        <filter
+          id="svgglow"
+          height="200%"
+          width="200%"
+          filterUnits="userSpaceOnUse"
+        >
           <feGaussianBlur
             className="blur"
             result="coloredBlur"
-            stdDeviation="4"
+            stdDeviation="10"
           />
           <feMerge>
             <feMergeNode in="coloredBlur" />
@@ -43,7 +49,6 @@ const Rainbow = props => (
             filter: "url(#svgglow)"
           }}
           className="RCwMnecV_0 glow transition--red"
-          filter="url(#svgglow)"
         />
         <path
           id="red_lite"
