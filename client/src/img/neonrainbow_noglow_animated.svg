@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 805.76 414.88" style="" id="svg">
+	<title>neonrainbow_noglow</title>
+	<g id="red-wrap">
+		<path id="red" data-name="red dark" d="M38.12,427c0-215.88,175-390.88,390.88-390.88S819.88,211.12,819.88,427" transform="translate(-26.12 -24.12)" style="fill:none;stroke:red;stroke-linecap:round;stroke-miterlimit:10;stroke-width:24px" class="RCwMnecV_0 glow transition--red">
+		</path>
+		<path id="red_lite" data-name="red lite" d="M38.12,427c0-215.88,175-390.88,390.88-390.88S819.88,211.12,819.88,427" transform="translate(-26.12 -24.12)" style="fill:none;stroke:#ff7c84;stroke-linecap:round;stroke-miterlimit:10;stroke-width:9px" class="RCwMnecV_1">
+		</path>
+	</g>
+	<g id="orange-wrap">
+		<path id="orange" data-name="orange dark" d="M77.21,427C77.21,232.71,234.71,75.21,429,75.21S780.79,232.71,780.79,427" transform="translate(-26.12 -24.12)" style="fill:none;stroke:#ff931e;stroke-linecap:round;stroke-miterlimit:10;stroke-width:24px" class="RCwMnecV_2 glow transition--orange">
+		</path>
+		<path id="orange_lite" data-name="orange lite" d="M77.21,427C77.21,232.71,234.71,75.21,429,75.21S780.79,232.71,780.79,427" transform="translate(-26.12 -24.12)" style="fill:none;stroke:#f4d978;stroke-linecap:round;stroke-miterlimit:10;stroke-width:9px;opacity:0.8" class="RCwMnecV_3">
+		</path>
+	</g>
+	<g id="yellow-wrap">
+		<path id="yellow" data-name="yellow dark" d="M118,427c0-171.74,139.22-311,311-311S740,255.26,740,427" transform="translate(-26.12 -24.12)" style="fill:none;stroke:#fcee21;stroke-linecap:round;stroke-miterlimit:10;stroke-width:24px" class="RCwMnecV_4 glow transition--yellow">
+		</path>
+		<path id="yellow_lite" data-name="yellow lite" d="M118,427c0-171.74,139.22-311,311-311S740,255.26,740,427" transform="translate(-26.12 -24.12)" style="fill:none;stroke:#fcffb0;stroke-linecap:round;stroke-miterlimit:10;stroke-width:9px" class="RCwMnecV_5">
+		</path>
+	</g>
+	<g id="green-wrap">
+		<path id="green" data-name="green dark" d="M159.31,427c0-148.94,120.75-269.69,269.69-269.69S698.69,278.06,698.69,427" transform="translate(-26.12 -24.12)" style="fill:none;stroke:#8cc63f;stroke-linecap:round;stroke-miterlimit:10;stroke-width:24px" class="RCwMnecV_6 glow transition--green">
+		</path>
+		<path id="green_lite" data-name="green lite" d="M159.31,427c0-148.94,120.75-269.69,269.69-269.69S698.69,278.06,698.69,427" transform="translate(-26.12 -24.12)" style="fill:none;stroke:#c5fbaa;stroke-linecap:round;stroke-miterlimit:10;stroke-width:9px;opacity:0.8" class="RCwMnecV_7">
+	</path>
+	</g>
+	<g id="blue-wrap">
+		<path id="blue-wrap" data-name="blue dark" d="M200,427c0-126.46,102.52-229,229-229S658,300.54,658,427" transform="translate(-26.12 -24.12)" style="fill:none;stroke:#3fa9f5;stroke-linecap:round;stroke-miterlimit:10;stroke-width:24px" class="RCwMnecV_8 glow transition--blue">
+		</path>
+		<path id="blue_lite" data-name="blue lite" d="M200,427c0-126.46,102.52-229,229-229S658,300.54,658,427" transform="translate(-26.12 -24.12)" style="fill:none;stroke:#aff5fd;stroke-linecap:round;stroke-miterlimit:10;stroke-width:9px;opacity:0.8" class="RCwMnecV_9">
+		</path>
+	</g>
+	<g id="purple-wrap">
+		<path id="purple" data-name="purple dark" d="M239.41,427c0-104.71,84.88-189.59,189.59-189.59S618.59,322.29,618.59,427" transform="translate(-26.12 -24.12)" style="fill:none;stroke:#9500ff;stroke-linecap:round;stroke-miterlimit:10;stroke-width:24px" class="RCwMnecV_10 glow transition--purple">
+		</path>
+		<path id="purple_lite" data-name="purple lite" d="M239.41,427c0-104.71,84.88-189.59,189.59-189.59S618.59,322.29,618.59,427" transform="translate(-26.12 -24.12)" style="fill:none;stroke:#d994fd;stroke-linecap:round;stroke-miterlimit:10;stroke-width:9px;opacity:0.8" class="RCwMnecV_11">
+	</path>
+	</g>
+	<g id="pink-wrap">
+		<path id="pink" data-name="pink dark" d="M280.62,427a148.38,148.38,0,0,1,296.76,0" transform="translate(-26.12 -24.12)" style="fill:none;stroke:#f0f;stroke-linecap:round;stroke-miterlimit:10;stroke-width:24px" class="RCwMnecV_12 glow transition--pink">
+		</path>
+		<path id="pink_lite" data-name="pink lite" d="M280.62,427a148.38,148.38,0,0,1,296.76,0" transform="translate(-26.12 -24.12)" style="fill:none;stroke:#faaefc;stroke-linecap:round;stroke-miterlimit:10;stroke-width:9px;opacity:0.8" class="RCwMnecV_13">
+		</path>
+	</g>
+	<style data-made-with="vivus-instant">
+		.RCwMnecV_0 {
+			stroke-dasharray:1229 1231;
+			stroke-dashoffset:1230;
+			animation:RCwMnecV_draw 2000ms ease-in-out 0ms forwards;
+		}
+		.RCwMnecV_1 {
+			stroke-dasharray:1229 1231;
+			stroke-dashoffset:1230;
+			animation:RCwMnecV_draw 2000ms ease-in-out 76ms forwards;
+		}
+	.RCwMnecV_2 {
+		stroke-dasharray:1106 1108;
+		stroke-dashoffset:1107;
+		animation:RCwMnecV_draw 2000ms ease-in-out 153ms forwards;
+	}
+	.RCwMnecV_3 {
+		stroke-dasharray:1106 1108;
+		stroke-dashoffset:1107;
+		animation:RCwMnecV_draw 2000ms ease-in-out 230ms forwards;
+	}
+	.RCwMnecV_4 {
+		stroke-dasharray:978 980;
+		stroke-dashoffset:979;
+		animation:RCwMnecV_draw 2000ms ease-in-out 307ms forwards;
+	}
+	.RCwMnecV_5 {
+		stroke-dasharray:978 980;
+		stroke-dashoffset:979;
+		animation:RCwMnecV_draw 2000ms ease-in-out 384ms forwards;
+	}
+	.RCwMnecV_6 {
+		stroke-dasharray:848 850;
+		stroke-dashoffset:849;
+		animation:RCwMnecV_draw 2000ms ease-in-out 461ms forwards;
+	}
+	.RCwMnecV_7 {
+		stroke-dasharray:848 850;
+		stroke-dashoffset:849;
+		animation:RCwMnecV_draw 2000ms ease-in-out 538ms forwards;
+	}
+	.RCwMnecV_8 {
+		stroke-dasharray:720 722;
+		stroke-dashoffset:721;
+		animation:RCwMnecV_draw 2000ms ease-in-out 615ms forwards;
+	}
+	.RCwMnecV_9 {
+		stroke-dasharray:720 722;
+		stroke-dashoffset:721;
+		animation:RCwMnecV_draw 2000ms ease-in-out 692ms forwards;
+	}
+	.RCwMnecV_10 {
+		stroke-dasharray:596 598;
+		stroke-dashoffset:597;
+		animation:RCwMnecV_draw 2000ms ease-in-out 769ms forwards;
+	}
+	.RCwMnecV_11 {
+		stroke-dasharray:596 598;
+		stroke-dashoffset:597;
+		animation:RCwMnecV_draw 2000ms ease-in-out 846ms forwards;
+	}
+	.RCwMnecV_12 {
+		stroke-dasharray:467 469;
+		stroke-dashoffset:468;
+		animation:RCwMnecV_draw 2000ms ease-in-out 923ms forwards;
+	}
+	.RCwMnecV_13 {
+		stroke-dasharray:467 469;
+		stroke-dashoffset:468;
+		animation:RCwMnecV_draw 2000ms ease-in-out 1000ms forwards;
+	}
+	@keyframes RCwMnecV_draw {
+		100%{stroke-dashoffset:0;}
+	}
+	@keyframes RCwMnecV_fade {
+		0%{stroke-opacity:1;}
+		94.44444444444444%{stroke-opacity:1;}
+		100%{stroke-opacity:0;}
+	}
+	</style>
+</svg>

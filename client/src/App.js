@@ -25,7 +25,7 @@ import Projects from "./containers/Projects";
 import ContactForm from "./containers/ContactForm";
 
 import Notifier, { openSnackbar } from "./containers/Notifier";
-import { colors, glowColorName } from "./utils";
+import { glow } from "./utils";
 
 const styles = theme => ({
   root: {
@@ -43,9 +43,6 @@ const styles = theme => ({
     [theme.breakpoints.down("md")]: {
       padding: 20
     },
-    // [theme.breakpoints.down("sm")]: {
-    //   padding: 0
-    // },
     margin: "auto",
     height: "100%",
     minHeight: "80vh",
@@ -120,36 +117,7 @@ class App extends Component {
 
   componentDidMount() {
     smoothscroll.polyfill();
-
-    // add glow classes to rainbow stripes
-    setTimeout(() => {
-      colors.map(color => {
-        document
-          .getElementById(color)
-          .classList.add(`Background-glow--${color}`);
-        return null;
-      });
-      const glowArray = Array.from(document.getElementsByClassName("glow"));
-      glowArray.map(el => {
-        el.classList.add(`Background-glow-sm--${glowColorName(el)}`);
-        return null;
-      });
-    }, 1500);
-
-    // remove glow classes
-    setTimeout(() => {
-      colors.map(color => {
-        document
-          .getElementById(color)
-          .classList.remove(`Background-glow--${color}`);
-        return null;
-      });
-      const glowArray = Array.from(document.getElementsByClassName("glow"));
-      glowArray.map(el => {
-        el.classList.remove(`Background-glow-sm--${glowColorName(el)}`);
-        return null;
-      });
-    }, 2500);
+    // glow();
 
     // If not logged in, check local storage for authToken
     // if it doesn't exist, it returns the string "undefined"

@@ -1,9 +1,20 @@
-// based on a codepen example by Nick Salloum:
+// inspired by a codepen example by Nick Salloum:
 // https://codepen.io/callmenick/pen/ZWMOEE
 
+.rainbow-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+#svg {
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+}
 
 $colors: (
-  magenta: (#ff00ff, #faaefc),
+  pink: (#ff00ff, #faaefc),
   purple: (#9500ff, #d994fd),
   blue: (#35a9f5, #aff5fd),
   green: (#8cc63f, #c5fbaa),
@@ -14,228 +25,26 @@ $colors: (
 
 @mixin styling($content-width) {
 
-  $u: $content-width / 37; // base unit used to calculate all other values
-  $o: 6 * $u; // empty space in center of rainbow
-  $t: 1 * $u; // stripe width main color
-  $tl: .3 * $u; // stripe width accent color
-  $s: .5 * $u; // space between wider sripes
-  $w: ($o + $t*7 + $s*7) * 2; // width: 33 * $u;
-  $h: $w/2; // height: 16.5 * $u;
-  $g: 2 * $u; // glow offset
-
-  .dblWrap {
-    margin: auto;
-    width: $w + ($g * 2);
-    height: $h;
-  }
-
-  .Rainbow {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    display: block;
-    overflow: hidden;
-    margin: auto;
-    width: $w + ($g * 2);
-    height: $h;
-  }
-
-  .Glow-containers {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    display: block;
-    margin: auto;
-    width: $w + ($g * 2);
-    height: $h;
-  }
-
-  .Rainbow-stripe {
-    position: absolute;
-    right: $g;
-    left: $g;
-    display: block;
-    margin: 0 auto;
-    border-radius: 100%;
-    transform: rotate(-180deg);
-    animation: rainbow 1000ms cubic-bezier(0.86, 0, 0.07, 1) forwards;
-  }
-
-  .Glow-container {
-    position: absolute;
-    right: $g;
-    left: $g;
-    display: block;
-    margin: 0 auto;
-    border-radius: 100%;
-  }
-
-  .Glow-container--start {
-    position: absolute;
-    right: $g;
-    left: $g;
-    display: block;
-    margin: 0 auto;
-    border-radius: 100%;
-    transform: rotate(-80deg);
-  }
-
+  $t: $content-width / 37; // base unit used to calculate all other values
   $i: 1;
 
   @each $key, $value in $colors {
-    $r: (($t + $s) * $i) + $o; // radius of main stripe (red: 10.5 + 6 = 16.5 * $u)
-    $rl: (($t + $s) * $i) - (.4 * $u) + $o; // radius of accent stripe (red-light: 16.1 * $u)
-    $rotate: -79.5;
-
-    @if $i == 7 {
-      $rotate: -86;
-    } @else if $i == 6 {
-      $rotate: -85.5;
-    } @else if $i == 5 {
-      $rotate: -85;
-    } @else if $i == 4 {
-      $rotate: -84;
-    } @else if $i == 3 {
-      $rotate: -83;
-    } @else if $i == 2 {
-      $rotate: -82;
-    } @else {
-      $rotate: -79.5;
-    }
-
-    $endrotate: 69;
-
-    @if $i == 7 {
-      $endrotate: 80;
-    } @else if $i == 6 {
-      $endrotate: 79;
-    } @else if $i == 5 {
-      $endrotate: 78;
-    } @else if $i == 4 {
-      $endrotate: 77;
-    } @else if $i == 3 {
-      $endrotate: 75;
-    } @else if $i == 2 {
-      $endrotate: 73;
-    } @else {
-      $endrotate: 69;
-    }
-
-    .Rainbow-stripe--#{$key} {
-      top: $h - $r + $g; // red: 0 * $u
-      width: $r * 2;
-      height: $r * 2;
-      box-shadow: inset 0 0 0 $t nth($value, 1);
-      clip-path: polygon(0 0, $r*2 0, $r*2 $r, 0 $r, 0 0);
-      animation-delay: ($i - 1) * 100ms;
-    }
 
     .transition--#{$key} {
-      position: absolute;
-      right: 0;
-      left: 0;
-      top: $h - $r + $g;
-      width: $r * 2;
-      height: $r * 2;
-      display: block;
-      margin: 0 auto;
-      overflow: hidden;
-      border-radius: 100%;
-      box-shadow: none;
+      box-shadow: 0 0 $t / 2 $t / 2 nth($value, 1), 0 0 $t $t nth($value, 2);
       transition: box-shadow ((7 - ($i - 1)) * 200ms) ease-in-out;
     }
 
-    .Background-glow--#{$key} {
-      position: absolute;
-      right: 0;
-      left: 0;
-      top: $h - $r + $g;
-      width: $r * 2;
-      height: $r * 2;
-      display: block;
-      margin: 0 auto;
-      border-radius: 100%;
+    .glow--#{$key} {
       box-shadow: 0 0 $t / 2 $t / 2 nth($value, 1), 0 0 $t $t nth($value, 2);
       transition: box-shadow (($i - 1) * 200ms) ease-in-out;
     }
 
-    .Glow-container--#{$key} {
-      top: $h - $r + $g; // red: 0 * $u
-      width: $r*2;
-      height: $r*2;
-      transform: rotate(#{$rotate}deg);
-      animation: glow-end--#{$key} 1000ms cubic-bezier(0.86, 0, 0.07, 1) forwards;
-      animation-delay: ($i - 1) * 100ms;
-    }
-
-    .Glow-container-start--#{$key} {
-      top: $h - $r + $g; // red: 0 * $u
-      width: $r*2;
-      height: $r*2;
-      transform: rotate(#{$rotate}deg);
-      animation: none !important
-    }
-
-    .Glow-start--#{$key} {
-      background: nth($value, 1);
-      height: $t * 1.02;
-      left: 51%;
-      position: absolute;
-      top: 0;
-      transform-origin: 0% 0%;
-      width: $t * 1.02;
-      border-radius: $t;
-      z-index: -1;
-      animation: none !important;
-      transition: box-shadow ((7 - ($i - 1)) * 200ms) ease-in-out;
-    }
-
-    .Glow-end--#{$key} {
-      background: nth($value, 1);
-      height: $t * 1.02;
-      left: 51%;
-      position: absolute;
-      top: 0;
-      transform-origin: 0% 0%;
-      width: $t * 1.02;
-      border-radius: $t;
-      z-index: -1;
-      transition: box-shadow ((7 - ($i - 1)) * 200ms) ease-in-out;
-    }
-
-    .Background-glow-sm--#{$key} {
-      box-shadow: 0 0 $t / 3 $t / 3 nth($value, 1), 0 0 $t / 2 $t / 2 nth($value, 2);
-      transition: box-shadow (($i - 1) * 200ms) ease-in-out;
-      top: $t / -2;
-      width: $t;
-      height: $t;
-    }
-
-    .Rainbow-stripe--#{$key}-light {
-      top: $h - $rl + $g; // red-light: -4 * $u;
-      width: $rl*2;
-      height: $rl*2;
-      box-shadow: inset 0 0 0 $tl nth($value, 2);
-      clip-path: polygon(0 0, $rl*2 0, $rl*2 $rl*1.1, 0 $rl*1.1, 0 0);
-      animation-delay: ($i - 1) * 100ms;
-      z-index: 2;
-    }
-
-    @keyframes glow-end--#{$key} {
-      0% {
-        transform: rotate(#{$rotate}deg);
-      }
-      100% {
-        transform: rotate(#{$endrotate}deg);
-      }
-}
-
     $i: $i + 1;
+
   }
+
+
 }
 
 @media screen and (max-width: 599px) {
@@ -282,44 +91,81 @@ $colors: (
   }
 }
 
-@keyframes rainbow {
-  0% {
-    transform: rotate(-180deg);
-  }
-  100% {
-    transform: rotate(0);
-  }
+.RCwMnecV_0 {
+  stroke-dasharray:1229 1231;
+  stroke-dashoffset:1230;
+  animation:RCwMnecV_draw 2000ms ease-in-out 0ms forwards;
 }
-
-@keyframes glow-end {
-  0% {
-    transform: rotate(-70deg);
-  }
-  100% {
-    transform: rotate(70deg);
-  }
+.RCwMnecV_1 {
+  stroke-dasharray:1229 1231;
+  stroke-dashoffset:1230;
+  animation:RCwMnecV_draw 2000ms ease-in-out 76ms forwards;
 }
-
-@keyframes emerge {
-  0% {
-    opacity: 0;
-  }
-  50% {
-    opacity: .5;
-  }
-  100% {
-    opacity: 1;
-  }
+.RCwMnecV_2 {
+  stroke-dasharray:1106 1108;
+  stroke-dashoffset:1107;
+  animation:RCwMnecV_draw 2000ms ease-in-out 153ms forwards;
 }
-
-@keyframes glow {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: .5;
-  }
-  100% {
-    opacity: 0;
-  }
+.RCwMnecV_3 {
+  stroke-dasharray:1106 1108;
+  stroke-dashoffset:1107;
+  animation:RCwMnecV_draw 2000ms ease-in-out 230ms forwards;
+}
+.RCwMnecV_4 {
+  stroke-dasharray:978 980;
+  stroke-dashoffset:979;
+  animation:RCwMnecV_draw 2000ms ease-in-out 307ms forwards;
+}
+.RCwMnecV_5 {
+  stroke-dasharray:978 980;
+  stroke-dashoffset:979;
+  animation:RCwMnecV_draw 2000ms ease-in-out 384ms forwards;
+}
+.RCwMnecV_6 {
+  stroke-dasharray:848 850;
+  stroke-dashoffset:849;
+  animation:RCwMnecV_draw 2000ms ease-in-out 461ms forwards;
+}
+.RCwMnecV_7 {
+  stroke-dasharray:848 850;
+  stroke-dashoffset:849;
+  animation:RCwMnecV_draw 2000ms ease-in-out 538ms forwards;
+}
+.RCwMnecV_8 {
+  stroke-dasharray:720 722;
+  stroke-dashoffset:721;
+  animation:RCwMnecV_draw 2000ms ease-in-out 615ms forwards;
+}
+.RCwMnecV_9 {
+  stroke-dasharray:720 722;
+  stroke-dashoffset:721;
+  animation:RCwMnecV_draw 2000ms ease-in-out 692ms forwards;
+}
+.RCwMnecV_10 {
+  stroke-dasharray:596 598;
+  stroke-dashoffset:597;
+  animation:RCwMnecV_draw 2000ms ease-in-out 769ms forwards;
+}
+.RCwMnecV_11 {
+  stroke-dasharray:596 598;
+  stroke-dashoffset:597;
+  animation:RCwMnecV_draw 2000ms ease-in-out 846ms forwards;
+}
+.RCwMnecV_12 {
+  stroke-dasharray:467 469;
+  stroke-dashoffset:468;
+  animation:RCwMnecV_draw 2000ms ease-in-out 923ms forwards;
+}
+.RCwMnecV_13 {
+  stroke-dasharray:467 469;
+  stroke-dashoffset:468;
+  animation:RCwMnecV_draw 2000ms ease-in-out 1000ms forwards;
+}
+@keyframes RCwMnecV_draw {
+  100%{stroke-dashoffset:0;}
+}
+@keyframes RCwMnecV_fade {
+  0%{stroke-opacity:1;}
+  94.44444444444444%{stroke-opacity:1;}
+  100%{stroke-opacity:0;}
 }
