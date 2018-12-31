@@ -9,7 +9,8 @@ const Rainbow = props => (
   <div className="rainbow-wrap">
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 926.62 477.11"
+      viewBox="0 0 800 400"
+      preserveAspectRatio="xMidYMid meet"
       id="svg"
       style={{ overflow: "visible" }}
     >
