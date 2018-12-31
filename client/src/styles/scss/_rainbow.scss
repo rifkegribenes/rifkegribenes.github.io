@@ -134,7 +134,7 @@ $colors: (
       animation-delay: ($i - 1) * 100ms;
     }
 
-    .Background-glow--#{$key} {
+    .transition--#{$key} {
       position: absolute;
       right: 0;
       left: 0;
@@ -144,6 +144,20 @@ $colors: (
       display: block;
       margin: 0 auto;
       overflow: hidden;
+      border-radius: 100%;
+      box-shadow: none;
+      transition: box-shadow ((7 - ($i - 1)) * 200ms) ease-in-out;
+    }
+
+    .Background-glow--#{$key} {
+      position: absolute;
+      right: 0;
+      left: 0;
+      top: $h - $r + $g;
+      width: $r * 2;
+      height: $r * 2;
+      display: block;
+      margin: 0 auto;
       border-radius: 100%;
       box-shadow: 0 0 $t / 2 $t / 2 nth($value, 1), 0 0 $t $t nth($value, 2);
       transition: box-shadow (($i - 1) * 200ms) ease-in-out;
@@ -177,7 +191,7 @@ $colors: (
       border-radius: $t;
       z-index: -1;
       animation: none !important;
-      transition: box-shadow (($i - 1) * 200ms) ease-in-out;
+      transition: box-shadow ((7 - ($i - 1)) * 200ms) ease-in-out;
     }
 
     .Glow-end--#{$key} {
@@ -190,7 +204,7 @@ $colors: (
       width: $t * 1.02;
       border-radius: $t;
       z-index: -1;
-      transition: box-shadow (($i - 1) * 200ms) ease-in-out;
+      transition: box-shadow ((7 - ($i - 1)) * 200ms) ease-in-out;
     }
 
     .Background-glow-sm--#{$key} {
@@ -209,10 +223,6 @@ $colors: (
       clip-path: polygon(0 0, $rl*2 0, $rl*2 $rl*1.1, 0 $rl*1.1, 0 0);
       animation-delay: ($i - 1) * 100ms;
       z-index: 2;
-    }
-
-    .transition--#{$key} {
-      transition: box-shadow (($i - 1) * 200ms) ease-in-out;
     }
 
     @keyframes glow-end--#{$key} {
