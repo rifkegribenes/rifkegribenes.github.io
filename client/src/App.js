@@ -25,7 +25,7 @@ import Projects from "./containers/Projects";
 import ContactForm from "./containers/ContactForm";
 
 import Notifier, { openSnackbar } from "./containers/Notifier";
-// import nodeAnimation from "./utils/nodeAnimation";
+import { colors, glowColorName } from "./utils";
 
 const styles = theme => ({
   root: {
@@ -119,70 +119,26 @@ class App extends Component {
   };
 
   componentDidMount() {
-    // if (document.getElementById("canvas") && !this.state.animation) {
-    //   nodeAnimation();
-    //   const newState = { ...this.state };
-    //   newState.animation = true;
-    //   this.setState(newState);
-    // }
     smoothscroll.polyfill();
 
     // add glow classes to rainbow stripes
-    // setTimeout(() => {
-    //   const colors = [
-    //     "red",
-    //     "orange",
-    //     "yellow",
-    //     "green",
-    //     "blue",
-    //     "purple",
-    //     "magenta"
-    //   ];
-    //   colors.map(color => {
-    //     document
-    //       .getElementById(color)
-    //       .classList.add(`Background-glow--${color}`);
-    //     return null;
-    //   });
-    // }, 1500);
+    setTimeout(() => {
+      colors.map(color => {
+        document
+          .getElementById(color)
+          .classList.add(`Background-glow--${color}`);
+        return null;
+      });
+    }, 1500);
 
-    //  document.addEventListener('DOMContentLoaded', function() {
-    //    // Select the node that will be observed for mutations
-    //    var targetNode = document.getElementById('target-node');
-    //    console.log(targetNode);
-
-    //    // Options for the observer (which mutations to observe)
-    //    var config = { childList: true };
-
-    //    // Callback function to execute when mutations are observed
-    //    var callback = function(mutationsList, observer) {
-    //        for(var mutation of mutationsList) {
-    //            if (mutation.type === 'childList') {
-    //                console.log('A child node has been added or removed.');
-    //            }
-    //        }
-    //    };
-
-    //    // Create an observer instance linked to the callback function
-    //    var observer = new MutationObserver(callback);
-
-    //    // Start observing the target node for configured mutations
-    //    observer.observe(targetNode, config);
-
-    //    // Later, you can stop observing
-    //    // observer.disconnect();
-    // });
-
-    // hide css stripes, display raster rainbow
-    // document.addEventListener('DOMContentLoaded', function() {
-    //   console.log(document
-    //       .getElementById("raster"));
-
-    //     document
-    //       .getElementById("raster")
-    //       .classList.add('Raster-rainbow-end');
-
-    // });
+    // add glow classes to rainbow stripes
+    setTimeout(() => {
+      const glowArray = Array.from(document.getElementsByClassName("glow"));
+      glowArray.map(el => {
+        el.classList.add(`Background-glow-sm--${glowColorName(el)}`);
+        return null;
+      });
+    }, 1500);
 
     // If not logged in, check local storage for authToken
     // if it doesn't exist, it returns the string "undefined"
