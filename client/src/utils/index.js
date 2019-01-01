@@ -27,19 +27,17 @@ export const glow = () => {
     // add glow classes to rainbow stripes
     setTimeout(() => {
       colors.map(color => {
-        console.log(color);
-        console.log(document.getElementById(color));
-        document.getElementById(color).classList.add(`glow--${color}`);
+        document.getElementById(color).style.filter = "url(#svgglow)";
         return null;
       });
     }, 2400);
 
-    // remove glow classes
-    setTimeout(() => {
-      colors.map(color => {
-        document.getElementById(color).classList.remove(`glow--${color}`);
-        return null;
-      });
-    }, 3400);
+    // // remove glow classes
+    // setTimeout(() => {
+    //   colors.map(color => {
+    //     document.getElementById(color).style.filter = "none";
+    //     return null;
+    //   });
+    // }, 3400);
   });
 };

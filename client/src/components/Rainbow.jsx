@@ -25,7 +25,8 @@ const Rainbow = props => (
           <feGaussianBlur
             className="blur"
             result="coloredBlur"
-            stdDeviation="10"
+            stdDeviation="0"
+            id="blur"
           />
           <feMerge>
             <feMergeNode in="coloredBlur" />
@@ -46,8 +47,7 @@ const Rainbow = props => (
             stroke: "red",
             strokeLinecap: "round",
             strokeMiterlimit: 10,
-            strokeWidth: 24,
-            filter: "url(#svgglow)"
+            strokeWidth: 24
           }}
           className="RCwMnecV_0 glow transition--red"
         />
@@ -163,7 +163,7 @@ const Rainbow = props => (
       </g>
       <g id="blue-wrap">
         <path
-          id="blue-wrap"
+          id="blue"
           data-name="blue dark"
           d="M200,427c0-126.46,102.52-229,229-229S658,300.54,658,427"
           transform="translate(-26.12 -24.12)"
@@ -257,7 +257,19 @@ const Rainbow = props => (
           className="RCwMnecV_13"
         />
       </g>
-      <style data-made-with="vivus-instant" />
+      <animate
+        href="#blur"
+        attributeName="stdDeviation"
+        from="0"
+        to="30"
+        dur="2s"
+        begin="2s"
+        repeatCount="1"
+        stdDeviation="freeze"
+        fill="freeze"
+        values="0;30"
+        keyTimes="0;1"
+      />
     </svg>
   </div>
 );
