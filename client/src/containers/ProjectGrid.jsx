@@ -82,7 +82,7 @@ class ProjectGrid extends React.Component {
       <div className={classes.section} ref={forwardedRef}>
         <Typography
           variant="h2"
-          align="left"
+          align="center"
           gutterBottom
           className={classes.head}
           style={{ paddingTop: 20 }}

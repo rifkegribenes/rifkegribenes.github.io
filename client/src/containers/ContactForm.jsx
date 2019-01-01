@@ -73,7 +73,7 @@ class ContactForm extends React.Component {
       <div className={classes.container} ref={forwardedRef}>
         <Typography
           variant="h2"
-          align="left"
+          align="center"
           gutterBottom
           className={classes.head}
           style={{ paddingTop: 20 }}

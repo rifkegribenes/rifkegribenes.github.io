@@ -19,7 +19,8 @@ const styles = theme => ({
   },
   homeBody: {
     marginTop: 20,
-    fontSize: "2em"
+    fontSize: "2em",
+    textAlign: "center"
   },
   homeHead: {
     color: theme.palette.secondary.main
@@ -43,6 +44,7 @@ const styles = theme => ({
   tags: {
     margin: "20px -5px 10px",
     display: "flex",
+    justifyContent: "center",
     flexWrap: "wrap"
   }
 });
@@ -122,7 +124,11 @@ class Home extends React.Component {
       <div className={classes.home}>
         <div className={classes.homeText}>
           <div className={classes.section} ref={forwardedRef}>
-            <Typography variant="h2" className={classes.homeHead}>
+            <Typography
+              variant="h2"
+              align="center"
+              className={classes.homeHead}
+            >
               About
             </Typography>
             <Typography variant="body1" className={classes.homeBody}>
@@ -135,7 +141,11 @@ class Home extends React.Component {
             </Typography>
           </div>
           <div>
-            <Typography variant="h2" className={classes.homeHead}>
+            <Typography
+              variant="h2"
+              align="center"
+              className={classes.homeHead}
+            >
               Skills
             </Typography>
             <div className={classes.tags}>{tags}</div>
