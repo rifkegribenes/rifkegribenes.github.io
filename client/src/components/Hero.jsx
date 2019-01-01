@@ -33,7 +33,6 @@ const styles = theme => ({
     }
   },
   heroSvgWrap: {
-    maxWidth: 620,
     maxWidth: "30vh",
     display: "flex",
     justifyContent: "center",

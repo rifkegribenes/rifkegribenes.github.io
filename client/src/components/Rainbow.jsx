@@ -31,7 +31,6 @@ const Rainbow = props => (
           <feMerge>
             <feMergeNode in="coloredBlur" />
             <feMergeNode in="coloredBlur" />
-            <feMergeNode in="coloredBlur" />
             <feMergeNode in="SourceGraphic" />
           </feMerge>
         </filter>
@@ -77,8 +76,7 @@ const Rainbow = props => (
             stroke: "#ff931e",
             strokeLinecap: "round",
             strokeMiterlimit: 10,
-            strokeWidth: 24,
-            filter: "url(#svgglow)"
+            strokeWidth: 24
           }}
           className="RCwMnecV_2 glow transition--orange"
         />
@@ -109,8 +107,7 @@ const Rainbow = props => (
             stroke: "#fcee21",
             strokeLinecap: "round",
             strokeMiterlimit: 10,
-            strokeWidth: 24,
-            filter: "url(#svgglow)"
+            strokeWidth: 24
           }}
           className="RCwMnecV_4 glow transition--yellow"
         />
@@ -140,8 +137,7 @@ const Rainbow = props => (
             stroke: "#8cc63f",
             strokeLinecap: "round",
             strokeMiterlimit: 10,
-            strokeWidth: 24,
-            filter: "url(#svgglow)"
+            strokeWidth: 24
           }}
           className="RCwMnecV_6 glow transition--green"
         />
@@ -172,8 +168,7 @@ const Rainbow = props => (
             stroke: "#3fa9f5",
             strokeLinecap: "round",
             strokeMiterlimit: 10,
-            strokeWidth: 24,
-            filter: "url(#svgglow)"
+            strokeWidth: 24
           }}
           className="RCwMnecV_8 glow transition--blue"
         />
@@ -204,8 +199,7 @@ const Rainbow = props => (
             stroke: "#9500ff",
             strokeLinecap: "round",
             strokeMiterlimit: 10,
-            strokeWidth: 24,
-            filter: "url(#svgglow)"
+            strokeWidth: 24
           }}
           className="RCwMnecV_10 glow transition--purple"
         />
@@ -236,8 +230,7 @@ const Rainbow = props => (
             stroke: "#f0f",
             strokeLinecap: "round",
             strokeMiterlimit: 10,
-            strokeWidth: 24,
-            filter: "url(#svgglow)"
+            strokeWidth: 24
           }}
           className="RCwMnecV_12 glow transition--pink"
         />
@@ -260,15 +253,12 @@ const Rainbow = props => (
       <animate
         href="#blur"
         attributeName="stdDeviation"
-        from="0"
-        to="30"
-        dur="2s"
+        dur="3s"
         begin="2s"
         repeatCount="1"
-        stdDeviation="freeze"
         fill="freeze"
-        values="0;30"
-        keyTimes="0;1"
+        values="0;35;15"
+        keyTimes="0;0.7;1"
       />
     </svg>
   </div>

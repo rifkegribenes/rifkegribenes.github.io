@@ -26,18 +26,12 @@ export const glow = () => {
   document.addEventListener("DOMContentLoaded", () => {
     // add glow classes to rainbow stripes
     setTimeout(() => {
-      colors.map(color => {
-        document.getElementById(color).style.filter = "url(#svgglow)";
+      colors.map((color, idx) => {
+        setTimeout(() => {
+          document.getElementById(color).style.filter = "url(#svgglow)";
+        }, 200 * (7 - idx));
         return null;
       });
     }, 2400);
-
-    // // remove glow classes
-    // setTimeout(() => {
-    //   colors.map(color => {
-    //     document.getElementById(color).style.filter = "none";
-    //     return null;
-    //   });
-    // }, 3400);
   });
 };
