@@ -70,15 +70,19 @@ class Projects extends Component {
           }
         />
         {!more && (
-          <Button
-            variant="outlined"
-            color="secondary"
-            onClick={() => {
-              this.props.toggleMore();
-            }}
+          <div
+            style={{ width: "100%", display: "flex", justifyContent: "center" }}
           >
-            More Projects
-          </Button>
+            <Button
+              variant="outlined"
+              color="secondary"
+              onClick={() => {
+                this.props.toggleMore();
+              }}
+            >
+              More Projects
+            </Button>
+          </div>
         )}
       </div>
     );

@@ -25,7 +25,6 @@ import Projects from "./containers/Projects";
 import ContactForm from "./containers/ContactForm";
 
 import Notifier, { openSnackbar } from "./containers/Notifier";
-import { glow } from "./utils";
 
 const styles = theme => ({
   root: {
@@ -123,7 +122,6 @@ class App extends Component {
 
   componentDidMount() {
     smoothscroll.polyfill();
-    glow();
 
     // If not logged in, check local storage for authToken
     // if it doesn't exist, it returns the string "undefined"
