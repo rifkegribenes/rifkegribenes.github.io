@@ -77,6 +77,9 @@ const styles = theme => ({
     bottom: 0,
     padding: 5,
     height: 73,
+    [theme.breakpoints.down("sm")]: {
+      height: 53
+    },
     display: "flex",
     justifyContent: "center",
     alignItems: "middle",
@@ -87,6 +90,9 @@ const styles = theme => ({
     width: 30,
     height: "auto",
     marginTop: 15,
+    [theme.breakpoints.down("sm")]: {
+      marginTop: 5
+    },
     fill: theme.palette.secondary.main
   }
 });

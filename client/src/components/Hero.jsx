@@ -15,29 +15,8 @@ const styles = theme => ({
   hero: {
     display: "flex",
     flexDirection: "column",
-    margin: "60px 0 -60px",
+    margin: "30px 0 -60px",
     minHeight: "calc(100vh - 146px)"
-  },
-  heroRainbowWrap: {
-    minHeight: 200,
-    width: "100%",
-    margin: "20px 0 60px 0",
-    position: "relative",
-    [theme.breakpoints.down("md")]: {
-      marginBottom: 40,
-      minHeight: "42vw"
-    },
-    [theme.breakpoints.down("sm")]: {
-      marginBottom: 40,
-      minHeight: "28vw"
-    }
-  },
-  heroSvgWrap: {
-    maxWidth: "30vh",
-    display: "flex",
-    justifyContent: "center",
-    margin: "0 auto",
-    minHeight: "30vh"
   },
   legos: {
     width: "100%",
@@ -92,7 +71,7 @@ const Hero = React.forwardRef((props, ref) => {
   const { forwardedRef, classes } = props;
   return (
     <div className={classes.hero}>
-      <div className={classes.heroRainbowWrap}>
+      <div className="heroRainbowWrap">
         <Rainbow />
       </div>
       <div className={classes.heroText}>
@@ -103,7 +82,7 @@ const Hero = React.forwardRef((props, ref) => {
         </Typography>
       </div>
       <div className="long-screen">
-        <div className={classes.heroSvgWrap}>
+        <div className="heroSvgWrap">
           <img src={legos} alt="legos" className={classes.legos} />
         </div>
       </div>
