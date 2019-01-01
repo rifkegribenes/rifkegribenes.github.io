@@ -1,9 +1,5 @@
-// inspired by a codepen example by Nick Salloum:
-// https://codepen.io/callmenick/pen/ZWMOEE
-
 import React from "react";
 import PropTypes from "prop-types";
-// import rainbow from "../img/neonrainbow_noglow_animated.svg";
 
 const Rainbow = props => (
   <div className="rainbow-wrap">
@@ -48,7 +44,7 @@ const Rainbow = props => (
             strokeMiterlimit: 10,
             strokeWidth: 24
           }}
-          className="RCwMnecV_0 glow transition--red"
+          className="stripe_0 glow transition--red"
         />
         <path
           id="red_lite"
@@ -62,7 +58,7 @@ const Rainbow = props => (
             strokeMiterlimit: 10,
             strokeWidth: 9
           }}
-          className="RCwMnecV_1"
+          className="stripe_1"
         />
       </g>
       <g id="orange-wrap">
@@ -78,7 +74,7 @@ const Rainbow = props => (
             strokeMiterlimit: 10,
             strokeWidth: 24
           }}
-          className="RCwMnecV_2 glow transition--orange"
+          className="stripe_2 glow transition--orange"
         />
         <path
           id="orange_lite"
@@ -93,7 +89,7 @@ const Rainbow = props => (
             strokeWidth: 9,
             opacity: 0.8
           }}
-          className="RCwMnecV_3"
+          className="stripe_3"
         />
       </g>
       <g id="yellow-wrap">
@@ -109,7 +105,7 @@ const Rainbow = props => (
             strokeMiterlimit: 10,
             strokeWidth: 24
           }}
-          className="RCwMnecV_4 glow transition--yellow"
+          className="stripe_4 glow transition--yellow"
         />
         <path
           id="yellow_lite"
@@ -123,7 +119,7 @@ const Rainbow = props => (
             strokeMiterlimit: 10,
             strokeWidth: 9
           }}
-          className="RCwMnecV_5"
+          className="stripe_5"
         />
       </g>
       <g id="green-wrap">
@@ -139,7 +135,7 @@ const Rainbow = props => (
             strokeMiterlimit: 10,
             strokeWidth: 24
           }}
-          className="RCwMnecV_6 glow transition--green"
+          className="stripe_6 glow transition--green"
         />
         <path
           id="green_lite"
@@ -154,7 +150,7 @@ const Rainbow = props => (
             strokeWidth: 9,
             opacity: 0.8
           }}
-          className="RCwMnecV_7"
+          className="stripe_7"
         />
       </g>
       <g id="blue-wrap">
@@ -170,7 +166,7 @@ const Rainbow = props => (
             strokeMiterlimit: 10,
             strokeWidth: 24
           }}
-          className="RCwMnecV_8 glow transition--blue"
+          className="stripe_8 glow transition--blue"
         />
         <path
           id="blue_lite"
@@ -185,7 +181,7 @@ const Rainbow = props => (
             strokeWidth: 9,
             opacity: 0.8
           }}
-          className="RCwMnecV_9"
+          className="stripe_9"
         />
       </g>
       <g id="purple-wrap">
@@ -201,7 +197,7 @@ const Rainbow = props => (
             strokeMiterlimit: 10,
             strokeWidth: 24
           }}
-          className="RCwMnecV_10 glow transition--purple"
+          className="stripe_10 glow transition--purple"
         />
         <path
           id="purple_lite"
@@ -216,7 +212,7 @@ const Rainbow = props => (
             strokeWidth: 9,
             opacity: 0.8
           }}
-          className="RCwMnecV_11"
+          className="stripe_11"
         />
       </g>
       <g id="pink-wrap">
@@ -232,7 +228,7 @@ const Rainbow = props => (
             strokeMiterlimit: 10,
             strokeWidth: 24
           }}
-          className="RCwMnecV_12 glow transition--pink"
+          className="stripe_12 glow transition--pink"
         />
         <path
           id="pink_lite"
@@ -247,7 +243,7 @@ const Rainbow = props => (
             strokeWidth: 9,
             opacity: 0.8
           }}
-          className="RCwMnecV_13"
+          className="stripe_13"
         />
       </g>
       <animate

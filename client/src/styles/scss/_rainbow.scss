@@ -1,5 +1,3 @@
-// inspired by a codepen example by Nick Salloum:
-// https://codepen.io/callmenick/pen/ZWMOEE
 
 #svg {
   width: 100%;
@@ -26,23 +24,23 @@ $colors: (
     min-height: $content-width / 2;
   }
 
-  $t: $content-width / 37; // base unit used to calculate all other values
+  $u: $content-width / 37;
   $i: 1;
 
   .glow {
-    filter: drop-shadow(0 0 $t / 2 #ff0000);
+    filter: drop-shadow(0 0 $u / 2 #ff0000);
     transition: filter (($i - 1) * 200ms) ease-in-out;
   }
 
   @each $key, $value in $colors {
 
     .transition--#{$key} {
-      filter: drop-shadow(0 0 $t / 2 $t / 2 nth($value, 1), 0 0 $t $t nth($value, 2));
+      filter: drop-shadow(0 0 $u / 2 $u / 2 nth($value, 1), 0 0 $u $u nth($value, 2));
       transition: filter ((7 - ($i - 1)) * 200ms) ease-in-out;
     }
 
     .glow--#{$key} {
-      filter: drop-shadow(0 0 $t / 2 $t / 2 nth($value, 1), 0 0 $t $t nth($value, 2));
+      filter: drop-shadow(0 0 $u / 2 $u / 2 nth($value, 1), 0 0 $u $u nth($value, 2));
       transition: filter (($i - 1) * 200ms) ease-in-out;
     }
 
@@ -167,80 +165,80 @@ $colors: (
   }
 }
 
-.RCwMnecV_0 {
+.stripe_0 {
   stroke-dasharray:1229 1231;
   stroke-dashoffset:1230;
-  animation:RCwMnecV_draw 2000ms ease-in-out 0ms forwards;
+  animation:stripe_draw 2000ms ease-in-out 0ms forwards;
 }
-.RCwMnecV_1 {
+.stripe_1 {
   stroke-dasharray:1229 1231;
   stroke-dashoffset:1230;
-  animation:RCwMnecV_draw 2000ms ease-in-out 76ms forwards;
+  animation:stripe_draw 2000ms ease-in-out 76ms forwards;
 }
-.RCwMnecV_2 {
+.stripe_2 {
   stroke-dasharray:1106 1108;
   stroke-dashoffset:1107;
-  animation:RCwMnecV_draw 2000ms ease-in-out 153ms forwards;
+  animation:stripe_draw 2000ms ease-in-out 153ms forwards;
 }
-.RCwMnecV_3 {
+.stripe_3 {
   stroke-dasharray:1106 1108;
   stroke-dashoffset:1107;
-  animation:RCwMnecV_draw 2000ms ease-in-out 230ms forwards;
+  animation:stripe_draw 2000ms ease-in-out 230ms forwards;
 }
-.RCwMnecV_4 {
+.stripe_4 {
   stroke-dasharray:978 980;
   stroke-dashoffset:979;
-  animation:RCwMnecV_draw 2000ms ease-in-out 307ms forwards;
+  animation:stripe_draw 2000ms ease-in-out 307ms forwards;
 }
-.RCwMnecV_5 {
+.stripe_5 {
   stroke-dasharray:978 980;
   stroke-dashoffset:979;
-  animation:RCwMnecV_draw 2000ms ease-in-out 384ms forwards;
+  animation:stripe_draw 2000ms ease-in-out 384ms forwards;
 }
-.RCwMnecV_6 {
+.stripe_6 {
   stroke-dasharray:848 850;
   stroke-dashoffset:849;
-  animation:RCwMnecV_draw 2000ms ease-in-out 461ms forwards;
+  animation:stripe_draw 2000ms ease-in-out 461ms forwards;
 }
-.RCwMnecV_7 {
+.stripe_7 {
   stroke-dasharray:848 850;
   stroke-dashoffset:849;
-  animation:RCwMnecV_draw 2000ms ease-in-out 538ms forwards;
+  animation:stripe_draw 2000ms ease-in-out 538ms forwards;
 }
-.RCwMnecV_8 {
+.stripe_8 {
   stroke-dasharray:720 722;
   stroke-dashoffset:721;
-  animation:RCwMnecV_draw 2000ms ease-in-out 615ms forwards;
+  animation:stripe_draw 2000ms ease-in-out 615ms forwards;
 }
-.RCwMnecV_9 {
+.stripe_9 {
   stroke-dasharray:720 722;
   stroke-dashoffset:721;
-  animation:RCwMnecV_draw 2000ms ease-in-out 692ms forwards;
+  animation:stripe_draw 2000ms ease-in-out 692ms forwards;
 }
-.RCwMnecV_10 {
+.stripe_10 {
   stroke-dasharray:596 598;
   stroke-dashoffset:597;
-  animation:RCwMnecV_draw 2000ms ease-in-out 769ms forwards;
+  animation:stripe_draw 2000ms ease-in-out 769ms forwards;
 }
-.RCwMnecV_11 {
+.stripe_11 {
   stroke-dasharray:596 598;
   stroke-dashoffset:597;
-  animation:RCwMnecV_draw 2000ms ease-in-out 846ms forwards;
+  animation:stripe_draw 2000ms ease-in-out 846ms forwards;
 }
-.RCwMnecV_12 {
+.stripe_12 {
   stroke-dasharray:467 469;
   stroke-dashoffset:468;
-  animation:RCwMnecV_draw 2000ms ease-in-out 923ms forwards;
+  animation:stripe_draw 2000ms ease-in-out 923ms forwards;
 }
-.RCwMnecV_13 {
+.stripe_13 {
   stroke-dasharray:467 469;
   stroke-dashoffset:468;
-  animation:RCwMnecV_draw 2000ms ease-in-out 1000ms forwards;
+  animation:stripe_draw 2000ms ease-in-out 1000ms forwards;
 }
-@keyframes RCwMnecV_draw {
+@keyframes stripe_draw {
   100%{stroke-dashoffset:0;}
 }
-@keyframes RCwMnecV_fade {
+@keyframes stripe_fade {
   0%{stroke-opacity:1;}
   94.44444444444444%{stroke-opacity:1;}
   100%{stroke-opacity:0;}
