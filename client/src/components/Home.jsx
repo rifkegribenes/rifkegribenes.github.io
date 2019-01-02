@@ -12,12 +12,16 @@ const styles = theme => ({
     // padding: 20,
     maxWidth: 1200
   },
-  home: {},
+  home: {
+    minHeight: "100vh"
+  },
   homeText: {
     margin: "20px auto",
     display: "flex",
     flexDirection: "column",
+    justifyContent: "center",
     alignItems: "middle",
+    height: "100vh",
     maxWidth: 600
   },
   homeBody: {
@@ -29,20 +33,24 @@ const styles = theme => ({
   },
   section: {
     margin: "0 auto 30px auto",
-    paddingTop: 100,
     maxWidth: 600
   },
   tag: {
     color: "white",
     display: "inline-block",
     fontWeight: 100,
+    textTransform: "none",
     "&::after": {
-      content: "",
-      width: "1em"
+      content: "'•'",
+      padding: "0 5px",
+      position: "relative",
+      top: "-.3em",
+      fontSize: ".5em"
     },
     "&:last-child": {
       "&::after": {
-        content: null
+        content: "''",
+        width: 0
       }
     }
   },
@@ -52,7 +60,8 @@ const styles = theme => ({
     fontSize: "1em"
   },
   tagHeading: {
-    color: theme.palette.secondary.main
+    color: theme.palette.secondary.main,
+    textTransform: "uppercase"
   },
   tags: {
     margin: "20px -5px 10px"
@@ -126,12 +135,12 @@ class Home extends React.Component {
     }
     const tag_names = {
       js: ["es6", "React", "Vue", "D3", "jQuery"],
-      css: ["Material UI", "Bootstrap", "Sass", "Less", "Stylus"],
+      css: ["Material UI", "Sass", "Less", "Stylus", "Bootstrap"],
       backEnd: [
         "Node",
         "Express",
         "Firebase",
-        "MongoDB",
+        "Mongo",
         "Postgres",
         "Python",
         "Flask"
@@ -144,10 +153,11 @@ class Home extends React.Component {
           {tag}
         </span>
       ));
-    const tagHeadings = Object.keys(tag_names).map((heading, idx) => (
-      <span className={classes.tagHeading} key={`${heading}-${idx}`}>
-        {heading}: {tags(heading)}
-      </span>
+    const tagSection = Object.keys(tag_names).map((heading, idx) => (
+      <div key={`${heading}-${idx}`}>
+        <span className={classes.tagHeading}>{heading}: </span>
+        {tags(heading)}
+      </div>
     ));
     return (
       <div className={classes.home}>
@@ -179,7 +189,7 @@ class Home extends React.Component {
                 Skills
               </Typography>
               <Typography variant="body1" className={classes.homeBody}>
-                {tagHeadings}
+                {tagSection}
               </Typography>
             </div>
           </Fade>
