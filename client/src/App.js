@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import PropTypes from "prop-types";
 import smoothscroll from "smoothscroll-polyfill";
+import Fade from "react-reveal/Fade";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { withStyles } from "@material-ui/core/styles";
@@ -195,27 +196,37 @@ class App extends Component {
                     forwardedRef={this.contact_ref}
                     {...routeProps}
                   />
-                  <Home
-                    forwardedRef={this.about_ref}
-                    contact_ref={this.contact_ref}
-                    about_ref={this.about_ref}
-                    projects_ref={this.projects_ref}
-                    skills_ref={this.skills_ref}
-                    scroll={this.scroll}
-                    {...routeProps}
-                  />
-                  <Projects
-                    data="featured"
-                    forwardedRef={this.projects_ref}
-                    toggleMore={this.toggleMore}
-                    more={this.state.more}
-                    {...routeProps}
-                  />
-                  {this.state.more && <Projects data="more" {...routeProps} />}
-                  <ContactForm
-                    forwardedRef={this.contact_ref}
-                    {...routeProps}
-                  />
+                  <Fade bottom>
+                    <Home
+                      forwardedRef={this.about_ref}
+                      contact_ref={this.contact_ref}
+                      about_ref={this.about_ref}
+                      projects_ref={this.projects_ref}
+                      skills_ref={this.skills_ref}
+                      scroll={this.scroll}
+                      {...routeProps}
+                    />
+                  </Fade>
+                  <Fade bottom>
+                    <Projects
+                      data="featured"
+                      forwardedRef={this.projects_ref}
+                      toggleMore={this.toggleMore}
+                      more={this.state.more}
+                      {...routeProps}
+                    />
+                  </Fade>
+                  {this.state.more && (
+                    <Fade bottom>
+                      <Projects data="more" {...routeProps} />
+                    </Fade>
+                  )}
+                  <Fade bottom>
+                    <ContactForm
+                      forwardedRef={this.contact_ref}
+                      {...routeProps}
+                    />
+                  </Fade>
                 </React.Fragment>
               )}
             />

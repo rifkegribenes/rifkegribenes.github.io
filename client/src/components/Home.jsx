@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Fade from "react-reveal/Fade";
 import Typography from "@material-ui/core/Typography";
 // import Button from "@material-ui/core/Button";
 // import withWidth from "@material-ui/core/withWidth";
@@ -13,39 +14,75 @@ const styles = theme => ({
   },
   home: {},
   homeText: {
-    margin: "20px 0",
-    // padding: "20px 60px",
-    maxWidth: 1200
+    margin: "20px auto",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "middle",
+    maxWidth: 600
   },
   homeBody: {
     marginTop: 20,
-    fontSize: "2em",
-    textAlign: "center"
+    fontSize: "1.2em"
   },
   homeHead: {
     color: theme.palette.secondary.main
   },
   section: {
-    marginBottom: 60,
-    paddingTop: 100
+    margin: "0 auto 30px auto",
+    paddingTop: 100,
+    maxWidth: 600
   },
   tag: {
-    padding: "7px 19px 8px;",
-    margin: 10,
-    border: `1px solid ${theme.palette.secondary.main}`,
-    // textTransform: "capitalize",
-    fontWeight: 100
+    color: "white",
+    display: "inline-block",
+    fontWeight: 100,
+    "&::after": {
+      content: "",
+      width: "1em"
+    },
+    "&:last-child": {
+      "&::after": {
+        content: null
+      }
+    }
   },
   tagText: {
     // display: "inline-block",
     color: theme.palette.secondary.main,
-    fontSize: "1.2em"
+    fontSize: "1em"
+  },
+  tagHeading: {
+    color: theme.palette.secondary.main
   },
   tags: {
-    margin: "20px -5px 10px",
+    margin: "20px -5px 10px"
+  },
+  gridWrapper: {
+    margin: "0 auto",
     display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
     justifyContent: "center",
-    flexWrap: "wrap"
+    padding: "50px 0",
+    [theme.breakpoints.down("sm")]: {
+      padding: 10
+    }
+  },
+  card: {
+    width: "23%",
+    padding: 20,
+    margin: "10px",
+    position: "relative",
+    [theme.breakpoints.down("md")]: {
+      width: "47%"
+    },
+    [theme.breakpoints.down("sm")]: {
+      width: "100%"
+    }
+  },
+  cardHead: {
+    fontSize: "1em",
+    color: "white"
   }
 });
 
@@ -87,37 +124,29 @@ class Home extends React.Component {
         }
       }
     }
-    const tag_names = [
-      "React",
-      "Redux",
-      "Node",
-      "Express",
-      "Firebase",
-      "OAuth",
-      "Passport",
-      "MongoDB",
-      "Postgres",
-      "Knex",
-      "WebSockets",
-      "Mocha",
-      "Chai",
-      "es6",
-      "Python",
-      "Flask",
-      "Material UI",
-      "Bootstrap",
-      "jQuery",
-      "Sass",
-      "Less",
-      "Stylus",
-      "Vue",
-      "D3"
-    ];
-    const tags = tag_names.map((tag, idx) => (
-      <span className={classes.tag} key={`${tag}-${idx}`}>
-        <Typography component="div" className={classes.tagText}>
+    const tag_names = {
+      js: ["es6", "React", "Vue", "D3", "jQuery"],
+      css: ["Material UI", "Bootstrap", "Sass", "Less", "Stylus"],
+      backEnd: [
+        "Node",
+        "Express",
+        "Firebase",
+        "MongoDB",
+        "Postgres",
+        "Python",
+        "Flask"
+      ],
+      testing: ["Mocha", "Chai", "Enzyme", "Jest"]
+    };
+    const tags = section =>
+      tag_names[section].map((tag, idx) => (
+        <span className={classes.tag} key={`${tag}-${idx}`}>
           {tag}
-        </Typography>
+        </span>
+      ));
+    const tagHeadings = Object.keys(tag_names).map((heading, idx) => (
+      <span className={classes.tagHeading} key={`${heading}-${idx}`}>
+        {heading}: {tags(heading)}
       </span>
     ));
     return (
@@ -140,16 +169,20 @@ class Home extends React.Component {
               1991. I like solving problems with code.
             </Typography>
           </div>
-          <div>
-            <Typography
-              variant="h2"
-              align="center"
-              className={classes.homeHead}
-            >
-              Skills
-            </Typography>
-            <div className={classes.tags}>{tags}</div>
-          </div>
+          <Fade bottom>
+            <div>
+              <Typography
+                variant="h2"
+                align="center"
+                className={classes.homeHead}
+              >
+                Skills
+              </Typography>
+              <Typography variant="body1" className={classes.homeBody}>
+                {tagHeadings}
+              </Typography>
+            </div>
+          </Fade>
         </div>
       </div>
     );
