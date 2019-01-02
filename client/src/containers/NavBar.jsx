@@ -205,7 +205,9 @@ class NavBar extends React.Component {
             >
               Skip to content &rsaquo;
             </Button>
-            <img src={rainbowIcon} alt="" className={classes.logo} />
+            <Link to="/" className={classes.logoLink}>
+              <img src={rainbowIcon} alt="" className={classes.logo} />
+            </Link>
             <Typography variant="h6" color="inherit" className={classes.title}>
               <Link to="/" className={classes.title}>
                 rifkegribenes.io

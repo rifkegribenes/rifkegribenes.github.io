@@ -17,8 +17,12 @@ const styles = theme => ({
   hero: {
     display: "flex",
     flexDirection: "column",
-    margin: "30px 0 -60px",
-    minHeight: "calc(100vh - 146px)"
+    margin: "30px 0 0 0",
+    minHeight: "calc(100vh - 120px)",
+    [theme.breakpoints.down("md")]: {
+      minHeight: "calc(100vh - 40px)"
+    },
+    paddingBottom: 126
   },
   legos: {
     width: "100%",
@@ -30,6 +34,7 @@ const styles = theme => ({
     width: "100%",
     maxWidth: 900,
     margin: "0 auto",
+    flex: 1,
     [theme.breakpoints.up("md")]: {
       minWidth: "50%"
     }
@@ -56,16 +61,6 @@ const styles = theme => ({
     [theme.breakpoints.down("sm")]: {
       fontSize: "1.2em"
     }
-  },
-  heroAvatar: {
-    width: 100,
-    height: 100,
-    border: `1px solid ${theme.palette.secondary.main}`
-  },
-  heroButtonWrap: {
-    width: "100%",
-    display: "flex",
-    justifyContent: "center"
   }
 });
 
@@ -93,7 +88,7 @@ class Hero extends React.Component {
             <img src={legos} alt="legos" className={classes.legos} />
           </div>
         </div>
-        <div className={classes.heroButtonWrap}>
+        <div className="heroButtonWrap">
           <Button
             variant="outlined"
             color="secondary"

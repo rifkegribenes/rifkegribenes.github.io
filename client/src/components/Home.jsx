@@ -13,7 +13,8 @@ const styles = theme => ({
     maxWidth: 1200
   },
   home: {
-    minHeight: "100vh"
+    minHeight: "calc(100vh - 100px)",
+    paddingTop: "100px"
   },
   homeText: {
     margin: "20px auto",
@@ -21,7 +22,7 @@ const styles = theme => ({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "middle",
-    height: "100vh",
+    height: "calc(100vh - 230px)",
     maxWidth: 600
   },
   homeBody: {
@@ -160,9 +161,9 @@ class Home extends React.Component {
       </div>
     ));
     return (
-      <div className={classes.home}>
+      <div className={classes.home} ref={forwardedRef}>
         <div className={classes.homeText}>
-          <div className={classes.section} ref={forwardedRef}>
+          <div className={classes.section}>
             <Typography
               variant="h2"
               align="center"
