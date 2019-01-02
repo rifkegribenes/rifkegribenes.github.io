@@ -135,18 +135,34 @@ class Home extends React.Component {
       }
     }
     const tag_names = {
-      js: ["es6", "React", "Vue", "D3", "jQuery"],
-      css: ["Material UI", "Sass", "Less", "Stylus", "Bootstrap"],
-      backEnd: [
+      languages: ["JavaScript (ES6)", "HTML5", "CSS3", "Python"],
+      "libraries & frameworks": [
+        "React",
+        "Vue",
+        "D3",
+        "jQuery",
+        "Bootstrap",
+        "Material UI",
+        "Sass",
+        "Less",
+        "Stylus",
         "Node",
         "Express",
-        "Firebase",
-        "Mongo",
-        "Postgres",
-        "Python",
-        "Flask"
+        "MongoDB",
+        "PostgreSQL",
+        "Flask",
+        "Mocha",
+        "Chai",
+        "Enzyme",
+        "Jest"
       ],
-      testing: ["Mocha", "Chai", "Enzyme", "Jest"]
+      tools: [
+        "Git",
+        "Command Line",
+        "Postman",
+        "Adobe Creative Suite",
+        "Sketch"
+      ]
     };
     const tags = section =>
       tag_names[section].map((tag, idx) => (
