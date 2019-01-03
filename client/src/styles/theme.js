@@ -41,7 +41,8 @@ export default createMuiTheme({
         left: "50% !important",
         borderRadius: "0 !important",
         bottom: "0 !important",
-        maxHeight: "none !important"
+        maxHeight: "calc(100vh - 109px) !important",
+        filter: "none !important"
       }
     },
     MuiButton: {

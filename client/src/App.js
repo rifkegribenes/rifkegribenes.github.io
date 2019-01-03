@@ -112,6 +112,8 @@ class App extends Component {
   }
 
   scroll(ref) {
+    console.log("scrolling");
+    console.log(ref);
     ref.current.scrollIntoView({ block: "start", behavior: "smooth" });
   }
 

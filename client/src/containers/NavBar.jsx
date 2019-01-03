@@ -121,6 +121,10 @@ const styles = theme => ({
     [theme.breakpoints.down("sm")]: {
       height: 40
     }
+  },
+  drawer: {
+    boxShadow:
+      "inset 0px 2px 4px -1px rgba(0,0,0,.2), inset 0px -2px 4px -1px rgba(0,0,0,.2), inset 0px 4px 5px 0px rgba(0, 0, 0, 0.14), inset 0px -4px 5px 0px rgba(0, 0, 0, 0.14), inset 0px 1px 10px 0px rgba(0, 0, 0, 0.12), inset 0px -1px 10px 0px rgba(0, 0, 0, 0.12)"
   }
 });
 
@@ -135,10 +139,12 @@ class NavBar extends React.Component {
 
   handleClick = event => {
     this.setState({ anchorEl: event.currentTarget });
+    document.getElementById("main").classList.add("is-blurred");
   };
 
   handleClose = () => {
     this.setState({ anchorEl: null });
+    document.getElementById("main").classList.remove("is-blurred");
   };
 
   render() {
@@ -153,13 +159,23 @@ class NavBar extends React.Component {
     const links = ["about", "projects", "contact"];
     const adminLinks = ["new", "logout"];
     const ListItemLink = props => {
-      const { primary, to, handleClose } = props;
+      const { primary, handleClose, linkRef, link, scroll } = props;
       return (
         <MenuItem
           button
-          component={Link}
-          to={to}
-          onClick={handleClose}
+          component={Button}
+          href={`/#${link}`}
+          onClick={() => {
+            // if (this.props.location.pathname === "/") {
+            //   console.log(`scroll to ${link}`);
+            //   console.log(linkRef);
+            //   scroll(linkRef);
+            // } else {
+            //   console.log(`route to ${link}`);
+            //   this.props.history.push(`/#${link}`);
+            // }
+            handleClose();
+          }}
           className={classes.menuItem}
         >
           <ListItemText
@@ -171,14 +187,26 @@ class NavBar extends React.Component {
         </MenuItem>
       );
     };
-    const mobileLinks = links.map((link, index) => (
-      <ListItemLink
-        to={`/${link}`}
-        key={index}
-        primary={link}
-        handleClose={this.handleClose}
-      />
-    ));
+    const mobileLinks = links.map((link, index) => {
+      const linkRef = refsObj[`${link}_ref`];
+      return (
+        <ListItemLink
+          onClick={() => {
+            if (this.props.location.pathname === "/") {
+              this.props.scroll(linkRef);
+            } else {
+              this.props.history.push(`/#${link}`);
+            }
+          }}
+          key={index}
+          primary={link}
+          handleClose={this.handleClose}
+          linkRef={linkRef}
+          link={link}
+          scroll={this.props.scroll}
+        />
+      );
+    });
     const adminMenuLinks = adminLinks.map((link, index) => {
       return (
         <Button key={index} className={classes.menuLink} href={`/${link}`}>
@@ -240,11 +268,13 @@ class NavBar extends React.Component {
               open={Boolean(anchorEl)}
               onClose={this.handleClose}
               component="nav"
+              className="drawer"
               elevation={0}
               anchorOrigin={{ horizontal: "right", vertical: "top" }}
               transformOrigin={{ horizontal: "right", vertical: "top" }}
               TransitionComponent={Slide}
               TransitionProps={{ direction: "left" }}
+              PaperProps={{ className: classes.drawer }}
             >
               {mobileLinks}
             </Menu>

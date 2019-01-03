@@ -247,3 +247,7 @@ $colors: (
   94.44444444444444%{stroke-opacity:1;}
   100%{stroke-opacity:0;}
 }
+
+.is-blurred {
+  filter: blur(2px);
+}
