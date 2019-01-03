@@ -13,6 +13,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItemText from "@material-ui/core/ListItemText";
+import Slide from "@material-ui/core/Slide";
 
 import { skip } from "../utils";
 import rainbowIcon from "../img/neonrainbow_sm-60h.png";
@@ -229,6 +230,11 @@ class NavBar extends React.Component {
               open={Boolean(anchorEl)}
               onClose={this.handleClose}
               component="nav"
+              elevation={0}
+              anchorOrigin={{ horizontal: "right", vertical: "top" }}
+              transformOrigin={{ horizontal: "right", vertical: "top" }}
+              TransitionComponent={Slide}
+              TransitionProps={{ direction: "left" }}
             >
               {mobileLinks}
             </Menu>

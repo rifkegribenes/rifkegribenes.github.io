@@ -33,6 +33,17 @@ export default createMuiTheme({
     ].join(",")
   },
   overrides: {
+    MuiMenu: {
+      paper: {
+        position: "absolute",
+        top: "56px !important",
+        right: "0 !important",
+        left: "50% !important",
+        borderRadius: "0 !important",
+        bottom: "0 !important",
+        maxHeight: "none !important"
+      }
+    },
     MuiButton: {
       root: {
         borderRadius: 0,

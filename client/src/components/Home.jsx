@@ -135,7 +135,7 @@ class Home extends React.Component {
       }
     }
     const tag_names = {
-      languages: ["JavaScript (ES6)", "HTML5", "CSS3", "Python"],
+      languages: ["JavaScript (ES6/7)", "HTML5", "CSS3", "Python"],
       "libraries & frameworks": [
         "React",
         "Vue",
@@ -159,6 +159,7 @@ class Home extends React.Component {
       tools: [
         "Git",
         "Command Line",
+        "Docker",
         "Postman",
         "Adobe Creative Suite",
         "Sketch"
@@ -171,10 +172,10 @@ class Home extends React.Component {
         </span>
       ));
     const tagSection = Object.keys(tag_names).map((heading, idx) => (
-      <div key={`${heading}-${idx}`}>
+      <span key={`${heading}-${idx}`}>
         <span className={classes.tagHeading}>{heading}: </span>
         {tags(heading)}
-      </div>
+      </span>
     ));
     return (
       <div className={classes.home} ref={forwardedRef}>
