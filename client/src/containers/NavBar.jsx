@@ -99,6 +99,8 @@ const styles = theme => ({
   },
   menuItem: {
     padding: "24px 16px",
+    textAlign: "center",
+    textTransform: "capitalize",
     fontFamily: [
       '"Titillium Web"',
       '"Helvetica Neue"',
@@ -107,6 +109,9 @@ const styles = theme => ({
       "sans-serif"
     ].join(","),
     fontWeight: 400,
+    color: theme.palette.secondary.main
+  },
+  ListItemText: {
     color: theme.palette.secondary.main
   },
   logo: {
@@ -157,7 +162,12 @@ class NavBar extends React.Component {
           onClick={handleClose}
           className={classes.menuItem}
         >
-          <ListItemText primary={primary} />
+          <ListItemText
+            primary={primary}
+            primaryTypographyProps={{
+              color: "secondary"
+            }}
+          />
         </MenuItem>
       );
     };
