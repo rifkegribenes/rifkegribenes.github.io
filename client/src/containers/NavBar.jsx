@@ -159,21 +159,18 @@ class NavBar extends React.Component {
     const links = ["about", "projects", "contact"];
     const adminLinks = ["new", "logout"];
     const ListItemLink = props => {
-      const { primary, handleClose, linkRef, link, scroll } = props;
+      const { primary, handleClose, link, linkRef, scroll } = props;
       return (
         <MenuItem
           button
           component={Button}
           href={`/#${link}`}
           onClick={() => {
-            // if (this.props.location.pathname === "/") {
-            //   console.log(`scroll to ${link}`);
-            //   console.log(linkRef);
-            //   scroll(linkRef);
-            // } else {
-            //   console.log(`route to ${link}`);
-            //   this.props.history.push(`/#${link}`);
-            // }
+            if (this.props.location.pathname === "/") {
+              scroll(linkRef);
+            } else {
+              this.props.history.push(`/#${link}`);
+            }
             handleClose();
           }}
           className={classes.menuItem}
@@ -191,13 +188,6 @@ class NavBar extends React.Component {
       const linkRef = refsObj[`${link}_ref`];
       return (
         <ListItemLink
-          onClick={() => {
-            if (this.props.location.pathname === "/") {
-              this.props.scroll(linkRef);
-            } else {
-              this.props.history.push(`/#${link}`);
-            }
-          }}
           key={index}
           primary={link}
           handleClose={this.handleClose}

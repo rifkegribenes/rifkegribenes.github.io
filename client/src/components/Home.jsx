@@ -13,8 +13,10 @@ const styles = theme => ({
     maxWidth: 1200
   },
   home: {
-    minHeight: "calc(100vh - 100px)",
-    paddingTop: "100px"
+    minHeight: "100vh",
+    paddingTop: "100px",
+    position: "relative",
+    top: "120px"
   },
   homeText: {
     margin: "20px auto",
@@ -63,6 +65,10 @@ const styles = theme => ({
   tagHeading: {
     color: theme.palette.secondary.main,
     textTransform: "uppercase"
+  },
+  tagSection: {
+    display: "block",
+    marginBottom: ".5em"
   },
   tags: {
     margin: "20px -5px 10px"
@@ -172,7 +178,7 @@ class Home extends React.Component {
         </span>
       ));
     const tagSection = Object.keys(tag_names).map((heading, idx) => (
-      <span key={`${heading}-${idx}`}>
+      <span key={`${heading}-${idx}`} className={classes.tagSection}>
         <span className={classes.tagHeading}>{heading}: </span>
         {tags(heading)}
       </span>
