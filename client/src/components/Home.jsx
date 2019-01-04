@@ -14,9 +14,13 @@ const styles = theme => ({
   },
   home: {
     minHeight: "100vh",
-    paddingTop: "100px",
-    position: "relative",
-    top: "120px"
+    padding: "60px 0px"
+  },
+  spacer: {
+    display: "none",
+    [theme.breakpoints.down("sm")]: {
+      display: "block"
+    }
   },
   homeText: {
     margin: "20px auto",
@@ -24,7 +28,7 @@ const styles = theme => ({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "middle",
-    height: "calc(100vh - 230px)",
+    minHeight: "calc(100vh - 230px)",
     maxWidth: 600
   },
   homeBody: {
@@ -180,6 +184,7 @@ class Home extends React.Component {
     const tagSection = Object.keys(tag_names).map((heading, idx) => (
       <span key={`${heading}-${idx}`} className={classes.tagSection}>
         <span className={classes.tagHeading}>{heading}: </span>
+        <br className={classes.spacer} />
         {tags(heading)}
       </span>
     ));

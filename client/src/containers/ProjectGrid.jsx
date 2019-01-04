@@ -56,7 +56,7 @@ const styles = theme => ({
     justifyContent: "center",
     padding: "50px 0",
     [theme.breakpoints.down("sm")]: {
-      padding: 10
+      padding: "10px 0px"
     }
   },
   card: {
@@ -69,7 +69,8 @@ const styles = theme => ({
       width: "47%"
     },
     [theme.breakpoints.down("sm")]: {
-      width: "100%"
+      width: "100%",
+      margin: "10px 0px"
     }
   }
 });
