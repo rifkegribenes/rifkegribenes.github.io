@@ -22,12 +22,18 @@
     "smoothscroll-polyfill": "^0.4.3"
   },
   "devDependencies": {
-    "react-scripts": "2.0.5"
+    "enzyme": "^3.8.0",
+    "enzyme-adapter-react-16": "^1.7.1",
+    "enzyme-to-json": "^3.3.5",
+    "jest": "^23.6.0",
+    "react-scripts": "2.0.5",
+    "redux-mock-store": "^1.5.3"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest",
+    "test:watch": "jest --watch",
     "eject": "react-scripts eject",
     "build-task:scss-compile": "node-sass-chokidar --source-map true src/styles/scss/ -o public/css",
     "build-task:autoprefixer": "postcss public/css/*.css --use autoprefixer -d public/css",
@@ -43,5 +49,11 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "jest": {
+    "setupTestFrameworkScriptFile": "<rootDir>__tests__/setup/setupEnzyme.js",
+    "testPathIgnorePatterns": [
+      "<rootDir>/__tests__/setup/"
+    ]
+  }
 }

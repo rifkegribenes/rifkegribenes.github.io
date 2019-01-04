@@ -145,7 +145,7 @@ class Home extends React.Component {
       }
     }
     const tag_names = {
-      languages: ["JavaScript (ES6/7)", "HTML5", "CSS3", "Python"],
+      languages: ["JavaScript (ES6/7)", "HTML5", "CSS3", "Python", "Apex"],
       "libraries & frameworks": [
         "React",
         "Vue",
@@ -173,7 +173,8 @@ class Home extends React.Component {
         "Postman",
         "Adobe Creative Suite",
         "Sketch"
-      ]
+      ],
+      platforms: ["Heroku", "AWS", "WordPress", "Salesforce"]
     };
     const tags = section =>
       tag_names[section].map((tag, idx) => (
@@ -203,9 +204,8 @@ class Home extends React.Component {
               I'm a full-stack engineer and UI/UX designer with 18 years of
               experience building beautiful, interactive, fully-tested web
               applications in the JavaScript ecosystem. I'm passionate about
-              developing technology for organizers and activists, and I've been
-              working with labor unions and social justice organizations since
-              1991. I like solving problems with code.
+              open-source software and developing tech for organizers and
+              activists. I like solving problems with code.
             </Typography>
           </div>
           <Fade bottom>
