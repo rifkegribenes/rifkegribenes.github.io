@@ -170,6 +170,7 @@ class Home extends React.Component {
         "Git",
         "Command Line",
         "Docker",
+        "Webpack",
         "Postman",
         "Adobe Creative Suite",
         "Sketch"
