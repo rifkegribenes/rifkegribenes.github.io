@@ -9,8 +9,7 @@
     "client": "cd client && yarn build && yarn start",
     "server": "LOG_LEVEL=debug supervisor --inspect server.js",
     "sass": "cd client && yarn dev",
-    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\" \"yarn sass\"",
-    "heroku-postbuild": "yarn install && cd client && yarn install --only-dev && yarn install && yarn build"
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\" \"yarn sass\""
   },
   "repository": {
     "type": "git",
