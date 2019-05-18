@@ -24,6 +24,8 @@ passport.deserializeUser(auth.user.deserialize);
 // connect to db
 const pg = require("pg");
 const configDB = require("./app/config/db");
+console.log("server.js > 27");
+console.log(configDB.url);
 const client = new pg.Client(configDB.url);
 client.connect(err => {
   if (err) {
