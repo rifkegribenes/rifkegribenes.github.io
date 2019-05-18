@@ -55,11 +55,10 @@ app.use(express.static(path.join(__dirname, "/client/build/")));
 app.use("/api", apiRoutes);
 app.use("/", staticRoutes);
 
-// app.get('/', (req, res) => {
-//   console.log('root route, serving client');
-//   res.status(200)
-//     .sendFile(path.join(__dirname, '../client/build/index.html'));
-// });
+app.get("/", (req, res) => {
+  console.log("root route, serving client");
+  res.status(200).sendFile(path.join(__dirname, "../client/build/index.html"));
+});
 
 // launch ======================================================================
 var port = process.env.PORT || 3001;
