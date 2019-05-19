@@ -4,7 +4,7 @@
 
 /* ================================= SETUP ================================= */
 
-const prodUrl = "http://rifkegribenes.io"; // NO TRAILING SLASH
+const prodUrl = "http://www.rifkegribenes.io"; // NO TRAILING SLASH
 const devUrl = "http://localhost:3001"; // server url for local install
 const clientUrl = "http://localhost:3000"; // client url for local install
 
