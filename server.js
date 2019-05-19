@@ -50,14 +50,16 @@ const apiRoutes = require("./app/routes/apiRoutes");
 const staticRoutes = require("./app/routes/staticRoutes");
 
 // set static path
-app.use(express.static(path.join(__dirname, "/client/build/")));
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "/client/build/")));
+}
 
 /* ================================ ROUTES ================================= */
 
 app.use("/api", apiRoutes);
 app.use("/", staticRoutes);
 
-app.get("/", (req, res) => {
+app.get("*", (req, res) => {
   console.log("root route, serving client");
   res.status(200).sendFile(path.join(__dirname, "../client/build/index.html"));
 });
