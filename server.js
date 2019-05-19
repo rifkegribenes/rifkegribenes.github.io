@@ -61,7 +61,7 @@ app.use("/", staticRoutes);
 
 app.get("*", (req, res) => {
   console.log("root route, serving client");
-  res.status(200).sendFile(path.join(__dirname, "../client/build/index.html"));
+  res.status(200).sendFile(path.join(__dirname, "/client/build/index.html"));
 });
 
 // launch ======================================================================
