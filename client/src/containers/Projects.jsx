@@ -16,6 +16,7 @@ class Projects extends Component {
       this.props.apiProject
         .getFeaturedProjects()
         .then(result => {
+          console.log(result);
           if (
             result.type === "GET_FEATURED_PROJECTS_FAILURE" ||
             this.props.project.error
