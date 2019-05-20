@@ -264,7 +264,7 @@
         return { type: A, payload: e };
       }
       var J = a(30),
-        U = "http://rifkegribenes.io",
+        U = "http://www.rifkegribenes.io",
         B = U,
         F = B,
         G = "GET_FEATURED_PROJECTS_REQUEST",
@@ -2557,13 +2557,14 @@
                     ? this.props.apiProject
                         .getFeaturedProjects()
                         .then(function(t) {
-                          ("GET_FEATURED_PROJECTS_FAILURE" === t.type ||
-                            e.props.project.error) &&
-                            ia(
-                              "error",
-                              e.props.project.error ||
-                                "Sorry, something went wrong while fetching projects."
-                            );
+                          console.log(t),
+                            ("GET_FEATURED_PROJECTS_FAILURE" === t.type ||
+                              e.props.project.error) &&
+                              ia(
+                                "error",
+                                e.props.project.error ||
+                                  "Sorry, something went wrong while fetching projects."
+                              );
                         })
                         .catch(function(e) {
                           console.log(e), ia("error", e);
@@ -3576,4 +3577,4 @@
   },
   [[228, 2, 1]]
 ]);
-//# sourceMappingURL=main.79fe0d16.chunk.js.map
+//# sourceMappingURL=main.e3f7f6e1.chunk.js.map
