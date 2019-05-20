@@ -2557,14 +2557,13 @@
                     ? this.props.apiProject
                         .getFeaturedProjects()
                         .then(function(t) {
-                          console.log(t),
-                            ("GET_FEATURED_PROJECTS_FAILURE" === t.type ||
-                              e.props.project.error) &&
-                              ia(
-                                "error",
-                                e.props.project.error ||
-                                  "Sorry, something went wrong while fetching projects."
-                              );
+                          ("GET_FEATURED_PROJECTS_FAILURE" === t.type ||
+                            e.props.project.error) &&
+                            ia(
+                              "error",
+                              e.props.project.error ||
+                                "Sorry, something went wrong while fetching projects."
+                            );
                         })
                         .catch(function(e) {
                           console.log(e), ia("error", e);
@@ -3577,4 +3576,4 @@
   },
   [[228, 2, 1]]
 ]);
-//# sourceMappingURL=main.e3f7f6e1.chunk.js.map
+//# sourceMappingURL=main.091792e3.chunk.js.map
