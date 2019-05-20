@@ -92,6 +92,9 @@ class ProjectGrid extends React.Component {
         </Typography>
         <div className={classes.gridWrapper}>
           {data.map(project => {
+            const { github_url, live_url } = project;
+            const link_url = live_url ? live_url : github_url;
+            console.log(link_url);
             return (
               <div className={classes.card} key={project.id}>
                 <div
@@ -100,7 +103,7 @@ class ProjectGrid extends React.Component {
                   onClick={() =>
                     loggedIn
                       ? this.props.history.push(`/edit/${project.id}`)
-                      : this.props.history.push(`/project/${project.id}`)
+                      : window.open(link_url, "_blank")
                   }
                 >
                   {loggedIn && (

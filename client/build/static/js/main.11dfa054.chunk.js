@@ -2424,40 +2424,46 @@
                       "div",
                       { className: a.gridWrapper },
                       r.map(function(t) {
-                        return c.a.createElement(
-                          "div",
-                          { className: a.card, key: t.id },
+                        var n = t.github_url,
+                          r = t.live_url,
+                          o = r || n;
+                        return (
+                          console.log(o),
                           c.a.createElement(
                             "div",
-                            {
-                              className: a.actionArea,
-                              tabIndex: 0,
-                              onClick: function() {
-                                return i
-                                  ? e.props.history.push("/edit/".concat(t.id))
-                                  : e.props.history.push(
-                                      "/project/".concat(t.id)
-                                    );
-                              }
-                            },
-                            i &&
-                              c.a.createElement(
-                                Ve.a,
-                                {
-                                  className: a.buttonEdit,
-                                  onClick: function() {
-                                    return e.props.history.push(
-                                      "/edit/".concat(t.id)
-                                    );
+                            { className: a.card, key: t.id },
+                            c.a.createElement(
+                              "div",
+                              {
+                                className: a.actionArea,
+                                tabIndex: 0,
+                                onClick: function() {
+                                  return i
+                                    ? e.props.history.push(
+                                        "/edit/".concat(t.id)
+                                      )
+                                    : window.open(o, "_blank");
+                                }
+                              },
+                              i &&
+                                c.a.createElement(
+                                  Ve.a,
+                                  {
+                                    className: a.buttonEdit,
+                                    onClick: function() {
+                                      return e.props.history.push(
+                                        "/edit/".concat(t.id)
+                                      );
+                                    },
+                                    color: "primary",
+                                    variant: "fab",
+                                    "aria-label": "Edit Project"
                                   },
-                                  color: "primary",
-                                  variant: "fab",
-                                  "aria-label": "Edit Project"
-                                },
-                                c.a.createElement(Da.a, null)
-                              )
-                          ),
-                          c.a.createElement(Ma, { project: t })
+                                  c.a.createElement(Da.a, null)
+                                )
+                            ),
+                            c.a.createElement(Ma, { project: t })
+                          )
                         );
                       })
                     )
@@ -3576,4 +3582,4 @@
   },
   [[228, 2, 1]]
 ]);
-//# sourceMappingURL=main.091792e3.chunk.js.map
+//# sourceMappingURL=main.11dfa054.chunk.js.map
