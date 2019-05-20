@@ -2427,43 +2427,38 @@
                         var n = t.github_url,
                           r = t.live_url,
                           o = r || n;
-                        return (
-                          console.log(o),
+                        return c.a.createElement(
+                          "div",
+                          { className: a.card, key: t.id },
                           c.a.createElement(
                             "div",
-                            { className: a.card, key: t.id },
-                            c.a.createElement(
-                              "div",
-                              {
-                                className: a.actionArea,
-                                tabIndex: 0,
-                                onClick: function() {
-                                  return i
-                                    ? e.props.history.push(
-                                        "/edit/".concat(t.id)
-                                      )
-                                    : window.open(o, "_blank");
-                                }
-                              },
-                              i &&
-                                c.a.createElement(
-                                  Ve.a,
-                                  {
-                                    className: a.buttonEdit,
-                                    onClick: function() {
-                                      return e.props.history.push(
-                                        "/edit/".concat(t.id)
-                                      );
-                                    },
-                                    color: "primary",
-                                    variant: "fab",
-                                    "aria-label": "Edit Project"
+                            {
+                              className: a.actionArea,
+                              tabIndex: 0,
+                              onClick: function() {
+                                return i
+                                  ? e.props.history.push("/edit/".concat(t.id))
+                                  : window.open(o, "_blank");
+                              }
+                            },
+                            i &&
+                              c.a.createElement(
+                                Ve.a,
+                                {
+                                  className: a.buttonEdit,
+                                  onClick: function() {
+                                    return e.props.history.push(
+                                      "/edit/".concat(t.id)
+                                    );
                                   },
-                                  c.a.createElement(Da.a, null)
-                                )
-                            ),
-                            c.a.createElement(Ma, { project: t })
-                          )
+                                  color: "primary",
+                                  variant: "fab",
+                                  "aria-label": "Edit Project"
+                                },
+                                c.a.createElement(Da.a, null)
+                              )
+                          ),
+                          c.a.createElement(Ma, { project: t })
                         );
                       })
                     )
@@ -3582,4 +3577,4 @@
   },
   [[228, 2, 1]]
 ]);
-//# sourceMappingURL=main.11dfa054.chunk.js.map
+//# sourceMappingURL=main.febe7460.chunk.js.map

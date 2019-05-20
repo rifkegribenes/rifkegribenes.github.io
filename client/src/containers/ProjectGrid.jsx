@@ -94,7 +94,6 @@ class ProjectGrid extends React.Component {
           {data.map(project => {
             const { github_url, live_url } = project;
             const link_url = live_url ? live_url : github_url;
-            console.log(link_url);
             return (
               <div className={classes.card} key={project.id}>
                 <div
