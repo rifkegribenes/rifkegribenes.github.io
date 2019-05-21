@@ -4,8 +4,8 @@
 $(document).ready(function() {
   function setHeight() {
     windowHeight = $(window).innerHeight();
-    $('#welcome-section').css('max-height', windowHeight);
-  };
+    $("#welcome-section").css("max-height", windowHeight);
+  }
   setHeight();
 
   $(window).resize(function() {
