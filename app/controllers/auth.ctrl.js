@@ -31,9 +31,10 @@ exports.githubCallback = (req, res) => {
     const userObj = req.user
       ? { ...req.user }
       : req.session && req.session.user
-        ? { ...req.session.user }
-        : undefined;
-    if (userObj) {
+      ? { ...req.session.user }
+      : undefined;
+    // only allow auth from my user account
+    if (userObj && userObj.email === "rifkegribenes@gmail.com") {
       // successful authentication from provider
       console.log("successful github auth");
       // generate token
@@ -44,6 +45,7 @@ exports.githubCallback = (req, res) => {
         `${CLIENT_URL}/#/redirect=admin/${userObj.id}/${token}`
       );
     } else {
+      console.log("github auth failed");
       return res.redirect("/login");
     }
   }

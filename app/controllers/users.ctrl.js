@@ -19,10 +19,8 @@ const mailUtils = require("../utils/mailUtils");
  */
 const createUser = (req, res, next) => {
   const { username, email, github_id, github_token } = req.body;
-  if (username && email) {
-    // since mine is the only user account i want authorized to use this app,
-    // only allow it to create a user with my username
-    // if (username === "rifkegribenes" && email === "rifkegribenes@gmail.com") {
+  if (username === "rifkegribenes" && email === "rifkegribenes@gmail.com") {
+    // don't create any other users
     return users
       .createUser(username, email, github_id, github_token)
       .then(users => {
