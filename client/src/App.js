@@ -94,6 +94,13 @@ const styles = theme => ({
       marginTop: 5
     },
     fill: theme.palette.secondary.main
+  },
+  spinner: {
+    margin: theme.spacing.unit,
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)"
   }
 });
 
@@ -213,12 +220,17 @@ class App extends Component {
                       forwardedRef={this.projects_ref}
                       toggleMore={this.toggleMore}
                       more={this.state.more}
+                      classes={this.props.classes}
                       {...routeProps}
                     />
                   </Fade>
                   {this.state.more && (
                     <Fade bottom>
-                      <Projects data="more" {...routeProps} />
+                      <Projects
+                        data="more"
+                        classes={this.props.classes}
+                        {...routeProps}
+                      />
                     </Fade>
                   )}
                   <Fade bottom>

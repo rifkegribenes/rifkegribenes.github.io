@@ -8,6 +8,7 @@ import * as apiProjectActions from "../store/actions/apiProjectActions";
 
 import Button from "@material-ui/core/Button";
 import ProjectGrid from "./ProjectGrid";
+import Spinner from "../components/Spinner";
 import { openSnackbar } from "./Notifier";
 
 class Projects extends Component {
@@ -56,19 +57,23 @@ class Projects extends Component {
   }
 
   render() {
-    const { forwardedRef } = this.props;
+    const { forwardedRef, classes } = this.props;
     const more = this.props.data === "more";
     return (
       <div className="projectList">
-        <ProjectGrid
-          forwardedRef={forwardedRef}
-          type={this.props.data}
-          data={
-            more
-              ? this.props.project.moreProjects
-              : this.props.project.featuredProjects
-          }
-        />
+        {this.props.project.loading ? (
+          <Spinner classes={classes} forwardedRef={forwardedRef} />
+        ) : (
+          <ProjectGrid
+            forwardedRef={forwardedRef}
+            type={this.props.data}
+            data={
+              more
+                ? this.props.project.moreProjects
+                : this.props.project.featuredProjects
+            }
+          />
+        )}
         {!more && (
           <div
             style={{ width: "100%", display: "flex", justifyContent: "center" }}
