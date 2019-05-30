@@ -107,6 +107,7 @@ class AddProject extends React.Component {
           } else {
             openSnackbar("success", "Project added.");
             this.props.apiProject.clearForm();
+            this.props.history.push("/#projects");
           }
         })
         .catch(err => openSnackbar("error", err));
@@ -124,6 +125,7 @@ class AddProject extends React.Component {
           } else {
             openSnackbar("success", "Project updated.");
             this.props.apiProject.clearForm();
+            this.props.history.push("/#projects");
           }
         })
         .catch(err => openSnackbar("error", err));
