@@ -1849,7 +1849,9 @@
                   var e = this.props.classes,
                     t = this.props.appState.loggedIn,
                     a = window.localStorage.getItem("redirect"),
-                    n = this.props.profile.profile.username;
+                    n = this.props.profile.profile,
+                    r = n.username,
+                    o = n.avatarUrl;
                   return c.a.createElement(
                     "div",
                     { className: e.container },
@@ -1866,8 +1868,9 @@
                             title: "Colored Lights"
                           },
                           c.a.createElement(ha.a, {
-                            alt: "".concat(n),
-                            className: e.avatar
+                            alt: "".concat(r),
+                            className: e.avatar,
+                            src: o
                           })
                         ),
                         c.a.createElement(
@@ -1876,7 +1879,7 @@
                           c.a.createElement(
                             He.a,
                             { variant: "h5", className: e.name },
-                            "".concat(n)
+                            "".concat(r)
                           )
                         )
                       )
@@ -3607,4 +3610,4 @@
   },
   [[223, 2, 1]]
 ]);
-//# sourceMappingURL=main.1a657b94.chunk.js.map
+//# sourceMappingURL=main.36d6fa19.chunk.js.map

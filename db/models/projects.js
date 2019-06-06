@@ -132,13 +132,15 @@ const attachProjectTag = (projectId, tagId) => {
  *                                  OR object with error message
  */
 const removeProjectTag = (projectId, tagId) => {
+  console.log(`db/models/projects.js: removing tag id ${tagId}`);
   return db(TABLES.PROJECTS_TAGS)
     .where({ project_id: projectId, tag_id: tagId })
     .del()
     .then(() => {
       return db("projects")
         .where({ id: projectId })
-        .update("updated_at", db.fn.now());
+        .update("updated_at", db.fn.now())
+        .returning("*");
     })
     .catch(err => {
       return { message: err };

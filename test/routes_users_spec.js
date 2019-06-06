@@ -13,8 +13,8 @@ const { suite, test } = require("mocha");
 const app = require("../server");
 const utils = require("../app/utils");
 
-const username = "testUserName";
-const email = "test@email.com";
+const username = "rifkegribenes";
+const email = "rifkegribenes@gmail.com";
 const updatedUsername = "updatedUsername";
 const updatedEmail = "updatedEmail@email.com";
 const github_id = "1234";

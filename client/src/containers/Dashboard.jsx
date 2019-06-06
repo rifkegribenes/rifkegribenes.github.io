@@ -115,26 +115,29 @@ class Dashboard extends React.Component {
     const { classes } = this.props;
     const { loggedIn } = this.props.appState;
     const redirect = window.localStorage.getItem("redirect");
-    const { username } = this.props.profile.profile;
+    const { username, avatarUrl } = this.props.profile.profile;
     return (
       <div className={classes.container}>
-        {loggedIn &&
-          !redirect && (
-            <Card className={classes.card}>
-              <CardMedia
-                className={classes.media}
-                image={RainbowBokehImage}
-                title="Colored Lights"
-              >
-                <Avatar alt={`${username}`} className={classes.avatar} />
-              </CardMedia>
-              <CardContent>
-                <Typography variant="h5" className={classes.name}>
-                  {`${username}`}
-                </Typography>
-              </CardContent>
-            </Card>
-          )}
+        {loggedIn && !redirect && (
+          <Card className={classes.card}>
+            <CardMedia
+              className={classes.media}
+              image={RainbowBokehImage}
+              title="Colored Lights"
+            >
+              <Avatar
+                alt={`${username}`}
+                className={classes.avatar}
+                src={avatarUrl}
+              />
+            </CardMedia>
+            <CardContent>
+              <Typography variant="h5" className={classes.name}>
+                {`${username}`}
+              </Typography>
+            </CardContent>
+          </Card>
+        )}
       </div>
     );
   }

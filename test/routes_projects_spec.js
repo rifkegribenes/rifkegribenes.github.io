@@ -289,8 +289,9 @@ suite("routes : project", function() {
         .put(`/api/project/${id}`)
         .send({ updates, tag_names: updatedTags2 })
         .end(function(err, res) {
-          // console.log(res.body[0]);
-          // console.log(res.body[0].tag_names);
+          console.log("routes_projects_spec.js > 292");
+          console.log(res.body[0]);
+          console.log(res.body[0].tag_names);
           assert.equal(res.status, 200);
           assert.isNull(err);
           assert.property(res.body[0], "id");
@@ -303,7 +304,7 @@ suite("routes : project", function() {
           assert.property(res.body[0], "github_url");
           assert.isArray(res.body[0].tag_names);
           assert.include(res.body[0].tag_names, "totallyDifferentTagName");
-          console.log(`routes_projects_spec.js > 286`);
+          console.log(`routes_projects_spec.js > 307`);
           console.log(res.body[0].tag_names);
           assert.notInclude(res.body[0].tag_names, updatedTagName);
           done();

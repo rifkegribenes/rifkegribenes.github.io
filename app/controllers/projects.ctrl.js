@@ -71,7 +71,7 @@ async function checkAndRemoveTags(res, submittedTags, projectId) {
       updatedProjectWithTags[0].tag_names
     );
 
-    console.log("projects.ctrl.js > 74");
+    console.log("projects.ctrl.js > 74: existing tags");
     console.log(existingTags);
 
     // check existing tags against list of submitted tags
@@ -79,13 +79,14 @@ async function checkAndRemoveTags(res, submittedTags, projectId) {
     const submittedTagsSet = new Set(submittedTags);
     const tagsToRemove = existingTags.filter(x => !submittedTagsSet.has(x.tag));
 
-    console.log("projects.ctrl.js > 82");
+    console.log("projects.ctrl.js > 82: tags to remove");
     console.log(tagsToRemove);
 
     // remove project/tag relationships for each tag to be removed
     const pool = tagsToRemove.map(tag => {
-      console.log("updatedProjectAfterRemoveTags:");
-      console.log(projects.removeProjectTag(projectId, tag.id));
+      console.log(`removing tag: ${tag.tag}`);
+      // console.log('this should be the updated project with the tag removed:');
+      // console.log(projects.removeProjectTag(projectId, tag.id));
       return projects.removeProjectTag(projectId, tag.id);
     });
     Promise.all(pool)

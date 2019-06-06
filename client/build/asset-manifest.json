@@ -1,9 +1,9 @@
 {
   "main.css": "/static/css/main.2cc4a040.chunk.css",
-  "main.js": "/static/js/main.1a657b94.chunk.js",
-  "main.js.map": "/static/js/main.1a657b94.chunk.js.map",
-  "static/js/1.d5da0b31.chunk.js": "/static/js/1.d5da0b31.chunk.js",
-  "static/js/1.d5da0b31.chunk.js.map": "/static/js/1.d5da0b31.chunk.js.map",
+  "main.js": "/static/js/main.36d6fa19.chunk.js",
+  "main.js.map": "/static/js/main.36d6fa19.chunk.js.map",
+  "static/js/1.af66c7f4.chunk.js": "/static/js/1.af66c7f4.chunk.js",
+  "static/js/1.af66c7f4.chunk.js.map": "/static/js/1.af66c7f4.chunk.js.map",
   "runtime~main.js": "/static/js/runtime~main.229c360f.js",
   "runtime~main.js.map": "/static/js/runtime~main.229c360f.js.map",
   "static/media/isometric_legos_animated.svg": "/static/media/isometric_legos_animated.8f2d3e07.svg",
@@ -12,6 +12,6 @@
   "static/media/github-lime.svg": "/static/media/github-lime.2eb14862.svg",
   "static/css/main.2cc4a040.chunk.css.map": "/static/css/main.2cc4a040.chunk.css.map",
   "index.html": "/index.html",
-  "precache-manifest.b2793dadf66989b026856e80ff784a79.js": "/precache-manifest.b2793dadf66989b026856e80ff784a79.js",
+  "precache-manifest.420b438e622763c5fa966ba25c878d12.js": "/precache-manifest.420b438e622763c5fa966ba25c878d12.js",
   "service-worker.js": "/service-worker.js"
 }
