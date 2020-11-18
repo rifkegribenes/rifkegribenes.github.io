@@ -44,7 +44,7 @@
     "pg": "^7.5.0",
     "serve-favicon": "^2.5.0",
     "uuid": "^3.3.2",
-    "yargs": "^13.2.4",
+    "yargs": "^16.0.0",
     "snyk": "^1.230.8"
   },
   "devDependencies": {
